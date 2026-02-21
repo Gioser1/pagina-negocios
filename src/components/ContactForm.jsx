@@ -138,7 +138,7 @@ const ContactForm = () => {
                                     )}
                                 </div>
                             </motion.button>
-                        </div>
+                        </motion.div>
 
                         {/* Error state */}
                         {status === "error" && (
