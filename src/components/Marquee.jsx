@@ -15,7 +15,7 @@ const Marquee = () => {
     const marquees = Array(repeatCount).fill(items).flat();
 
     return (
-        <div className="bg-emerald-50/80 backdrop-blur-md py-6 overflow-hidden flex whitespace-nowrap border-y border-emerald-100/50 relative -rotate-2 origin-center scale-105 my-16 z-20">
+        <div className="bg-dark-200/20 backdrop-blur-md py-6 overflow-hidden flex whitespace-nowrap border-y border-white/5 relative -rotate-2 origin-center scale-105 my-16 z-20">
             <motion.div
                 className="flex space-x-12 px-6"
                 animate={{ x: ["0%", "-50%"] }}
@@ -27,7 +27,7 @@ const Marquee = () => {
             >
                 {marquees.map((item, index) => (
                     <div key={index} className="flex items-center space-x-12">
-                        <span className="text-gray-800 text-2xl md:text-3xl font-bold uppercase tracking-widest opacity-90">
+                        <span className="text-white text-2xl md:text-3xl font-bold uppercase tracking-widest opacity-90">
                             {item}
                         </span>
                         {/* Separador (Estrella) */}

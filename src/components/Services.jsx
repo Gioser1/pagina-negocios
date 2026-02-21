@@ -4,7 +4,7 @@ import { servicesData } from "../data/servicesData";
 
 const Services = () => {
     return (
-        <section id="services" className="py-24 bg-white/40 backdrop-blur-2xl">
+        <section id="services" className="py-24 bg-dark-900/40 backdrop-blur-2xl">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center max-w-3xl mx-auto mb-16">
                     <motion.h2
@@ -19,7 +19,7 @@ const Services = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-3xl md:text-5xl font-bold text-gray-900"
+                        className="text-3xl md:text-5xl font-bold text-white"
                     >
                         Soluciones completas para tu marca
                     </motion.h3>

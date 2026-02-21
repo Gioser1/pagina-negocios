@@ -53,7 +53,7 @@ const Hero = () => {
             >
                 <motion.div variants={itemVariants}>
                     {/* Tipografía con pr-2 para evitar el corte visual de la última letra en algunas pantallas */}
-                    <h1 className="text-5xl sm:text-6xl md:text-8xl font-black text-gray-900 tracking-tight mb-6 md:mb-8 leading-[1.05] pr-2 py-2">
+                    <h1 className="text-5xl sm:text-6xl md:text-8xl font-black text-white tracking-tight mb-6 md:mb-8 leading-[1.05] pr-2 py-2">
                         Creamos experiencias <br className="hidden md:block" />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-700">digitales únicas</span>
                     </h1>
@@ -61,7 +61,7 @@ const Hero = () => {
 
                 <motion.div variants={itemVariants}>
                     {/* Limitador de ancho a 650px y más line-height */}
-                    <p className="mt-4 text-lg sm:text-xl md:text-2xl text-gray-600 max-w-[650px] mx-auto mb-10 md:mb-12 leading-relaxed font-light">
+                    <p className="mt-4 text-lg sm:text-xl md:text-2xl text-gray-300 max-w-[650px] mx-auto mb-10 md:mb-12 leading-relaxed font-light">
                         Impulsamos tu marca con diseño moderno y desarrollo web de vanguardia. Resultados escalables que enamoran a tus usuarios.
                     </p>
                 </motion.div>
@@ -78,7 +78,7 @@ const Hero = () => {
                         Agenda una llamada
                     </motion.button>
 
-                    <p className="text-sm text-gray-500 font-medium text-center sm:text-left">
+                    <p className="text-sm text-gray-400 font-medium text-center sm:text-left">
                         Asesoría inicial gratuita. <br className="hidden sm:block" />Sin compromisos.
                     </p>
 
@@ -94,7 +94,7 @@ const Hero = () => {
                     className="flex flex-col items-center gap-2"
                 >
                     <span className="text-xs font-medium tracking-widest uppercase text-gray-400">Scroll</span>
-                    <div className="w-[1px] h-12 bg-gray-200 overflow-hidden relative">
+                    <div className="w-[1px] h-12 bg-white/10 overflow-hidden relative">
                         <motion.div
                             animate={{ y: [-20, 48] }}
                             transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}

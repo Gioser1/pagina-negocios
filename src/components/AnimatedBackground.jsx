@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const AnimatedBackground = () => {
     return (
         <div className="fixed inset-0 z-[-10] overflow-hidden pointer-events-none">
-            <div className="absolute inset-0 bg-gray-50 dark:bg-dark-900 transition-colors duration-500"></div>
+            <div className="absolute inset-0 bg-dark-900 transition-colors duration-500"></div>
 
             {/* Orb 1: Primary Green */}
             <motion.div

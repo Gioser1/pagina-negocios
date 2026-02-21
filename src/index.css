@@ -8,10 +8,10 @@
   }
 
   body {
-    background-color: #f9fafb;
-    /* bg-gray-50 */
-    color: #111827;
-    /* text-gray-900 */
+    background-color: #0f172a;
+    /* bg-dark-900 */
+    color: #f8fafc;
+    /* text-slate-50 */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;

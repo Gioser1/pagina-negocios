@@ -32,34 +32,34 @@ const DesarrolloWeb = () => {
 
                     {/* Columna Principal (Izquierda) */}
                     <div className="lg:col-span-2">
-                        <div className="bg-white/60 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 md:p-12 shadow-sm border border-gray-100 mb-8">
+                        <div className="bg-dark-100/40 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 md:p-12 shadow-sm border border-white/5 mb-8">
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.2 }}
                             >
-                                <h2 className="text-3xl font-bold text-gray-900 mb-6">Sobre este servicio</h2>
-                                <p className="text-lg text-gray-600 leading-relaxed mb-12">
+                                <h2 className="text-3xl font-bold text-white mb-6">Sobre este servicio</h2>
+                                <p className="text-lg text-gray-300 leading-relaxed mb-12">
                                     Construimos aplicaciones web de alto rendimiento usando las últimas tecnologías (React, Node, Next.js). Nuestro enfoque no está en hacer "solo una página", sino en desarrollar herramientas digitales que aceleren el crecimiento de tu empresa.
                                 </p>
 
-                                <h3 className="text-2xl font-bold text-gray-900 mb-6">¿Qué incluye?</h3>
+                                <h3 className="text-2xl font-bold text-white mb-6">¿Qué incluye?</h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
                                     {["Aplicaciones Single-Page (SPA)", "Optimizado para altas cargas de tráfico", "Integraciones de API complejas", "Arquitectura escalable AWS/Vercel"].map((feature, idx) => (
-                                        <div key={idx} className="flex items-center space-x-3 p-4 bg-white/40 backdrop-blur-md rounded-xl">
+                                        <div key={idx} className="flex items-center space-x-3 p-4 bg-white/5 backdrop-blur-md rounded-xl">
                                             <span className="text-primary">
                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                                             </span>
-                                            <span className="text-gray-800 font-medium">{feature}</span>
+                                            <span className="text-gray-300 font-medium">{feature}</span>
                                         </div>
                                     ))}
                                 </div>
 
-                                <div className="flex flex-col sm:flex-row items-center sm:space-x-4 space-y-4 sm:space-y-0 border-t border-gray-100 pt-8 mt-8">
-                                    <Link to="/#contact" className="w-full sm:w-auto text-center px-8 py-4 bg-dark-900 text-white font-medium rounded-xl hover:bg-black transition-colors">
+                                <div className="flex flex-col sm:flex-row items-center sm:space-x-4 space-y-4 sm:space-y-0 border-t border-white/10 pt-8 mt-8">
+                                    <Link to="/#contact" className="w-full sm:w-auto text-center px-8 py-4 bg-primary text-gray-900 font-bold rounded-xl hover:bg-emerald-500 transition-colors">
                                         Solicitar Presupuesto
                                     </Link>
-                                    <Link to="/" className="w-full sm:w-auto text-center px-8 py-4 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition-colors">
+                                    <Link to="/" className="w-full sm:w-auto text-center px-8 py-4 bg-white/5 text-gray-300 font-medium rounded-xl hover:bg-white/10 transition-colors">
                                         Volver atrás
                                     </Link>
                                 </div>
