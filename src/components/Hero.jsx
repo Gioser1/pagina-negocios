@@ -24,7 +24,7 @@ const Hero = () => {
     };
 
     return (
-        <section className="relative min-h-[100svh] flex flex-col items-center justify-between overflow-hidden bg-gray-50 pt-32 pb-10">
+        <section className="relative min-h-[100svh] flex flex-col items-center justify-between overflow-hidden pt-32 pb-10">
             {/* Background animado lento parallax (Nivel 4) */}
             <motion.div
                 className="absolute inset-0 z-0 opacity-40 mix-blend-multiply pointer-events-none"

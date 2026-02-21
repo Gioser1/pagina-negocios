@@ -3,7 +3,7 @@ import { steps } from "../data/processData";
 
 const Process = () => {
     return (
-        <section id="process" className="py-20 md:py-32 bg-gray-50 border-y border-gray-100 relative overflow-hidden">
+        <section id="process" className="py-20 md:py-32 border-y border-gray-100 relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}

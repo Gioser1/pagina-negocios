@@ -36,7 +36,7 @@ const ContactForm = () => {
     };
 
     return (
-        <section id="contact" className="py-20 md:py-32 bg-white">
+        <section id="contact" className="py-20 md:py-32 bg-white/40 backdrop-blur-2xl">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}

@@ -25,7 +25,7 @@ const ServiceCard = ({ title, description, icon, slug }) => {
                 boxShadow: "0 20px 40px -10px rgba(16, 185, 129, 0.15)",
                 transition: { duration: 0.4, ease: "easeOut" }
             }}
-            className="group relative bg-white p-10 rounded-2xl shadow-sm transition-all duration-300 border border-gray-100 flex flex-col h-full overflow-hidden block"
+            className="group relative bg-white/60 backdrop-blur-2xl p-10 rounded-2xl shadow-sm transition-all duration-300 border border-gray-100 flex flex-col h-full overflow-hidden block"
         >
             {/* Fondo sutil en hover (Nivel 2) */}
             <div className="absolute inset-0 bg-gradient-to-br from-transparent to-emerald-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

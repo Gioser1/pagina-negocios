@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const PosicionamientoSeo = () => {
     return (
-        <main className="min-h-screen bg-gray-50 pt-28 md:pt-32 pb-20 md:pb-24">
+        <main className="min-h-screen pt-28 md:pt-32 pb-20 md:pb-24">
             {/* Hero del Servicio */}
             <section className="relative py-16 md:py-24 mb-12 md:mb-16 overflow-hidden rounded-3xl mx-4 sm:mx-6 lg:mx-8 bg-gradient-to-br from-orange-500 to-red-700">
                 <div className="absolute inset-0 bg-black/20 mix-blend-multiply" />
@@ -32,7 +32,7 @@ const PosicionamientoSeo = () => {
 
                     {/* Columna Principal (Izquierda) */}
                     <div className="lg:col-span-2">
-                        <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-12 shadow-sm border border-gray-100 mb-8">
+                        <div className="bg-white/60 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 md:p-12 shadow-sm border border-gray-100 mb-8">
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -46,7 +46,7 @@ const PosicionamientoSeo = () => {
                                 <h3 className="text-2xl font-bold text-gray-900 mb-6">¿Qué incluye?</h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
                                     {["SEO Técnico avanzado", "Estrategia de Contenidos", "Linkbuilding de Autoridad", "Analítica y Reportes en tiempo real"].map((feature, idx) => (
-                                        <div key={idx} className="flex items-center space-x-3 p-4 bg-gray-50 rounded-xl">
+                                        <div key={idx} className="flex items-center space-x-3 p-4 bg-white/40 backdrop-blur-md rounded-xl">
                                             <span className="text-primary">
                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                                             </span>

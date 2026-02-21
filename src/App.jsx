@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Cursor from "./components/Cursor";
 
+import AnimatedBackground from "./components/AnimatedBackground";
+
 import Home from "./pages/Home";
 import DesarrolloWeb from "./pages/services/DesarrolloWeb";
 import DisenoUiUx from "./pages/services/DisenoUiUx";
@@ -23,7 +25,8 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="relative">
+      <div className="relative min-h-screen">
+        <AnimatedBackground />
         {/* Scroll Progress Bar Superior Global */}
         <motion.div
           className="fixed top-0 left-0 right-0 h-1.5 bg-primary origin-left z-[100] pointer-events-none"
