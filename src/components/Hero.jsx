@@ -53,15 +53,21 @@ const Hero = () => {
             >
                 <motion.div variants={itemVariants}>
                     {/* Tipografía con pr-2 para evitar el corte visual de la última letra en algunas pantallas */}
-                    <h1 className="text-5xl sm:text-6xl md:text-8xl font-black text-white tracking-tight mb-6 md:mb-8 leading-[1.05] pr-2 py-2">
+                    <h1 className="text-4xl sm:text-6xl md:text-8xl font-black text-white tracking-tight mb-6 md:mb-8 leading-[1.05] pr-2 py-2">
                         Creamos experiencias <br className="hidden md:block" />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-700">digitales únicas</span>
+                        <motion.span
+                            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                            className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-emerald-400 to-emerald-700 bg-[length:200%_auto]"
+                        >
+                            digitales únicas
+                        </motion.span>
                     </h1>
                 </motion.div>
 
                 <motion.div variants={itemVariants}>
                     {/* Limitador de ancho a 650px y más line-height */}
-                    <p className="mt-4 text-lg sm:text-xl md:text-2xl text-gray-300 max-w-[650px] mx-auto mb-10 md:mb-12 leading-relaxed font-light">
+                    <p className="mt-4 text-base sm:text-xl md:text-2xl text-gray-300 max-w-[650px] mx-auto mb-10 md:mb-12 leading-relaxed font-light">
                         Impulsamos tu marca con diseño moderno y desarrollo web de vanguardia. Resultados escalables que enamoran a tus usuarios.
                     </p>
                 </motion.div>
@@ -73,7 +79,7 @@ const Hero = () => {
                     <motion.button
                         whileHover={{ scale: 1.05, boxShadow: "0px 10px 30px -10px rgba(16, 185, 129, 0.6)" }}
                         whileTap={{ scale: 0.95 }}
-                        className="bg-primary text-white text-base md:text-lg font-medium px-8 py-4 md:px-10 md:py-5 rounded-full w-full sm:w-auto transition-colors hover:bg-emerald-500"
+                        className="bg-primary text-white text-base md:text-lg font-medium px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 rounded-full w-full sm:w-auto transition-colors hover:bg-emerald-500"
                     >
                         Agenda una llamada
                     </motion.button>
@@ -85,24 +91,7 @@ const Hero = () => {
                 </motion.div>
             </motion.div>
 
-            {/* Scroll Indicator (Nivel 4) integrado en el flujo natural para evitar solapamientos */}
-            <div className="flex-1 flex items-end justify-center w-full mt-16 z-10 relative">
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1, duration: 1 }}
-                    className="flex flex-col items-center gap-2"
-                >
-                    <span className="text-xs font-medium tracking-widest uppercase text-gray-400">Scroll</span>
-                    <div className="w-[1px] h-12 bg-white/10 overflow-hidden relative">
-                        <motion.div
-                            animate={{ y: [-20, 48] }}
-                            transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-                            className="w-full h-1/2 bg-primary absolute top-0"
-                        />
-                    </div>
-                </motion.div>
-            </div>
+
         </section>
     );
 };

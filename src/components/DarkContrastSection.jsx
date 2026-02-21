@@ -43,14 +43,17 @@ const DarkContrastSection = () => {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-100px" }}
             >
-                <motion.div variants={itemVariants}>
-                    <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight leading-tight max-w-[800px] mx-auto">
-                        Construimos productos digitales que <span className="text-primary italic">escalan</span>.
-                    </h2>
-                </motion.div>
+                <motion.h2
+                    variants={{ hidden: { opacity: 0, y: 40, scale: 0.9 }, visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 20 } } }}
+                    className="text-3xl sm:text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-400 to-white bg-[length:200%_auto] mb-6 tracking-tight leading-[1.1] max-w-[800px] mx-auto"
+                    animate={{ backgroundPosition: ["0% 50%", "200% 50%"] }}
+                    transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
+                >
+                    Construimos productos digitales que <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-300 italic">escalan</span>.
+                </motion.h2>
 
                 <motion.div variants={itemVariants}>
-                    <p className="text-lg sm:text-xl md:text-2xl text-blue-100 max-w-[600px] mx-auto font-light leading-relaxed">
+                    <p className="text-base sm:text-xl md:text-2xl text-blue-100 max-w-[600px] mx-auto font-light leading-relaxed px-4">
                         Dejamos atrás las plantillas para crear arquitecturas sólidas diseñadas a medida para el crecimiento de tu negocio.
                     </p>
                 </motion.div>
@@ -58,7 +61,7 @@ const DarkContrastSection = () => {
                 {/* Pilares de Valor */}
                 <motion.div
                     variants={itemVariants}
-                    className="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 max-w-5xl mx-auto border-t border-white/10 pt-10 md:pt-16"
+                    className="mt-10 md:mt-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-12 max-w-5xl mx-auto border-t border-white/10 pt-10 md:pt-16 px-4"
                 >
                     {pillarsData.map((pillar, index) => (
                         <motion.div

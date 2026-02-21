@@ -50,8 +50,25 @@ const ContactForm = () => {
                     <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"></div>
 
                     <div className="relative text-center mb-10 z-10">
-                        <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">¿Hablamos?</h2>
-                        <p className="text-emerald-50/80 max-w-lg mx-auto">Déjanos tus datos y nos pondremos en contacto contigo lo antes posible para empezar a trabajar juntos.</p>
+                        <motion.h2
+                            initial={{ opacity: 0, y: 40, scale: 0.9 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                            animate={{ backgroundPosition: ["0% 50%", "200% 50%"] }}
+                            className="text-4xl md:text-6xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-400 to-white bg-[length:200%_auto]"
+                        >
+                            ¿Hablamos?
+                        </motion.h2>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                            className="text-emerald-50/80 max-w-lg mx-auto"
+                        >
+                            Déjanos tus datos y nos pondremos en contacto contigo lo antes posible para empezar a trabajar juntos.
+                        </motion.p>
                     </div>
 
                     <motion.form
@@ -108,7 +125,7 @@ const ContactForm = () => {
                                 whileHover={status === "idle" ? { scale: 1.02 } : {}}
                                 whileTap={status === "idle" ? { scale: 0.98 } : {}}
                                 className={`
-                                    relative overflow-hidden w-full md:w-auto px-10 py-4 font-medium rounded-xl transition-all duration-300
+                                    relative overflow-hidden w-full sm:w-auto px-10 py-4 font-medium rounded-xl transition-all duration-300
                                     ${status === "success"
                                         ? "bg-white text-primary"
                                         : "bg-primary text-white hover:bg-emerald-500 hover:shadow-lg hover:shadow-primary/25"}
