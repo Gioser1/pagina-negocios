@@ -1,0 +1,114 @@
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
+const AppsMoviles = () => {
+    return (
+        <main className="min-h-screen bg-gray-50 pt-28 md:pt-32 pb-20 md:pb-24">
+            {/* Hero del Servicio */}
+            <section className="relative py-16 md:py-24 mb-12 md:mb-16 overflow-hidden rounded-3xl mx-4 sm:mx-6 lg:mx-8 bg-gradient-to-br from-purple-500 to-fuchsia-700">
+                <div className="absolute inset-0 bg-black/20 mix-blend-multiply" />
+                <div className="relative z-10 max-w-4xl mx-auto px-4 md:px-6 text-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <span className="inline-block py-1 px-3 rounded-full bg-white/20 backdrop-blur-md text-white/90 text-xs sm:text-sm tracking-wider font-semibold uppercase mb-6">
+                            Servicio Especializado
+                        </span>
+                        <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
+                            Apps Móviles
+                        </h1>
+                        <p className="text-xl md:text-2xl text-white/90 font-light max-w-2xl mx-auto">
+                            Tu marca en el bolsillo de tus clientes, siempre disponible.
+                        </p>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Contenido Detallado y Sidebar */}
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                    {/* Columna Principal (Izquierda) */}
+                    <div className="lg:col-span-2">
+                        <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-12 shadow-sm border border-gray-100 mb-8">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                            >
+                                <h2 className="text-3xl font-bold text-gray-900 mb-6">Sobre este servicio</h2>
+                                <p className="text-lg text-gray-600 leading-relaxed mb-12">
+                                    Desarrollamos aplicaciones nativas e híbridas (React Native, Flutter) que ofrecen experiencias fluidas y aprovechan al máximo el hardware de los dispositivos.
+                                </p>
+
+                                <h3 className="text-2xl font-bold text-gray-900 mb-6">¿Qué incluye?</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+                                    {["iOS y Android", "Experiencia Nativa", "Sincronización Offline", "Notificaciones Push Premium"].map((feature, idx) => (
+                                        <div key={idx} className="flex items-center space-x-3 p-4 bg-gray-50 rounded-xl">
+                                            <span className="text-primary">
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                                            </span>
+                                            <span className="text-gray-800 font-medium">{feature}</span>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row items-center sm:space-x-4 space-y-4 sm:space-y-0 border-t border-gray-100 pt-8 mt-8">
+                                    <Link to="/#contact" className="w-full sm:w-auto text-center px-8 py-4 bg-dark-900 text-white font-medium rounded-xl hover:bg-black transition-colors">
+                                        Solicitar Presupuesto
+                                    </Link>
+                                    <Link to="/" className="w-full sm:w-auto text-center px-8 py-4 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition-colors">
+                                        Volver atrás
+                                    </Link>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </div>
+
+                    {/* Sidebar Plegable (Derecha) */}
+                    <div className="lg:col-span-1">
+                        <motion.div
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.6, delay: 0.4 }}
+                            className="bg-dark-100 rounded-3xl p-6 sm:p-8 lg:sticky lg:top-32 shadow-xl"
+                        >
+                            <h4 className="text-white font-bold text-xl mb-6">Resumen del servicio</h4>
+
+                            <ul className="space-y-6 mb-8">
+                                <li className="flex flex-col">
+                                    <span className="text-emerald-400 text-sm font-semibold uppercase tracking-wider mb-1">Para quién es</span>
+                                    <span className="text-gray-300">Empresas en fase de escalado</span>
+                                </li>
+                                <li className="flex flex-col">
+                                    <span className="text-emerald-400 text-sm font-semibold uppercase tracking-wider mb-1">Tiempo de entrega</span>
+                                    <span className="text-gray-300">2 a 6 semanas</span>
+                                </li>
+                                <li className="flex flex-col">
+                                    <span className="text-emerald-400 text-sm font-semibold uppercase tracking-wider mb-1">Modalidad</span>
+                                    <span className="text-gray-300">Online / Remoto</span>
+                                </li>
+                            </ul>
+
+                            <div className="pt-6 border-t border-white/10">
+                                <h5 className="text-white/90 font-medium mb-4">Tecnologías</h5>
+                                <div className="flex flex-wrap gap-2">
+                                    {['React Native', 'Flutter', 'iOS', 'Android'].map((tech) => (
+                                        <span key={tech} className="px-3 py-1 bg-white/10 text-white/80 rounded-full text-sm">
+                                            {tech}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    );
+};
+
+export default AppsMoviles;

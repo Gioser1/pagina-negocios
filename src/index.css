@@ -1,0 +1,42 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #f9fafb;
+    /* bg-gray-50 */
+    color: #111827;
+    /* text-gray-900 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Asegurarse de quitar el cursor pointer de los elementos interactivos también */
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  [role="button"] {
+    cursor: none;
+  }
+
+  /* Animación premium para hover en botones */
+  button,
+  .btn {
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  button:hover,
+  .btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 25px -5px rgba(2, 223, 130, 0.2), 0 8px 10px -6px rgba(2, 223, 130, 0.1);
+  }
+}
