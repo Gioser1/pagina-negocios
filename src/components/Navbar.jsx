@@ -57,17 +57,6 @@ const Navbar = () => {
                         {navLinks.map((link, index) => (
                             <NavLink key={index} to={link.path}>{link.title}</NavLink>
                         ))}
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => {
-                                setIsOpen(false);
-                                document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth" });
-                            }}
-                            className="bg-gradient-to-r from-secondary to-primary text-white px-5 py-2 rounded-full font-medium hover:from-primary hover:to-primary-light transition-all shadow-sm hover:shadow-lg hover:shadow-primary/20 duration-300 cursor-none"
-                        >
-                            Empezar
-                        </motion.button>
                     </div>
 
                     <div className="md:hidden flex items-center">
