@@ -1,0 +1,33 @@
+import { motion } from "framer-motion";
+
+const WhatsAppButton = () => {
+    const pulseAnimation = {
+        scale: [1, 1.1, 1],
+        boxShadow: [
+            "0px 0px 0px 0px rgba(34, 197, 94, 0.7)",
+            "0px 0px 20px 10px rgba(34, 197, 94, 0.3)",
+            "0px 0px 0px 0px rgba(34, 197, 94, 0.7)"
+        ]
+    };
+
+    return (
+        <motion.a
+            href="https://wa.me/573025627200?text=Hola%2C%20me%20gustaría%20conocer%20más%20sobre%20vuestros%20servicios"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="fixed bottom-8 right-8 z-50 flex items-center justify-center rounded-full"
+            animate={pulseAnimation}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.95 }}
+        >
+            <img 
+                src="/imagenes/whatsapp.png" 
+                alt="WhatsApp" 
+                className="w-12 h-12 sm:w-14 sm:h-14 drop-shadow-xl cursor-pointer hover:drop-shadow-2xl transition-all"
+            />
+        </motion.a>
+    );
+};
+
+export default WhatsAppButton;
