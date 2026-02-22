@@ -9,8 +9,8 @@ const Cursor = () => {
     // Estados visuales
     const [isHovered, setIsHovered] = useState(false);
 
-    // Física para el cursor principal
-    const springConfig = { damping: 40, stiffness: 600, mass: 0.05 };
+    // Física para el cursor principal (menos delay)
+    const springConfig = { damping: 25, stiffness: 1000, mass: 0.01 };
     const cursorX = useSpring(mouseX, springConfig);
     const cursorY = useSpring(mouseY, springConfig);
 

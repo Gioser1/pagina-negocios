@@ -60,9 +60,9 @@ const Process = () => {
                                     hidden: { opacity: 0, y: 30, filter: "blur(5px)" },
                                     visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
                                 }}
-                                className="relative z-10 p-6 bg-white/5 backdrop-blur-md rounded-2xl shadow-sm border border-white/10 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group"
+                                className="relative z-10 p-6 bg-white/5 backdrop-blur-md rounded-2xl shadow-sm border border-white/10 hover:-translate-y-2 hover:shadow-xl hover:border-primary/20 transition-all duration-300 group"
                             >
-                                <div className="text-5xl font-black text-white/10 mb-4 group-hover:text-primary transition-colors duration-300">
+                                <div className="text-5xl font-black text-white/5 mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-secondary group-hover:to-primary transition-all duration-300">
                                     {step.number}
                                 </div>
                                 <h4 className="text-xl font-bold text-white mb-3">{step.title}</h4>
