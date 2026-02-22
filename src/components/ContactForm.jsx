@@ -138,7 +138,7 @@ const ContactForm = () => {
                                     )}
                                 </div>
                             </motion.button>
-                        </div>
+                        </motion.div>
 
                         {/* Error state */}
                         {status === "error" && (
@@ -146,7 +146,6 @@ const ContactForm = () => {
                                 Ocurrió un error. Por favor inténtalo de nuevo.
                             </motion.p>
                         )}
-                        </motion.div>
                     </motion.form>
                 </motion.div>
             </div>
