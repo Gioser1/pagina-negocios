@@ -25,19 +25,19 @@ const ServiceCard = ({ title, description, icon, slug }) => {
                 boxShadow: "0 20px 40px -10px rgba(16, 185, 129, 0.15)",
                 transition: { duration: 0.4, ease: "easeOut" }
             }}
-            className="group relative bg-white/5 backdrop-blur-2xl p-10 rounded-2xl shadow-sm transition-all duration-300 border border-white/10 flex flex-col h-full overflow-hidden block"
+            className="group relative bg-white/5 backdrop-blur-2xl p-10 rounded-2xl shadow-sm transition-all duration-300 border border-white/10 flex flex-col h-full overflow-hidden block min-h-[350px]"
         >
             {/* Fondo sutil en hover (Nivel 2) */}
             <div className="absolute inset-0 bg-gradient-to-br from-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-            <div className="relative z-10">
-                <div className="w-16 h-16 rounded-xl bg-white/5 flex items-center justify-center mb-8 group-hover:bg-primary transition-colors duration-300">
+            <div className="relative z-10 flex flex-col flex-1">
+                <div className="w-16 h-16 rounded-xl bg-white/5 flex items-center justify-center mb-8 group-hover:bg-primary transition-colors duration-300 flex-shrink-0">
                     <div className="text-primary group-hover:text-white transition-colors duration-300 flex items-center justify-center">
                         {icon}
                     </div>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">{title}</h3>
-                <p className="text-gray-400 leading-relaxed font-light">{description}</p>
+                <h3 className="text-2xl font-bold text-white mb-4 flex-shrink-0">{title}</h3>
+                <p className="text-gray-400 leading-relaxed font-light flex-1">{description}</p>
             </div>
 
             {/* Línea inferior animada (Nivel 2) */}

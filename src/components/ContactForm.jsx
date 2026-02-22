@@ -21,20 +21,20 @@ const ContactForm = () => {
         { name: "Reino Unido", code: "+44", flag: "gb" },
     ];
 
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
+    const [formData, setFormData] = useState({ 
+        name: "", 
+        email: "", 
         countryCode: "+57",
         countryFlag: "co",
-        phone: "",
-        message: ""
+        phone: "", 
+        message: "" 
     });
     const [status, setStatus] = useState("idle");
     const [showCountries, setShowCountries] = useState(false);
 
     const handleCountrySelect = (country) => {
-        setFormData({
-            ...formData,
+        setFormData({ 
+            ...formData, 
             countryCode: country.code,
             countryFlag: country.flag
         });
@@ -76,8 +76,8 @@ const ContactForm = () => {
                     className="border border-dark-100 rounded-3xl p-8 md:p-14 overflow-hidden relative bg-dark-950/80"
                 >
                     {/* Decorative blurs */}
-                    <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
-                    <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-secondary/30 rounded-full blur-3xl pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"></div>
 
                     {/* Título principal */}
                     <div className="relative text-center mb-12 z-10">
@@ -86,8 +86,7 @@ const ContactForm = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                            animate={{ backgroundPosition: ["0% 50%", "200% 50%"] }}
-                            className="text-4xl md:text-6xl font-black mb-4 py-2 px-1 text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-400 to-white bg-[length:200%_auto]"
+                            className="text-4xl md:text-5xl font-black mb-4 text-white"
                         >
                             Escribenos <span className="text-primary">directamente</span>
                         </motion.h2>
@@ -131,7 +130,7 @@ const ContactForm = () => {
                                 <p className="text-gray-300 mb-2">
                                     Cl 19 #57-20, Guayabal, Medellín, Antioquia
                                 </p>
-                                <a
+                                <a 
                                     href="https://maps.google.com/?q=Cl+19+%2357-20,+Guayabal,+Medellín"
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -196,10 +195,10 @@ const ContactForm = () => {
                                             onClick={() => setShowCountries(!showCountries)}
                                             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
                                         >
-                                            <img
-                                                src={`https://flagcdn.com/w20/${formData.countryFlag}.png`}
-                                                alt="Country flag"
-                                                className="w-5 h-5"
+                                            <img 
+                                                src={`https://flagcdn.com/w20/${formData.countryFlag}.png`} 
+                                                alt="Country flag" 
+                                                className="w-5 h-5" 
                                             />
                                             <span className="font-bold text-sm">{formData.countryCode}</span>
                                         </button>
@@ -234,10 +233,10 @@ const ContactForm = () => {
                                                     onClick={() => handleCountrySelect(country)}
                                                     className="w-full flex items-center px-4 py-3 hover:bg-primary/20 transition-colors text-white text-left border-b border-white/5 last:border-b-0"
                                                 >
-                                                    <img
-                                                        src={`https://flagcdn.com/w20/${country.flag}.png`}
-                                                        alt={country.name}
-                                                        className="w-5 h-5 mr-3"
+                                                    <img 
+                                                        src={`https://flagcdn.com/w20/${country.flag}.png`} 
+                                                        alt={country.name} 
+                                                        className="w-5 h-5 mr-3" 
                                                     />
                                                     <span className="flex-1">{country.name}</span>
                                                     <span className="text-primary font-medium text-sm">{country.code}</span>
@@ -264,17 +263,17 @@ const ContactForm = () => {
                                 ></textarea>
                             </motion.div>
 
-                            <motion.div variants={itemVariants} className="text-center pt-4 mb-8">
+                            <motion.div variants={itemVariants} className="pt-4">
                                 <motion.button
                                     type="submit"
                                     disabled={status === "loading" || status === "success"}
                                     whileHover={status === "idle" ? { scale: 1.02 } : {}}
                                     whileTap={status === "idle" ? { scale: 0.98 } : {}}
                                     className={`
-                                        relative overflow-hidden w-full sm:w-auto px-10 py-4 rounded-xl transition-all duration-300 font-bold tracking-wide
+                                        relative overflow-hidden w-full px-10 py-4 font-bold rounded-xl transition-all duration-300
                                         ${status === "success"
                                             ? "bg-white text-primary"
-                                            : "bg-gradient-to-r from-secondary to-primary text-white hover:from-primary hover:to-primary-light border border-primary/50 shadow-[0_0_20px_rgba(2,223,130,0.2)] hover:shadow-[0_0_30px_0px_rgba(2,223,130,0.6)]"}
+                                            : "bg-primary text-white hover:bg-emerald-500 hover:shadow-lg hover:shadow-primary/25"}
                                         disabled:opacity-90 disabled:cursor-default
                                     `}
                                 >
@@ -318,4 +317,3 @@ const ContactForm = () => {
 };
 
 export default ContactForm;
-
