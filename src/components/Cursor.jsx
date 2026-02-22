@@ -8,96 +8,30 @@ const Cursor = () => {
 
     // Estados visuales
     const [isHovered, setIsHovered] = useState(false);
-    const [hoverProps, setHoverProps] = useState(null);
 
-    // Física para el cursor principal (micro-delay ultra sutil)
-    // damping: cuánta fricción (frena que no vibre) / stiffness: cuán rápido salta al destino / mass: peso
+    // Física para el cursor principal
     const springConfig = { damping: 40, stiffness: 600, mass: 0.05 };
     const cursorX = useSpring(mouseX, springConfig);
     const cursorY = useSpring(mouseY, springConfig);
 
     useEffect(() => {
-        let activeElement = null;
-        let initialRect = null;
-
         const handleMouseMove = (e) => {
             const clientX = e.clientX;
             const clientY = e.clientY;
 
+            // Actualizamos la posición del cursor siempre al movimiento real del ratón
+            mouseX.set(clientX);
+            mouseY.set(clientY);
+
+            // Verificamos si estamos sobre un elemento interactivo
             const target = e.target;
-            const interactive = target.closest("button") || target.closest("a");
+            const interactive = target.closest("button") || target.closest("a") || target.closest("input") || target.closest("textarea");
 
-            if (interactive) {
-                // Determine if we just entered a new interactive element
-                if (activeElement !== interactive) {
-                    // Start of hover on a new element
-                    if (activeElement) {
-                        activeElement.style.transform = "translate(0px, 0px) scale(1)";
-                    }
-                    activeElement = interactive;
-
-                    // Reset transform temporarily to get true native rect bounds without scale distortion
-                    activeElement.style.transform = "translate(0px, 0px) scale(1)";
-                    initialRect = activeElement.getBoundingClientRect();
-
-                    setIsHovered(true);
-
-                    const computedStyle = getComputedStyle(interactive);
-                    const isCircular = computedStyle.borderRadius === "50%" || parseFloat(computedStyle.borderRadius) > 50;
-                    const isInput = interactive.tagName === "INPUT" || interactive.tagName === "TEXTAREA";
-
-                    setHoverProps({
-                        width: initialRect.width + (isCircular || isInput ? 0 : 12), // Sin borde extra para inputs y circulos
-                        height: initialRect.height + (isCircular || isInput ? 0 : 12),
-                        borderRadius: computedStyle.borderRadius || "12px"
-                    });
-                }
-
-                if (initialRect) {
-                    const centerX = initialRect.left + initialRect.width / 2;
-                    const centerY = initialRect.top + initialRect.height / 2;
-
-                    const distX = clientX - centerX;
-                    const distY = clientY - centerY;
-
-                    // Efecto imán inverso: arrastrar el botón hacia el ratón
-                    const maxPull = 12; // no tirar de él más de 12px para no romper la UI
-                    const pullX = Math.max(-maxPull, Math.min(maxPull, distX * 0.25));
-                    const pullY = Math.max(-maxPull, Math.min(maxPull, distY * 0.25));
-
-                    // El cursor (tu marco verde) debe anclarse al centro del botón + el mismo desplazamiento físico que sufre el botón
-                    mouseX.set(centerX + pullX);
-                    mouseY.set(centerY + pullY);
-
-                    activeElement.style.transition = 'transform 0.1s cubic-bezier(0.22, 1, 0.36, 1)';
-                    activeElement.style.transform = `translate(${pullX}px, ${pullY}px) scale(1.02)`;
-                }
-
-            } else {
-                if (activeElement) {
-                    // Muelle de rebote para volver a la posición original
-                    activeElement.style.transition = 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)';
-                    activeElement.style.transform = "translate(0px, 0px) scale(1)";
-                    activeElement = null;
-                    initialRect = null;
-                }
-
-                setIsHovered(false);
-                setHoverProps(null);
-
-                mouseX.set(clientX);
-                mouseY.set(clientY);
-            }
+            setIsHovered(!!interactive);
         };
 
         const handleMouseLeaveWindow = () => {
-            if (activeElement) {
-                activeElement.style.transform = "translate(0px, 0px) scale(1)";
-                activeElement = null;
-                initialRect = null;
-            }
             setIsHovered(false);
-            setHoverProps(null);
         };
 
         window.addEventListener("mousemove", handleMouseMove);
@@ -106,38 +40,31 @@ const Cursor = () => {
         return () => {
             window.removeEventListener("mousemove", handleMouseMove);
             document.removeEventListener("mouseleave", handleMouseLeaveWindow);
-            if (activeElement) {
-                activeElement.style.transform = "translate(0px, 0px) scale(1)";
-            }
         };
     }, [mouseX, mouseY]);
 
+    // Ocultar en dispositivos móviles
     if (typeof window !== "undefined" && window.innerWidth < 768) return null;
 
-    // Variantes de diseño minimalista puro combinadas con las dimensiones reales del botón (Morph & Stick)
+    // Animaciones del cursor:
+    // - normal: pequeño círculo verde
+    // - hover: círculo más grande, fondo muy transparente para no tapar texto
     const variants = {
         default: {
-            width: 10,
-            height: 10,
+            width: 12,
+            height: 12,
             borderRadius: "50%",
             backgroundColor: "#02DF82",
             border: "0px solid transparent",
             backdropFilter: "blur(0px)",
         },
-        hover: hoverProps ? {
-            width: hoverProps.width,
-            height: hoverProps.height,
-            borderRadius: hoverProps.borderRadius,
-            backgroundColor: "transparent", // Totalmente transparente para leer el texto
-            border: "2px solid #02DF82", // Borde verde nítido para enmarcar el botón
-            backdropFilter: "blur(0px)", // Sin blur para legibilidad perfecta
-        } : {
-            width: 40,
-            height: 40,
+        hover: {
+            width: 70,
+            height: 70,
             borderRadius: "50%",
-            backgroundColor: "rgba(2, 223, 130, 0.15)",
-            border: "1px solid #02DF82",
-            backdropFilter: "blur(2px)",
+            backgroundColor: "rgba(2, 223, 130, 0.15)", // Transparencia para dejar ver el texto
+            border: "1.5px solid rgba(2, 223, 130, 0.8)", // Borde definido verde
+            backdropFilter: "blur(0px)", // Sin blur para legibilidad perfecta
         }
     };
 
@@ -152,7 +79,7 @@ const Cursor = () => {
                 animate={isHovered ? "hover" : "default"}
                 transition={{
                     type: "tween",
-                    ease: [0.22, 1, 0.36, 1], // Curve elegantisima
+                    ease: "easeOut",
                     duration: 0.25
                 }}
             />
