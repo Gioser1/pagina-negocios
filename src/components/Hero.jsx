@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import CalendarScheduler from "./CalendarScheduler";
 
 const Hero = () => {
+    const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const { scrollY } = useScroll();
     const textY = useTransform(scrollY, [0, 800], [0, 150]);
     const opacityOut = useTransform(scrollY, [0, 600], [1, 0]);
@@ -77,6 +80,7 @@ const Hero = () => {
                     className="flex flex-col sm:flex-row items-center gap-6"
                 >
                     <motion.button
+                        onClick={() => setIsCalendarOpen(true)}
                         whileHover={{ scale: 1.05, boxShadow: "0px 0px 30px 0px rgba(2, 223, 130, 0.6)" }}
                         whileTap={{ scale: 0.95 }}
                         className="bg-gradient-to-r from-secondary to-primary text-white text-base md:text-lg font-bold tracking-wide px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 rounded-full w-full sm:w-auto transition-all hover:from-primary hover:to-primary-light border border-primary/50 shadow-[0_0_20px_rgba(2,223,130,0.2)]"
@@ -89,6 +93,8 @@ const Hero = () => {
                     </p>
 
                 </motion.div>
+
+                <CalendarScheduler isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
             </motion.div>
 
 

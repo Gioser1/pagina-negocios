@@ -86,12 +86,8 @@ const ContactForm = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ type: "spring", stiffness: 100, damping: 20 }}
-<<<<<<< HEAD
-                            className="text-4xl md:text-5xl font-black mb-4 text-white"
-=======
                             animate={{ backgroundPosition: ["0% 50%", "200% 50%"] }}
-                            className="text-4xl md:text-6xl font-black mb-4 py-2 px-1 text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-400 to-white bg-[length:200%_auto]"
->>>>>>> 38f431111e110ed4341cc29d33be739cb498f088
+                            className="text-4xl md:text-6xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-400 to-white bg-[length:200%_auto]"
                         >
                             Escribenos <span className="text-primary">directamente</span>
                         </motion.h2>
@@ -187,7 +183,6 @@ const ContactForm = () => {
                                 />
                             </motion.div>
 
-<<<<<<< HEAD
                             {/* Teléfono con Selector de País */}
                             <motion.div variants={itemVariants}>
                                 <label htmlFor="phone" className="block text-sm font-bold text-white mb-3">
@@ -200,38 +195,6 @@ const ContactForm = () => {
                                             type="button"
                                             onClick={() => setShowCountries(!showCountries)}
                                             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
-=======
-                        <motion.div variants={itemVariants} className="text-center pt-4 mb-8">
-                            <motion.button
-                                type="submit"
-                                disabled={status === "loading" || status === "success"}
-                                whileHover={status === "idle" ? { scale: 1.02 } : {}}
-                                whileTap={status === "idle" ? { scale: 0.98 } : {}}
-                                className={`
-                                    relative overflow-hidden w-full sm:w-auto px-10 py-4 rounded-xl transition-all duration-300 font-bold tracking-wide
-                                    ${status === "success"
-                                        ? "bg-white text-primary"
-                                        : "bg-gradient-to-r from-secondary to-primary text-white hover:from-primary hover:to-primary-light border border-primary/50 shadow-[0_0_20px_rgba(2,223,130,0.2)] hover:shadow-[0_0_30px_0px_rgba(2,223,130,0.6)]"}
-                                    disabled:opacity-90 disabled:cursor-default
-                                `}
-                            >
-                                <div className="flex items-center justify-center space-x-2">
-                                    {status === "idle" && <span>Enviar Mensaje</span>}
-                                    {status === "loading" && (
-                                        <>
-                                            <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                            </svg>
-                                            <span>Enviando...</span>
-                                        </>
-                                    )}
-                                    {status === "success" && (
-                                        <motion.div
-                                            initial={{ scale: 0 }}
-                                            animate={{ scale: 1 }}
-                                            className="flex items-center space-x-2 text-primary font-bold"
->>>>>>> 38f431111e110ed4341cc29d33be739cb498f088
                                         >
                                             <img 
                                                 src={`https://flagcdn.com/w20/${formData.countryFlag}.png`} 
@@ -301,44 +264,44 @@ const ContactForm = () => {
                                 ></textarea>
                             </motion.div>
 
-                            <motion.div variants={itemVariants} className="pt-4">
-                                <motion.button
-                                    type="submit"
-                                    disabled={status === "loading" || status === "success"}
-                                    whileHover={status === "idle" ? { scale: 1.02 } : {}}
-                                    whileTap={status === "idle" ? { scale: 0.98 } : {}}
-                                    className={`
-                                        relative overflow-hidden w-full px-10 py-4 font-bold rounded-xl transition-all duration-300
-                                        ${status === "success"
-                                            ? "bg-white text-primary"
-                                            : "bg-primary text-white hover:bg-emerald-500 hover:shadow-lg hover:shadow-primary/25"}
-                                        disabled:opacity-90 disabled:cursor-default
-                                    `}
-                                >
-                                    <div className="flex items-center justify-center space-x-2">
-                                        {status === "idle" && <span>Enviar Mensaje</span>}
-                                        {status === "loading" && (
-                                            <>
-                                                <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                                </svg>
-                                                <span>Enviando...</span>
-                                            </>
-                                        )}
-                                        {status === "success" && (
-                                            <motion.div
-                                                initial={{ scale: 0 }}
-                                                animate={{ scale: 1 }}
-                                                className="flex items-center space-x-2 text-primary font-bold"
-                                            >
-                                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-                                                <span>¡Enviado!</span>
-                                            </motion.div>
-                                        )}
-                                    </div>
-                                </motion.button>
-                            </motion.div>
+                        <motion.div variants={itemVariants} className="text-center pt-4 mb-8">
+                            <motion.button
+                                type="submit"
+                                disabled={status === "loading" || status === "success"}
+                                whileHover={status === "idle" ? { scale: 1.02 } : {}}
+                                whileTap={status === "idle" ? { scale: 0.98 } : {}}
+                                className={`
+                                    relative overflow-hidden w-full sm:w-auto px-10 py-4 font-medium rounded-xl transition-all duration-300
+                                    ${status === "success"
+                                        ? "bg-white text-primary"
+                                        : "bg-primary text-white hover:bg-emerald-500 hover:shadow-lg hover:shadow-primary/25"}
+                                    disabled:opacity-90 disabled:cursor-default
+                                `}
+                            >
+                                <div className="flex items-center justify-center space-x-2">
+                                    {status === "idle" && <span>Enviar Mensaje</span>}
+                                    {status === "loading" && (
+                                        <>
+                                            <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                            </svg>
+                                            <span>Enviando...</span>
+                                        </>
+                                    )}
+                                    {status === "success" && (
+                                        <motion.div
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            className="flex items-center space-x-2 text-primary font-bold"
+                                        >
+                                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                                            <span>¡Enviado!</span>
+                                        </motion.div>
+                                    )}
+                                </div>
+                            </motion.button>
+                        </motion.div>
 
                             {/* Error state */}
                             {status === "error" && (
