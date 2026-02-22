@@ -59,12 +59,12 @@ const Cursor = () => {
             backdropFilter: "blur(0px)",
         },
         hover: {
-            width: 70,
-            height: 70,
+            width: 18,
+            height: 18,
             borderRadius: "50%",
-            backgroundColor: "rgba(2, 223, 130, 0.15)", // Transparencia para dejar ver el texto
-            border: "1.5px solid rgba(2, 223, 130, 0.8)", // Borde definido verde
-            backdropFilter: "blur(0px)", // Sin blur para legibilidad perfecta
+            backgroundColor: "rgba(2, 223, 130, 0.9)", // Verde sólido pero un 10% transparente para que respire
+            border: "2px solid rgba(255, 255, 255, 0.2)", // Ligero borde blanco/gris para dar contraste
+            backdropFilter: "blur(0px)",
         }
     };
 

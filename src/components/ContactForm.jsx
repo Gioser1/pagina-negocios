@@ -73,7 +73,7 @@ const ContactForm = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                    className="border-4 border-red-600 rounded-3xl p-8 md:p-14 overflow-hidden relative bg-dark-950/80"
+                    className="border border-dark-100 rounded-3xl p-8 md:p-14 overflow-hidden relative bg-dark-950/80"
                 >
                     {/* Decorative blurs */}
                     <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
