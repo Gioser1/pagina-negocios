@@ -24,7 +24,7 @@ const Services = () => {
                     </motion.h2>
                     <motion.h3
                         variants={{ hidden: { opacity: 0, y: 40, scale: 0.9 }, visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 20 } } }}
-                        className="text-3xl sm:text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-primary to-white bg-[length:200%_auto]"
+                        className="text-3xl sm:text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-secondary to-primary bg-[length:200%_auto]"
                         animate={{ backgroundPosition: ["0% 50%", "200% 50%"] }}
                         transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
                     >

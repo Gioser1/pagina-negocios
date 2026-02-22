@@ -1,6 +1,6 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { navLinks } from "../data/navData";
 
@@ -14,26 +14,41 @@ const NavLink = ({ to, children }) => (
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [hidden, setHidden] = useState(false);
+    const { scrollY } = useScroll();
 
-    // Detección de scroll para navbar dinámica (Nivel 2)
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        const previous = scrollY.getPrevious();
+
+        if (latest > 50) {
+            setScrolled(true);
+        } else {
+            setScrolled(false);
+        }
+
+        // Si bajamos más de 150px y estamos haciendo scroll hacia abajo, ocultamos
+        if (latest > 150 && latest > previous) {
+            setHidden(true);
+            setIsOpen(false); // Cierra menú móvil por precaución
+        } else {
+            setHidden(false);
+        }
+    });
 
     return (
         <motion.nav
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className={`fixed w-full z-50 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${scrolled ? "bg-dark-900/80 backdrop-blur-md border-b border-white/10 py-0" : "bg-transparent border-transparent py-4"
+            variants={{
+                visible: { y: 0 },
+                hidden: { y: "-100%" }
+            }}
+            initial="visible"
+            animate={hidden ? "hidden" : "visible"}
+            transition={{ duration: 0.35, ease: "easeInOut" }}
+            className={`fixed top-0 w-full z-50 transition-colors duration-500 ${scrolled ? "bg-[#0a0a0a]/75 backdrop-blur-md border-b border-white/5 py-0 shadow-2xl" : "bg-transparent border-transparent py-4"
                 }`}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className={`flex justify-between items-center transition-all duration-500 ${scrolled ? "h-16" : "h-20"}`}>
+                <div className={`flex justify-between items-center transition-all duration-500 ${scrolled ? "h-14" : "h-20"}`}>
                     <div className="flex-shrink-0 flex items-center">
                         <span className="text-2xl font-bold tracking-tighter text-white">Agencia<span className="text-primary">.</span></span>
                     </div>
@@ -45,7 +60,11 @@ const Navbar = () => {
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="bg-primary text-white px-6 py-2.5 rounded-full font-medium hover:bg-emerald-500 transition-colors shadow-sm hover:shadow-lg hover:shadow-primary/20 duration-300"
+                            onClick={() => {
+                                setIsOpen(false);
+                                document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth" });
+                            }}
+                            className="bg-gradient-to-r from-secondary to-primary text-white px-5 py-2 rounded-full font-medium hover:from-primary hover:to-primary-light transition-all shadow-sm hover:shadow-lg hover:shadow-primary/20 duration-300 cursor-none"
                         >
                             Empezar
                         </motion.button>

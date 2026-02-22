@@ -77,9 +77,9 @@ const Hero = () => {
                     className="flex flex-col sm:flex-row items-center gap-6"
                 >
                     <motion.button
-                        whileHover={{ scale: 1.05, boxShadow: "0px 10px 30px -10px rgba(16, 185, 129, 0.6)" }}
+                        whileHover={{ scale: 1.05, boxShadow: "0px 0px 30px 0px rgba(2, 223, 130, 0.6)" }}
                         whileTap={{ scale: 0.95 }}
-                        className="bg-primary text-white text-base md:text-lg font-medium px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 rounded-full w-full sm:w-auto transition-colors hover:bg-emerald-500"
+                        className="bg-gradient-to-r from-secondary to-primary text-white text-base md:text-lg font-bold tracking-wide px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 rounded-full w-full sm:w-auto transition-all hover:from-primary hover:to-primary-light border border-primary/50 shadow-[0_0_20px_rgba(2,223,130,0.2)]"
                     >
                         Agenda una llamada
                     </motion.button>

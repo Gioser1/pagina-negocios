@@ -46,8 +46,8 @@ const ContactForm = () => {
                     className="bg-dark-100 rounded-3xl p-8 md:p-14 shadow-2xl overflow-hidden relative"
                 >
                     {/* Decorative blurs */}
-                    <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
-                    <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-secondary/30 rounded-full blur-3xl pointer-events-none"></div>
 
                     <div className="relative text-center mb-10 z-10">
                         <motion.h2
@@ -56,7 +56,7 @@ const ContactForm = () => {
                             viewport={{ once: true }}
                             transition={{ type: "spring", stiffness: 100, damping: 20 }}
                             animate={{ backgroundPosition: ["0% 50%", "200% 50%"] }}
-                            className="text-4xl md:text-6xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-400 to-white bg-[length:200%_auto]"
+                            className="text-4xl md:text-6xl font-black mb-4 py-2 px-1 text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-400 to-white bg-[length:200%_auto]"
                         >
                             ¿Hablamos?
                         </motion.h2>
@@ -125,10 +125,10 @@ const ContactForm = () => {
                                 whileHover={status === "idle" ? { scale: 1.02 } : {}}
                                 whileTap={status === "idle" ? { scale: 0.98 } : {}}
                                 className={`
-                                    relative overflow-hidden w-full sm:w-auto px-10 py-4 font-medium rounded-xl transition-all duration-300
+                                    relative overflow-hidden w-full sm:w-auto px-10 py-4 rounded-xl transition-all duration-300 font-bold tracking-wide
                                     ${status === "success"
                                         ? "bg-white text-primary"
-                                        : "bg-primary text-white hover:bg-emerald-500 hover:shadow-lg hover:shadow-primary/25"}
+                                        : "bg-gradient-to-r from-secondary to-primary text-white hover:from-primary hover:to-primary-light border border-primary/50 shadow-[0_0_20px_rgba(2,223,130,0.2)] hover:shadow-[0_0_30px_0px_rgba(2,223,130,0.6)]"}
                                     disabled:opacity-90 disabled:cursor-default
                                 `}
                             >
