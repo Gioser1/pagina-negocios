@@ -22,7 +22,7 @@ const WhatsAppButton = () => {
             whileTap={{ scale: 0.95 }}
         >
             <img 
-                src="/imagenes/whatsapp.png" 
+                src={`${import.meta.env.BASE_URL}whatsapp.png`}
                 alt="WhatsApp" 
                 className="w-12 h-12 sm:w-14 sm:h-14 drop-shadow-xl cursor-pointer hover:drop-shadow-2xl transition-all"
             />
