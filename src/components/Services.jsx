@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import ServiceCard from "./ServiceCard";
 import { servicesData } from "../data/servicesData";
 
 const Services = () => {
+    const [active, setActive] = useState(null);
     return (
-        <section id="services" className="py-24 bg-dark-900/40 backdrop-blur-2xl">
+        <section id="servicios" className="py-24 bg-dark-900/40 backdrop-blur-2xl">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div
                     initial="hidden"
@@ -43,10 +45,14 @@ const Services = () => {
                     }}
                 >
                     {servicesData.map((service, index) => (
-                        <ServiceCard
+                        <div
                             key={index}
-                            {...service}
-                        />
+                            onMouseEnter={() => setActive(index)}
+                            onMouseLeave={() => setActive(null)}
+                            className={`transition-all duration-300 ${active !== null && active !== index ? "opacity-40" : "opacity-100"}`}
+                        >
+                            <ServiceCard {...service} />
+                        </div>
                     ))}
                 </motion.div>
             </div>
