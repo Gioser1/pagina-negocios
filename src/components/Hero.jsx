@@ -69,7 +69,7 @@ const Hero = () => {
             </div>
 
             <motion.div
-                className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left flex flex-col justify-center"
+                className="relative z-10 w-full max-w-6xl px-8 sm:px-12 lg:px-16 text-left flex flex-col justify-center"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
@@ -80,8 +80,9 @@ const Hero = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 1 }}
                 >
-                    <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 md:mb-8 leading-[1.05] py-2">
-                        Creamos experiencias...
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-6 md:mb-8 leading-[1.1] py-2">
+                        CREAMOS EXPERIENCIAS <br />
+                        <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">DIGITALES ÚNICAS</span>
                     </h1>
 
                     <p className="mt-6 text-base sm:text-xl md:text-2xl max-w-xl mb-10 md:mb-12 leading-relaxed font-light text-gray-400">
