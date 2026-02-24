@@ -3,10 +3,12 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { steps } from "../data/processData";
+import ChatBubble from "./ChatBubble";
 
 const ProcessModal = ({ onClose }) => {
     const [active, setActive] = useState(0);
     const [mounted, setMounted] = useState(false);
+    const [showBubble, setShowBubble] = useState(false);
 
     useEffect(() => {
         setMounted(true);
@@ -67,18 +69,23 @@ const ProcessModal = ({ onClose }) => {
                         </div>
 
                         {/* Columna Derecha: Avatar y Contacto */}
-                        <div className="flex flex-col items-center justify-center bg-white/[0.02] border border-white/5 rounded-[2.5rem] p-8 sm:p-14 relative overflow-hidden shadow-2xl w-full max-w-xl mx-auto">
+                        <div className="flex flex-col items-center justify-center bg-white/[0.02] border border-white/5 rounded-[2.5rem] p-8 sm:p-14 relative overflow-visible shadow-2xl w-full max-w-xl mx-auto">
                             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent pointer-events-none" />
 
-                            {/* El Avatar */}
-                            <div className="relative mb-8 group">
+                            {/* El Avatar - Clickeable */}
+                            <motion.button
+                                onClick={() => setShowBubble(!showBubble)}
+                                className="relative mb-8 group focus:outline-none cursor-pointer"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
                                 <div className="absolute inset-0 bg-primary/20 blur-[40px] rounded-full group-hover:bg-primary/30 transition-colors duration-500" />
                                 <img
                                     src="/imagenes/Avatar/AVATAR-Photoroom.png"
                                     alt="Avatar Olimpo Innova"
                                     className="w-40 sm:w-56 relative z-10 object-contain transition-transform duration-700 group-hover:scale-105 group-hover:-translate-y-2"
                                 />
-                            </div>
+                            </motion.button>
 
                             <div className="relative z-10 w-full text-center">
                                 <h3 className="text-2xl sm:text-3xl font-bold text-white mb-8 tracking-wide">Ponte en contacto</h3>
@@ -102,6 +109,9 @@ const ProcessModal = ({ onClose }) => {
 
                     </div>
                 </div>
+
+                {/* Chat Bubble */}
+                <ChatBubble isVisible={showBubble} onClose={() => setShowBubble(false)} />
             </motion.div>
         </AnimatePresence>,
         document.body

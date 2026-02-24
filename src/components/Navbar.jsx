@@ -50,9 +50,21 @@ const Navbar = () => {
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className={`flex justify-between items-center transition-all duration-500 ${scrolled ? "h-14" : "h-20"}`}>
-                    <div className="flex-shrink-0 flex items-center">
-                        <span className="text-2xl font-bold tracking-tighter text-white">Agencia<span className="text-primary">.</span></span>
-                    </div>
+                    <Link to="/" className="relative group flex-shrink-0 flex items-center overflow-hidden">
+                        {/* Reemplaza 'logo-cuadrado.png' con el nombre de tu archivo de logo */}
+                        <img src={`${import.meta.env.BASE_URL}imagenes/Logos/olimpologo.png`} alt="Logo Agencia" className={`w-auto transition-all duration-500 group-hover:scale-105 ${scrolled ? 'h-10' : 'h-16'}`} />
+                        {/* Efecto de brillo automático */}
+                        <motion.span
+                            className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                            animate={{ x: ['-100%', '100%'] }}
+                            transition={{
+                                repeat: Infinity,
+                                duration: 4,
+                                ease: "linear",
+                                repeatDelay: 5
+                            }}
+                        />
+                    </Link>
 
                     <div className="hidden md:flex items-center space-x-8">
                         {navLinks.map((link, index) => (

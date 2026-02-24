@@ -1,55 +1,71 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
+
+// Importa tus componentes existentes
+import Preloader from "./components/Preloader";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Cursor from "./components/Cursor";
-import WhatsAppButton from "./components/WhatsAppButton";
-
-import AnimatedBackground from "./components/AnimatedBackground";
-
-import Home from "./pages/Home";
-import DesarrolloWeb from "./pages/services/DesarrolloWeb";
-import DisenoUiUx from "./pages/services/DisenoUiUx";
-import AppsMoviles from "./pages/services/AppsMoviles";
-import PosicionamientoSeo from "./pages/services/PosicionamientoSeo";
+import Hero from "./components/Hero";
+import Services from "./components/Services";
+import Marquee from "./components/Marquee";
 import ScrollToTop from "./components/ScrollToTop";
+import Cursor from "./components/Cursor";
+
+// Un Layout para envolver las páginas con Navbar y Footer
+const MainLayout = () => (
+    <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+    >
+        <Navbar />
+        <main>
+            <Outlet /> {/* El contenido de la página se renderiza aquí */}
+        </main>
+        <Footer />
+    </motion.div>
+);
+
+// La página de inicio que agrupa todas tus secciones
+const HomePage = () => (
+    <>
+        <Hero />
+        <Marquee />
+        <Services />
+        {/* Puedes agregar más secciones aquí si las tienes */}
+    </>
+);
 
 function App() {
-  // Barra de progreso de scroll global
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+    const [isLoading, setIsLoading] = useState(true);
 
-  return (
-    <Router>
-      <ScrollToTop />
-      <div className="relative min-h-screen">
-        <AnimatedBackground />
-        {/* Scroll Progress Bar Superior Global */}
-        <motion.div
-          className="fixed top-0 left-0 right-0 h-1.5 bg-primary origin-left z-[100] pointer-events-none"
-          style={{ scaleX }}
-        />
+    useEffect(() => {
+        // Simula el tiempo de carga
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 3000); // 3 segundos
 
-        <Cursor />
-        <Navbar />
-        <WhatsAppButton />
+        return () => clearTimeout(timer);
+    }, []);
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/servicios/desarrollo-web" element={<DesarrolloWeb />} />
-          <Route path="/servicios/diseno-ui-ux" element={<DisenoUiUx />} />
-          <Route path="/servicios/apps-moviles" element={<AppsMoviles />} />
-          <Route path="/servicios/posicionamiento-seo" element={<PosicionamientoSeo />} />
-        </Routes>
-
-        <Footer />
-      </div>
-    </Router>
-  );
+    return (
+        <>
+            <Cursor />
+            <Router>
+                <ScrollToTop />
+                <AnimatePresence mode="wait">
+                    {isLoading ? (
+                        <Preloader key="preloader" />
+                    ) : (
+                        <Routes>
+                            <Route path="/" element={<MainLayout />} children={[<Route key="home" index element={<HomePage />} />]} />
+                        </Routes>
+                    )}
+                </AnimatePresence>
+            </Router>
+        </>
+    );
 }
 
 export default App;

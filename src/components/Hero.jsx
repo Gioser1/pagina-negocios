@@ -34,11 +34,11 @@ const Hero = () => {
     };
 
     return (
-        <section className={`relative min-h-[100svh] flex flex-col items-start justify-center overflow-hidden pt-32 pb-10 transition-colors duration-1000 ${darkMode ? "bg-black text-white" : "bg-white text-black"}`}>
+        <section className={`relative min-h-[100svh] flex flex-col items-start justify-center overflow-hidden pt-32 pb-10 transition-colors duration-1000 ${darkMode ? "bg-[#0a0a0a] text-white" : "bg-white text-black"}`}>
             {/* Background animado lento parallax */}
             {darkMode && (
                 <motion.div
-                    className="absolute inset-0 z-0 opacity-10 mix-blend-multiply pointer-events-none"
+                    className="absolute inset-0 z-0 opacity-10 mix-blend-lighten pointer-events-none"
                     style={{ y: bgY }}
                     animate={{
                         background: [
@@ -53,14 +53,17 @@ const Hero = () => {
                 />
             )}
 
-            {/* Logo de fondo gigante e inactivo como marca de agua */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-                <motion.img
-                    src="/imagenes/Logos/LOGO-OLIMPOINNOVAfinal_1-Photoroom.png"
-                    alt="Logo Olimpo Innova"
-                    className="w-[300px] md:w-[600px] lg:w-[800px] object-contain"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 0.05, scale: 1 }}
+            {/* Video de fondo como marca de agua */}
+            <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+                <motion.video
+                    src={`${import.meta.env.BASE_URL}videos/logo.mp4`}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.1 }}
                     transition={{ duration: 1.5 }}
                 />
             </div>

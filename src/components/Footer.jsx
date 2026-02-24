@@ -45,7 +45,6 @@ const Footer = () => {
                         transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
                         className="flex flex-col items-start md:items-center w-full md:w-auto"
                     >
-                        <span className="text-3xl font-bold tracking-tighter text-white mb-6 inline-block">Agencia<span className="text-primary">.</span></span>
                         <div className="flex space-x-4">
                             <motion.a
                                 whileHover={{ y: -5, backgroundColor: "#02DF82", color: "#0a192f" }}

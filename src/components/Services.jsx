@@ -1,58 +1,54 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
-import ServiceCard from "./ServiceCard";
 import { servicesData } from "../data/servicesData";
 
 const Services = () => {
-    const [active, setActive] = useState(null);
+    // Variantes de animación para el contenedor y los elementos
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.2,
+                delayChildren: 0.2,
+            },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 50 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.6,
+                ease: "easeOut",
+            },
+        },
+    };
+
     return (
-        <section id="servicios" className="py-24 bg-dark-900/40 backdrop-blur-2xl">
+        <section id="services" className="py-20 md:py-32 bg-[#0a0a0a] text-white overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Título de la sección centrado */}
                 <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-50px" }}
-                    variants={{
-                        hidden: { opacity: 0 },
-                        visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
-                    }}
-                    className="text-center max-w-3xl mx-auto mb-16"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="text-center mb-16"
                 >
-                    <motion.h2
-                        variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                        className="text-primary font-semibold tracking-wide uppercase text-sm mb-3"
-                    >
-                        Nuestros Servicios
-                    </motion.h2>
-                    <motion.h3
-                        variants={{ hidden: { opacity: 0, y: 40, scale: 0.9 }, visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 20 } } }}
-                        className="text-3xl sm:text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-secondary to-primary bg-[length:200%_auto]"
-                        animate={{ backgroundPosition: ["0% 50%", "200% 50%"] }}
-                        transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-                    >
-                        Soluciones completas para tu marca
-                    </motion.h3>
+                    <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white">Nuestros Servicios</h2>
+                    <p className="mt-4 max-w-3xl mx-auto text-lg text-gray-400">Desde la idea hasta el lanzamiento, te acompañamos para crear productos digitales excepcionales.</p>
                 </motion.div>
 
-                <motion.div
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    variants={{
-                        hidden: { opacity: 0 },
-                        visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.4 } }
-                    }}
-                >
-                    {servicesData.map((service, index) => (
-                        <div
-                            key={index}
-                            onMouseEnter={() => setActive(index)}
-                            onMouseLeave={() => setActive(null)}
-                            className={`transition-all duration-300 ${active !== null && active !== index ? "opacity-40" : "opacity-100"}`}
-                        >
-                            <ServiceCard {...service} />
-                        </div>
+                {/* Cuadrícula de tarjetas de servicio */}
+                <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+                    {servicesData.map((service) => (
+                        <motion.div key={service.slug} variants={itemVariants} className="bg-white/[.03] p-8 rounded-2xl border border-white/10 shadow-lg hover:bg-white/5 hover:border-primary/50 transition-all duration-300 group flex flex-col items-center text-center backdrop-blur-sm">
+                            <div className="mb-6 text-primary bg-primary/10 p-4 rounded-full group-hover:scale-110 transition-transform duration-300">{service.icon}</div>
+                            <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
+                            <p className="text-gray-400 text-sm leading-relaxed">{service.description}</p>
+                        </motion.div>
                     ))}
                 </motion.div>
             </div>
