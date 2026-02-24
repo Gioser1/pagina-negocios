@@ -81,7 +81,20 @@ const Hero = () => {
                     transition={{ duration: 1 }}
                 >
                     <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-6 md:mb-8 leading-[1.1] py-2">
-                        CREAMOS EXPERIENCIAS <br />
+                        <motion.span
+                            className="bg-clip-text text-transparent bg-gradient-to-r from-white to-primary"
+                            style={{ backgroundSize: '200% auto' }}
+                            animate={{ backgroundPosition: ['0% center', '100% center'] }}
+                            transition={{
+                                duration: 3,
+                                repeat: Infinity,
+                                repeatType: 'mirror',
+                                ease: 'easeInOut'
+                            }}
+                        >
+                            CREAMOS EXPERIENCIAS
+                        </motion.span>
+                        <br />
                         <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">DIGITALES ÚNICAS</span>
                     </h1>
 

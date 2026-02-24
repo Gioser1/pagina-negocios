@@ -29,18 +29,6 @@ const Services = () => {
     return (
         <section id="services" className="py-16 md:py-24 bg-[#0a0a0a] text-white overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Título de la sección centrado */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="text-center mb-12"
-                >
-                    <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white">Nuestros Servicios</h2>
-                    <p className="mt-4 max-w-3xl mx-auto text-lg text-gray-400">Desde la idea hasta el lanzamiento, te acompañamos para crear productos digitales excepcionales.</p>
-                </motion.div>
-
                 {/* Cuadrícula de tarjetas de servicio */}
                 <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
                     {servicesData.map((service) => (
