@@ -1,4 +1,5 @@
 import Hero from "../components/Hero";
+import Marquee from "../components/Marquee";
 import Services from "../components/Services";
 import About from "../components/About";
 import Videos from "../components/Videos";
@@ -8,6 +9,9 @@ const Home = () => {
         <main>
             {/* 1. Hero: Introducción y Call to action principal */}
             <Hero />
+
+            {/* Scrolling Banner */}
+            <Marquee />
 
             {/* 2. Nuestros servicios: Qué ofrecemos exactamente */}
             <Services />

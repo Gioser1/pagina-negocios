@@ -92,7 +92,7 @@ const About = () => {
                         variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
                         className="text-lg md:text-xl text-gray-400 leading-relaxed font-light"
                     >
-                        Somos creadores, estrategas y desarrolladores unidos por una misma visión: transformar ideas en experiencias digitales sorprendentes. En nuestra agencia combinamos creatividad y tecnología de punta para impulsar el éxito de nuestros clientes.
+                        Cada día creamos valor 360° explorando y aportando a nuestros clientes, colaboradores y comunidades, el diseño y desarrollo de soluciones tecnológicas que transforman procesos, optimizan operaciones y potencian el crecimiento empresarial y la transformación positiva de la vida.
                     </motion.p>
                 </motion.div>
 
