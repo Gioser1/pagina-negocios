@@ -25,7 +25,7 @@ const Cursor = () => {
 
             // Verificamos si estamos sobre un elemento interactivo
             const target = e.target;
-            const interactive = target.closest("button") || target.closest("a") || target.closest("input") || target.closest("textarea");
+            const interactive = target.closest("button") || target.closest("a") || target.closest("input") || target.closest("textarea") || target.closest(".cursor-pointer");
 
             setIsHovered(!!interactive);
         };
@@ -70,7 +70,7 @@ const Cursor = () => {
 
     return (
         <motion.div
-            className="fixed top-0 left-0 pointer-events-none z-[9999]"
+            className="fixed top-0 left-0 pointer-events-none z-[999999]"
             style={{ x: cursorX, y: cursorY }}
         >
             <motion.div

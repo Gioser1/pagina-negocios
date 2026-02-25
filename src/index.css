@@ -15,17 +15,10 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-    cursor: none;
   }
 
-  /* Asegurarse de quitar el cursor pointer de los elementos interactivos también */
-  a,
-  button,
-  input,
-  select,
-  textarea,
-  [role="button"] {
-    cursor: none;
+  * {
+    cursor: none !important;
   }
 
   /* Animación premium para hover en botones */
