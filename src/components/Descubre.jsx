@@ -94,7 +94,9 @@ const Descubre = () => {
 
             </div>
 
-            <ServicesModal isOpen={isServicesModalOpen} onClose={() => setIsServicesModalOpen(false)} />
+            {isServicesModalOpen && (
+                <ServicesModal isOpen={isServicesModalOpen} onClose={() => setIsServicesModalOpen(false)} />
+            )}
         </section>
     );
 };

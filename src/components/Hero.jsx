@@ -60,19 +60,19 @@ const Hero = () => {
             {/* Background animado lento parallax */}
             {darkMode && (
                 <motion.div
-                    className="absolute inset-0 z-0 opacity-10 mix-blend-lighten pointer-events-none"
+                    className="absolute inset-0 z-0 opacity-10 pointer-events-none"
                     style={{ y: bgY }}
-                    animate={{
-                        background: [
-                            "radial-gradient(circle at 0% 0%, #D1FAE5 0%, transparent 50%)",
-                            "radial-gradient(circle at 100% 100%, #A7F3D0 0%, transparent 50%)",
-                            "radial-gradient(circle at 0% 100%, #6EE7B7 0%, transparent 50%)",
-                            "radial-gradient(circle at 100% 0%, #34D399 0%, transparent 50%)",
-                            "radial-gradient(circle at 0% 0%, #D1FAE5 0%, transparent 50%)",
-                        ]
-                    }}
-                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                />
+                >
+                    <motion.div
+                        className="absolute -inset-[100%] rounded-full bg-[radial-gradient(circle_at_center,_#34D399_0%,_transparent_50%)]"
+                        animate={{
+                            rotate: [0, 360],
+                            scale: [1, 1.2, 1],
+                        }}
+                        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                        style={{ transformOrigin: "center center" }}
+                    />
+                </motion.div>
             )}
 
             {/* Video de fondo como marca de agua */}
@@ -162,7 +162,9 @@ const Hero = () => {
                     </motion.div>
                 </motion.div>
 
-                <CalendarScheduler isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
+                {isCalendarOpen && (
+                    <CalendarScheduler isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
+                )}
             </motion.div>
         </section>
     );

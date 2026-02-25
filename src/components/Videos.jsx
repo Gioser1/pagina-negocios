@@ -26,6 +26,7 @@ export default function Videos() {
                         className="w-full rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-video bg-black"
                     >
                         <iframe
+                            loading="lazy"
                             src="https://www.youtube.com/embed/DaIdzCwIBGk"
                             className="w-full h-full"
                             allowFullScreen
@@ -41,6 +42,7 @@ export default function Videos() {
                         className="w-full rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-video bg-black"
                     >
                         <iframe
+                            loading="lazy"
                             src="https://www.youtube.com/embed/MCXAOJ0Gfjw"
                             className="w-full h-full"
                             allowFullScreen

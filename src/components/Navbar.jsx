@@ -143,7 +143,7 @@ const Navbar = () => {
                                 )}
                             </AnimatePresence>
                         </div>
-                        <NavLink to="#">
+                        <NavLink to="/#identidad">
                             <span className="flex items-center gap-1.5">
                                 Lo que pensamos
                             </span>
@@ -153,7 +153,7 @@ const Navbar = () => {
                                 Quiénes somos
                             </span>
                         </NavLink>
-                        <button 
+                        <button
                             onClick={() => setIsServicesModalOpen(true)}
                             className="px-4 py-2 bg-gradient-to-r from-primary to-cyan-400 hover:from-primary/90 hover:to-cyan-300 text-black font-medium rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(2,223,130,0.5)] text-sm lg:text-base"
                         >
@@ -162,12 +162,14 @@ const Navbar = () => {
                     </div>
 
                     <div className="flex items-center">
-                        <button 
-                            onClick={() => setOpenProcess(true)} 
-                            className="text-white p-2 sm:p-2.5 hover:bg-white/10 rounded-lg transition-colors"
+                        <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => setOpenProcess(true)}
+                            className="text-white p-2 sm:p-2.5 hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
                         >
                             <Menu size={20} className="sm:w-6 sm:h-6" />
-                        </button>
+                        </motion.button>
                     </div>
                 </div>
             </div>

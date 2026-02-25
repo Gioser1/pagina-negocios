@@ -24,33 +24,36 @@ const ProcessModal = ({ onClose }) => {
     return createPortal(
         <AnimatePresence>
             <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
+                initial={{ clipPath: "circle(0% at calc(100% - 40px) 40px)", opacity: 0 }}
+                animate={{ clipPath: "circle(150% at calc(100% - 40px) 40px)", opacity: 1 }}
+                exit={{ clipPath: "circle(0% at calc(100% - 40px) 40px)", opacity: 0 }}
+                transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                 className="fixed inset-0 z-[99999] flex items-center justify-center bg-[#050505]/98 backdrop-blur-xl p-4 sm:p-8 overflow-y-auto"
             >
                 <div className="min-h-full w-full flex items-center justify-center py-10">
                     <motion.button
                         onClick={onClose}
                         className="fixed top-5 right-5 sm:top-8 sm:right-8 md:top-12 md:right-12 z-[999999] text-white hover:text-primary transition-colors p-2 sm:p-3 md:p-3 bg-white/5 rounded-full hover:bg-white/10 cursor-pointer backdrop-blur-md border border-white/10"
+                        initial={{ opacity: 0, rotate: -90, scale: 0 }}
+                        animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                        exit={{ opacity: 0, rotate: 90, scale: 0 }}
                         whileHover={{ scale: 1.1, rotate: 90 }}
                         whileTap={{ scale: 0.9 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.3 }}
                     >
                         <X size={24} className="sm:w-7 sm:h-7 md:w-8 md:h-8" />
                     </motion.button>
 
-                    <motion.div 
-                        initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9, y: 40 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.8, y: 20 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 30, duration: 0.5 }}
+                        exit={{ opacity: 0, scale: 0.9, y: 40 }}
+                        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
                         className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24 items-center mt-10 lg:mt-0"
                     >
 
                         {/* Columna Izquierda: Los Procesos */}
-                        <motion.div 
+                        <motion.div
                             initial={{ opacity: 0, x: -50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
@@ -85,7 +88,7 @@ const ProcessModal = ({ onClose }) => {
                         </motion.div>
 
                         {/* Columna Derecha: Avatar y Contacto */}
-                        <motion.div 
+                        <motion.div
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: 50 }}

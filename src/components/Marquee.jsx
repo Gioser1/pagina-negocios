@@ -27,29 +27,17 @@ const Marquee = () => {
             >
                 {marquees.map((item, index) => (
                     <div key={index} className="flex items-center space-x-12">
-                        <motion.span
-                            animate={{
-                                backgroundPosition: ["0% 50%", "200% 50%"],
-                                scale: [1, 1.05, 1, 1, 1]
-                            }}
-                            transition={{
-                                duration: 8,
-                                repeat: Infinity,
-                                ease: "linear",
-                                times: [0, 0.1, 0.2, 0.6, 1]
-                            }}
-                            className="text-transparent bg-clip-text bg-gradient-to-r from-white via-primary to-white bg-[length:200%_auto] text-lg sm:text-2xl md:text-3xl font-black uppercase tracking-widest drop-shadow-[0_0_10px_rgba(16,185,129,0.3)] cursor-pointer hover:scale-110 transition-transform"
+                        <span
+                            className="text-transparent bg-clip-text bg-gradient-to-r from-white via-primary to-white bg-[length:200%_auto] text-lg sm:text-2xl md:text-3xl font-black uppercase tracking-widest drop-shadow-[0_0_10px_rgba(16,185,129,0.3)] cursor-pointer transition-transform duration-300 hover:scale-110"
                         >
                             {item}
-                        </motion.span>
+                        </span>
                         {/* Separador (Estrella) */}
-                        <motion.span
-                            animate={{ rotate: 360 }}
-                            transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
-                            className="text-primary text-xl"
+                        <span
+                            className="text-primary text-xl animate-[spin_4s_linear_infinite]"
                         >
                             ✦
-                        </motion.span>
+                        </span>
                     </div>
                 ))}
             </motion.div>

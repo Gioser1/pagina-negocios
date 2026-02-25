@@ -1,44 +1,80 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 const teamList = [
     {
         id: 1,
         src: "/imagenes/Equipo/image00001.jpg",
         name: "Arlinson Posada",
-        role: "Desarrollador Senior",
-        description: "Arquitecto de código enfocado en soluciones escalables. Convierte problemas complejos en sistemas elegantes.",
-        skills: ["React", "Node.js", "Cloud"]
+        role: "Co Founder",
+        description: "Profesional en Costos y Presupuestos. Es un teso para los números. Le encanta salir a caminar con su mascota Chane. Si los algoritmos fallan, Chane tiene el plan B durante sus caminatas estratégicas.",
+        skills: ["Finanzas", "Costos", "Estrategia"]
     },
     {
         id: 2,
         src: "/imagenes/Equipo/image00002.jpeg",
-        name: "Especialista",
-        role: "Desarrollo Frontend",
-        description: "Maestro de las animaciones web y la interactividad fluida en el navegador.",
-        skills: ["Vue", "React"]
+        name: "Óscar Sánchez",
+        role: "Project Manager",
+        description: "Magister en IA. Docente Catedrático. Siempre tiene una sonrisa. Probablemente la IA le escribe los chistes, pero su sonrisa es 100% real (y contagiosa).",
+        skills: ["IA", "Gestión", "Liderazgo"]
     },
     {
         id: 3,
         src: "/imagenes/Equipo/image00003.jpg",
-        name: "Santiago Alvarez",
-        role: "Desarrollador UI/UX",
-        description: "Diseña experiencias digitales intuitivas y visualmente impactantes, fusionando estética moderna con usabilidad sin fricciones.",
-        skills: ["Figma", "TailwindCSS", "UX Research"]
+        name: "Santiago Durango",
+        role: "Diseñador UI/UX",
+        description: "Profesional UI/UX. También es músico. Hace que todo se vea bonito y fácil de usar, lo que explica por qué sus diseños siempre tienen 'buen ritmo'.",
+        skills: ["Figma", "UI/UX", "Creatividad"]
     },
     {
         id: 4,
         src: "/imagenes/Equipo/image00005.jpg",
-        name: "Deivis Jovan",
-        role: "CEO",
-        description: "Líder visionario y fundador. Impulsa la estrategia global de la empresa conectando talento excepcional con oportunidades de negocio transformadoras.",
-        skills: ["Liderazgo", "Estrategia", "Innovación"]
+        name: "Deivis Posada",
+        role: "CEO y FOUNDER",
+        description: "Magíster en Transformación Digital. Siempre sereno para tomar las decisiones. Tiene el súper poder de mantenerse increíblemente sereno mientras todo el código alrededor parece arder.",
+        skills: ["Liderazgo", "Transformación Digital"]
     },
-    { id: 5, src: "/imagenes/Equipo/image00006.jpeg", name: "Estratega", role: "Marketing Digital", description: "Growth hacker enfocado en la conversión y narrativas transmedia de alto impacto.", skills: ["SEO", "Analytics"] },
-    { id: 6, src: "/imagenes/Equipo/image00007.jpg", name: "Visionario", role: "Director Creativo", description: "El nexo artístico entre la identidad visual de la marca y su ejecución técnica.", skills: ["Branding", "Concept"] },
-    { id: 7, src: "/imagenes/Equipo/image00008.jpeg", name: "Productor", role: "Producción Audiovisual", description: "Capturando la esencia de cada historia corporativa con la lente perfecta.", skills: ["Premiere", "After Effects"] },
-    { id: 8, src: "/imagenes/Equipo/image00009.jpeg", name: "Líder", role: "Gestión de Proyectos", description: "El engranaje principal que asegura entregas a tiempo y con calidad insuperable.", skills: ["Agile", "Scrum"] },
+    {
+        id: 5,
+        src: "/imagenes/Equipo/image00006.jpeg",
+        name: "Laura Muñoz",
+        role: "Full Stack",
+        description: "Ingeniera de Datos y Software que deslumbra tanto con su deslumbrante belleza como con su brillante ingenio para dominar el código. Su compañera de viaje en la vida es Kira, su mascota (y la verdadera CEO en las sombras que aprueba el estilo de todos sus proyectos).",
+        skills: ["Software", "Datos", "Desarrollo"]
+    },
+    {
+        id: 6,
+        src: "/imagenes/Equipo/image00007.jpg",
+        name: "Esteban Muñeton",
+        role: "Apoyo Full Stack",
+        description: "Técnico en Desarollo de Software. Hombre de fe. Su pose para la sesión de foto no le favoreció. Juraba que le saldría su lado Brad Pitt... pero la cámara decidió otra cosa. Seguimos orando por esa foto.",
+        skills: ["Desarrollo", "Modelo en Prácticas"]
+    },
+    {
+        id: 7,
+        src: "/imagenes/Equipo/image00008.jpeg",
+        name: "Productor",
+        role: "Producción Audiovisual",
+        description: "Capturando la esencia de cada historia corporativa con la lente perfecta.",
+        skills: ["Premiere", "Media"]
+    },
+    {
+        id: 8,
+        src: "/imagenes/Equipo/image00009.jpeg",
+        name: "Lorena Isaza Gómez",
+        role: "Partner",
+        description: "Con una presencia espectacular que roba miradas y un talento nato para hacer brillar los proyectos. Le encanta ir al GYM para mantener esa figura increíble, y salir a caminar con su esposo y su bella hija para desconectarse de la Matrix.",
+        skills: ["Relaciones Públicas", "Networking"]
+    },
+    {
+        id: 9,
+        src: "/imagenes/Equipo/imagen00004.jpeg",
+        name: "Sindy Carvajal",
+        role: "Apoyo en diseño IU",
+        description: "Diseñadora gráfica IU y creadora de interfaces y diseños tan hermosos, deslumbrantes y perfectos como ella misma. Su gran sueño es viajar y conquistar toda Europa junto a sus padres (y de paso, enseñarle a los europeos un par de cosas sobre la verdadera elegancia y buen gusto).",
+        skills: ["Diseño IU", "Creatividad", "Viajes"]
+    },
 ];
 
 const variants = {
@@ -65,6 +101,7 @@ const swipePower = (offset, velocity) => {
 
 const About = () => {
     const [[page, direction], setPage] = useState([0, 0]);
+    const [selectedMember, setSelectedMember] = useState(null);
 
     // calculate items per page based on window width
     const [itemsPerPage, setItemsPerPage] = useState(3);
@@ -155,30 +192,38 @@ const About = () => {
                             {currentItems.map((member) => (
                                 <motion.div
                                     key={member.id}
-                                    className="relative group overflow-hidden rounded-[2rem] aspect-[4/5] flex-1 max-w-[350px] shadow-2xl bg-white/5 border border-white/10"
+                                    className="relative group overflow-hidden rounded-[2rem] aspect-[4/5] flex-1 max-w-[350px] shadow-2xl bg-white/5 border border-white/10 cursor-pointer"
+                                    onClick={() => setSelectedMember(member)}
                                     whileHover={{ y: -10 }}
                                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                                 >
                                     <img
                                         src={member.src}
                                         alt={`Miembro del equipo ${member.name || member.id}`}
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        className={`w-full h-full object-cover transition-transform duration-700 ${member.id === 9 ? 'scale-[1.25] group-hover:scale-[1.35] object-center' : 'group-hover:scale-110 object-top'}`}
                                     />
                                     {/* Capa de Información (Slide Up) */}
-                                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#050505] via-[#050505]/95 to-transparent pt-12 pb-6 px-6 sm:px-8 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                                        <div className="h-1 w-12 bg-primary mb-4 rounded-full shadow-[0_0_10px_rgba(2,223,130,0.6)]" />
-                                        <h4 className="text-white font-black text-2xl mb-1">{member.name}</h4>
-                                        <p className="text-primary text-xs font-bold uppercase tracking-wider mb-3">{member.role}</p>
-                                        <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3">
+                                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#050505] via-[#050505]/95 to-transparent pt-12 pb-6 px-6 sm:px-8 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out flex flex-col justify-end">
+                                        <div className="h-1 w-12 bg-primary mb-4 rounded-full shadow-[0_0_10px_rgba(2,223,130,0.6)] shrink-0" />
+                                        <h4 className="text-white font-black text-2xl mb-1 shrink-0">{member.name}</h4>
+                                        <p className="text-primary text-xs font-bold uppercase tracking-wider mb-3 shrink-0">{member.role}</p>
+
+                                        <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-2">
                                             {member.description}
                                         </p>
+
                                         {/* Insignias de Habilidades */}
-                                        <div className="flex flex-wrap gap-2">
-                                            {member.skills?.map((skill, idx) => (
+                                        <div className="flex flex-wrap gap-2 shrink-0">
+                                            {member.skills?.slice(0, 2).map((skill, idx) => (
                                                 <span key={idx} className="text-xs font-semibold px-2 py-1 bg-white/10 text-white rounded-md border border-white/10 backdrop-blur-sm">
                                                     {skill}
                                                 </span>
                                             ))}
+                                            {member.skills?.length > 2 && (
+                                                <span className="text-xs font-semibold px-2 py-1 bg-transparent text-primary">
+                                                    +{member.skills.length - 2}
+                                                </span>
+                                            )}
                                         </div>
                                     </div>
                                 </motion.div>
@@ -188,7 +233,7 @@ const About = () => {
 
                     {/* Controles del Carrusel (Izquierda/Derecha) */}
                     <motion.button
-                        animate={{ scale: [1, 1.15, 1], boxShadow: ["0px 0px 0px rgba(2,223,130,0)", "0px 0px 20px rgba(2,223,130,0.4)", "0px 0px 0px rgba(2,223,130,0)"] }}
+                        animate={{ scale: [1, 1.15, 1] }}
                         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                         className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center rounded-full bg-black/60 border border-white/10 text-white backdrop-blur-md hover:bg-primary hover:border-primary hover:text-black hover:scale-125 transition-all z-20 shadow-xl"
                         onClick={() => paginate(-1)}
@@ -196,7 +241,7 @@ const About = () => {
                         <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8" />
                     </motion.button>
                     <motion.button
-                        animate={{ scale: [1, 1.15, 1], boxShadow: ["0px 0px 0px rgba(2,223,130,0)", "0px 0px 20px rgba(2,223,130,0.4)", "0px 0px 0px rgba(2,223,130,0)"] }}
+                        animate={{ scale: [1, 1.15, 1] }}
                         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                         className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center rounded-full bg-black/60 border border-white/10 text-white backdrop-blur-md hover:bg-primary hover:border-primary hover:text-black hover:scale-125 transition-all z-20 shadow-xl"
                         onClick={() => paginate(1)}
@@ -221,6 +266,65 @@ const About = () => {
                 </div>
 
             </div>
+
+            {/* MODAL PARA MIEMBROS DEL EQUIPO */}
+            <AnimatePresence>
+                {selectedMember && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl"
+                        onClick={() => setSelectedMember(null)}
+                    >
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                            className="relative w-full max-w-4xl bg-[#0a0f1a] rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(2,223,130,0.15)] border border-white/10 flex flex-col md:flex-row max-h-[90vh]"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button
+                                onClick={() => setSelectedMember(null)}
+                                className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 hover:bg-primary/20 hover:text-primary text-white border border-white/10 transition-all backdrop-blur-md cursor-pointer"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+
+                            <div className="w-full md:w-2/5 h-64 md:h-auto overflow-hidden shrink-0 relative bg-black/50">
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1a] to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#0a0f1a] z-10" />
+                                <img
+                                    src={selectedMember.src}
+                                    alt={selectedMember.name}
+                                    className={`w-full h-full object-cover ${selectedMember.id === 9 ? 'scale-[1.25] object-center' : 'object-top'}`}
+                                />
+                            </div>
+
+                            <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center overflow-y-auto z-10">
+                                <div className="h-1 w-12 bg-primary mb-6 rounded-full shadow-[0_0_10px_rgba(2,223,130,0.6)]" />
+                                <h4 className="text-white font-black text-3xl sm:text-4xl mb-2 tracking-tight">{selectedMember.name}</h4>
+                                <p className="text-primary text-sm sm:text-base font-bold uppercase tracking-widest mb-6">{selectedMember.role}</p>
+
+                                <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-8 font-light">
+                                    {selectedMember.description}
+                                </p>
+
+                                <div className="mt-auto">
+                                    <h5 className="text-white/50 text-xs font-semibold uppercase tracking-widest mb-3">Áreas de Experiencia</h5>
+                                    <div className="flex flex-wrap gap-2">
+                                        {selectedMember.skills?.map((skill, idx) => (
+                                            <span key={idx} className="text-sm font-medium px-4 py-2 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white rounded-lg border border-white/10 transition-colors">
+                                                {skill}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </section>
     );
 };
