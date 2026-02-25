@@ -15,7 +15,7 @@ const WhatsAppButton = () => {
             href="https://wa.me/573025627200?text=Hola%2C%20me%20gustaría%20conocer%20más%20sobre%20vuestros%20servicios"
             target="_blank"
             rel="noopener noreferrer"
-            className="fixed bottom-8 right-8 z-50 flex items-center justify-center rounded-full"
+            className="fixed bottom-8 right-8 z-[1000] flex items-center justify-center rounded-full"
             animate={pulseAnimation}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             whileHover={{ scale: 1.15 }}

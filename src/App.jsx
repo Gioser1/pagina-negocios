@@ -13,6 +13,7 @@ import Marquee from "./components/Marquee";
 import ScrollToTop from "./components/ScrollToTop";
 import Cursor from "./components/Cursor";
 import PageTransition from "./components/PageTransition";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 // Paginas Servicios
 import Home from "./pages/Home";
@@ -84,6 +85,7 @@ function App() {
                 <Router>
                     <ScrollToTop />
                     <AnimatedRoutes />
+                    <WhatsAppButton />
                 </Router>
             )}
         </>
