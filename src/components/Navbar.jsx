@@ -3,6 +3,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ProcessModal from "./ProcessModal";
+import ServicesModal from "./ServicesModal";
 import { servicesData } from "../data/servicesData";
 
 const NavLink = ({ to, children }) => {
@@ -13,8 +14,6 @@ const NavLink = ({ to, children }) => {
             const element = document.getElementById(id);
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth' });
-                // Optional: update URL hash without scrolling jump
-                window.history.pushState(null, '', `/#${id}`);
             }
         }
     };
@@ -29,6 +28,7 @@ const NavLink = ({ to, children }) => {
 
 const Navbar = () => {
     const [openProcess, setOpenProcess] = useState(false);
+    const [isServicesModalOpen, setIsServicesModalOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [isServicesMenuOpen, setIsServicesMenuOpen] = useState(false);
     const { scrollY } = useScroll();
@@ -83,14 +83,14 @@ const Navbar = () => {
                         />
                     </Link>
 
-                    <div className="hidden md:flex items-center space-x-8">
+                    <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
                         <div
                             className="relative"
                             onMouseEnter={() => setIsServicesMenuOpen(true)}
                             onMouseLeave={() => setIsServicesMenuOpen(false)}
                         >
                             <NavLink to="#Descubre">
-                                <span className="flex items-center gap-1.5">
+                                <span className="flex items-center gap-1.5 text-sm lg:text-base">
                                     Nuestros Servicios
                                     <motion.div
                                         animate={{ rotate: isServicesMenuOpen ? 180 : 0 }}
@@ -146,7 +146,6 @@ const Navbar = () => {
                         <NavLink to="#">
                             <span className="flex items-center gap-1.5">
                                 Lo que pensamos
-                                <ChevronDown size={16} className="mt-0.5" />
                             </span>
                         </NavLink>
                         <NavLink to="/#about">
@@ -154,17 +153,20 @@ const Navbar = () => {
                                 Quiénes somos
                             </span>
                         </NavLink>
-                        <NavLink to="#">
-                            <span className="flex items-center gap-1.5">
-                                Empleo
-                                <ChevronDown size={16} className="mt-0.5" />
-                            </span>
-                        </NavLink>
+                        <button 
+                            onClick={() => setIsServicesModalOpen(true)}
+                            className="px-4 py-2 bg-gradient-to-r from-primary to-cyan-400 hover:from-primary/90 hover:to-cyan-300 text-black font-medium rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(2,223,130,0.5)] text-sm lg:text-base"
+                        >
+                            Descubre lo que hacemos
+                        </button>
                     </div>
 
                     <div className="flex items-center">
-                        <button onClick={() => setOpenProcess(true)} className="text-white p-2">
-                            <Menu size={24} />
+                        <button 
+                            onClick={() => setOpenProcess(true)} 
+                            className="text-white p-2 sm:p-2.5 hover:bg-white/10 rounded-lg transition-colors"
+                        >
+                            <Menu size={20} className="sm:w-6 sm:h-6" />
                         </button>
                     </div>
                 </div>
@@ -172,6 +174,9 @@ const Navbar = () => {
 
             {openProcess && (
                 <ProcessModal onClose={() => setOpenProcess(false)} />
+            )}
+            {isServicesModalOpen && (
+                <ServicesModal isOpen={isServicesModalOpen} onClose={() => setIsServicesModalOpen(false)} />
             )}
         </motion.nav>
     );

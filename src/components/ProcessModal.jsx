@@ -27,24 +27,37 @@ const ProcessModal = ({ onClose }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
                 className="fixed inset-0 z-[99999] flex items-center justify-center bg-[#050505]/98 backdrop-blur-xl p-4 sm:p-8 overflow-y-auto"
             >
                 <div className="min-h-full w-full flex items-center justify-center py-10">
                     <motion.button
                         onClick={onClose}
-                        className="fixed top-8 right-8 sm:top-12 sm:right-12 z-[999999] text-white hover:text-primary transition-colors p-3 bg-white/5 rounded-full hover:bg-white/10 cursor-pointer backdrop-blur-md border border-white/10"
+                        className="fixed top-5 right-5 sm:top-8 sm:right-8 md:top-12 md:right-12 z-[999999] text-white hover:text-primary transition-colors p-2 sm:p-3 md:p-3 bg-white/5 rounded-full hover:bg-white/10 cursor-pointer backdrop-blur-md border border-white/10"
                         whileHover={{ scale: 1.1, rotate: 90 }}
                         whileTap={{ scale: 0.9 }}
                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     >
-                        <X size={28} className="sm:w-8 sm:h-8" />
+                        <X size={24} className="sm:w-7 sm:h-7 md:w-8 md:h-8" />
                     </motion.button>
 
-                    <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center mt-10 lg:mt-0">
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.8, y: 20 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 30, duration: 0.5 }}
+                        className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24 items-center mt-10 lg:mt-0"
+                    >
 
                         {/* Columna Izquierda: Los Procesos */}
-                        <div className="flex flex-col space-y-6 lg:space-y-8 w-full max-w-2xl mx-auto">
-                            <h2 className="text-3xl sm:text-5xl font-black text-white mb-6 tracking-tight">Nuestro Proceso</h2>
+                        <motion.div 
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -50 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30, delay: 0.2 }}
+                            className="flex flex-col space-y-6 lg:space-y-8 w-full max-w-2xl mx-auto px-4 sm:px-0"
+                        >
+                            <h2 className="text-2xl sm:text-3xl md:text-5xl font-black text-white mb-4 sm:mb-6 tracking-tight">Nuestro Proceso</h2>
                             {steps.map((step, index) => (
                                 <div
                                     key={index}
@@ -69,16 +82,22 @@ const ProcessModal = ({ onClose }) => {
                                     </motion.div>
                                 </div>
                             ))}
-                        </div>
+                        </motion.div>
 
                         {/* Columna Derecha: Avatar y Contacto */}
-                        <div className="flex flex-col items-center justify-center bg-white/[0.02] border border-white/5 rounded-[2.5rem] p-8 sm:p-14 relative overflow-visible shadow-2xl w-full max-w-xl mx-auto">
+                        <motion.div 
+                            initial={{ opacity: 0, x: 50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 50 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30, delay: 0.3 }}
+                            className="flex flex-col items-center justify-center bg-white/[0.02] border border-white/5 rounded-2xl sm:rounded-[2.5rem] p-6 sm:p-8 md:p-14 relative overflow-visible shadow-2xl w-full max-w-xl mx-auto"
+                        >
                             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent pointer-events-none" />
 
                             {/* El Avatar - Clickeable */}
                             <motion.button
                                 onClick={() => setShowBubble(!showBubble)}
-                                className="relative mb-8 group focus:outline-none cursor-pointer"
+                                className="relative mb-6 sm:mb-8 group focus:outline-none cursor-pointer"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                             >
@@ -86,31 +105,31 @@ const ProcessModal = ({ onClose }) => {
                                 <img
                                     src="/imagenes/Avatar/AVATAR-Photoroom.png"
                                     alt="Avatar Olimpo Innova"
-                                    className="w-40 sm:w-56 relative z-10 object-contain transition-transform duration-700 group-hover:scale-105 group-hover:-translate-y-2"
+                                    className="w-32 sm:w-40 md:w-56 relative z-10 object-contain transition-transform duration-700 group-hover:scale-105 group-hover:-translate-y-2"
                                 />
                             </motion.button>
 
                             <div className="relative z-10 w-full text-center">
-                                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-8 tracking-wide">Ponte en contacto</h3>
+                                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-6 sm:mb-8 tracking-wide">Ponte en contacto</h3>
 
-                                <div className="grid gap-4 text-gray-300 text-sm sm:text-base">
-                                    <div className="flex items-center justify-center space-x-4 bg-white/5 p-4 rounded-2xl hover:bg-white/10 transition-colors cursor-pointer">
-                                        <span className="text-primary text-xl">✉</span>
-                                        <span className="font-medium tracking-wide">contactenos@olimpo-empresa.com</span>
+                                <div className="grid gap-3 sm:gap-4 text-gray-300 text-xs sm:text-sm md:text-base">
+                                    <div className="flex items-center justify-center space-x-3 sm:space-x-4 bg-white/5 p-3 sm:p-4 rounded-xl sm:rounded-2xl hover:bg-white/10 transition-colors cursor-pointer">
+                                        <span className="text-primary text-lg sm:text-xl flex-shrink-0">✉</span>
+                                        <span className="font-medium tracking-wide break-all">contactenos@olimpo-empresa.com</span>
                                     </div>
-                                    <div className="flex items-center justify-center space-x-4 bg-white/5 p-4 rounded-2xl hover:bg-white/10 transition-colors cursor-pointer">
-                                        <span className="text-primary text-xl">📱</span>
+                                    <div className="flex items-center justify-center space-x-3 sm:space-x-4 bg-white/5 p-3 sm:p-4 rounded-xl sm:rounded-2xl hover:bg-white/10 transition-colors cursor-pointer">
+                                        <span className="text-primary text-lg sm:text-xl flex-shrink-0">📱</span>
                                         <span className="font-medium tracking-wide">302 562 7200</span>
                                     </div>
-                                    <div className="flex items-center justify-center space-x-4 bg-white/5 p-4 rounded-2xl">
-                                        <span className="text-primary text-xl">🕒</span>
-                                        <span className="font-medium tracking-wide text-center">Lunes a Viernes <br className="sm:hidden" /> 8:00 AM - 6:00 PM</span>
+                                    <div className="flex items-center justify-center space-x-3 sm:space-x-4 bg-white/5 p-3 sm:p-4 rounded-xl sm:rounded-2xl">
+                                        <span className="text-primary text-lg sm:text-xl flex-shrink-0">🕒</span>
+                                        <span className="font-medium tracking-wide text-center text-xs sm:text-sm">Lunes a Viernes <br className="sm:hidden" /> 8:00 AM - 6:00 PM</span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
 
-                    </div>
+                    </motion.div>
                 </div>
 
                 {/* Chat Bubble */}

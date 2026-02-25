@@ -7,9 +7,6 @@ import { BrowserRouter as Router, Routes, Route, Outlet, useLocation } from "rea
 import Preloader from "./components/Preloader";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Hero from "./components/Hero";
-import Services from "./components/Services";
-import Marquee from "./components/Marquee";
 import ScrollToTop from "./components/ScrollToTop";
 import Cursor from "./components/Cursor";
 import PageTransition from "./components/PageTransition";

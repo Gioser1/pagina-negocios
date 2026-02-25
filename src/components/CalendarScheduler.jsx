@@ -59,7 +59,6 @@ const CalendarScheduler = ({ isOpen, onClose }) => {
     const handleConfirm = () => {
         if (selectedDate && selectedTime) {
             const fullDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), selectedDate);
-            console.log(`Cita agendada: ${fullDate.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} a las ${selectedTime}`);
             alert(`¡Cita agendada para ${fullDate.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} a las ${selectedTime}!`);
             onClose();
             setSelectedDate(null);
@@ -81,14 +80,14 @@ const CalendarScheduler = ({ isOpen, onClose }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 flex items-center justify-center z-[200] p-4"
+            className="fixed inset-0 bg-black/50 flex items-center justify-center z-[200] p-3 sm:p-4"
             onClick={onClose}
         >
             <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                className="bg-dark-100 rounded-3xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto relative"
+                className="bg-dark-100 rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto relative"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Botón cerrar */}
@@ -101,11 +100,11 @@ const CalendarScheduler = ({ isOpen, onClose }) => {
                     </svg>
                 </button>
 
-                <h2 className="text-3xl font-black text-white mb-8 text-center">
+                <h2 className="text-2xl sm:text-3xl font-black text-white mb-6 sm:mb-8 text-center">
                     Agenda una <span className="text-primary">llamada</span>
                 </h2>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
                     {/* Calendario */}
                     <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
                         {/* Navegación de mes */}
@@ -184,7 +183,7 @@ const CalendarScheduler = ({ isOpen, onClose }) => {
                     <div className="flex flex-col">
                         <h3 className="text-white font-bold mb-4">Selecciona una hora</h3>
                         {selectedDate ? (
-                            <div className="grid grid-cols-2 gap-3 mb-8">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 mb-6 sm:mb-8">
                                 {timeSlots.map((time) => (
                                     <button
                                         key={time}

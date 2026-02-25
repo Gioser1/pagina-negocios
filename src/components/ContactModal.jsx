@@ -67,7 +67,6 @@ const ContactModal = ({ isOpen, onClose }) => {
                 onClose(); // Cerrar el modal después de éxito
             }, 2000);
         } catch (error) {
-            console.error(error);
             setStatus("error");
         }
     };
@@ -85,7 +84,7 @@ const ContactModal = ({ isOpen, onClose }) => {
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-start md:items-center justify-center px-4 sm:px-6 py-6 md:py-12 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <div className="fixed inset-0 z-50 flex items-start md:items-center justify-center px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-12 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                     {/* Overlay oscuro desenfocado */}
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -101,36 +100,36 @@ const ContactModal = ({ isOpen, onClose }) => {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
                         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                        className="relative w-full max-w-5xl bg-dark-900 border border-dark-100/50 rounded-3xl overflow-hidden shadow-2xl flex flex-col h-auto my-auto"
+                        className="relative w-full max-w-5xl bg-dark-900 border border-dark-100/50 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl flex flex-col h-auto my-auto"
                     >
                         {/* Botón Cerrar (Sticky para fácil acceso) */}
-                        <div className="absolute top-4 right-4 z-20">
+                        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20">
                             <button
                                 onClick={onClose}
-                                className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-colors border border-white/10 shadow-lg"
+                                className="w-9 h-9 sm:w-10 sm:h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-colors border border-white/10 shadow-lg"
                             >
-                                <X size={20} />
+                                <X size={18} className="sm:w-5 sm:h-5" />
                             </button>
                         </div>
 
                         {/* Contenido */}
-                        <div className="p-6 md:p-10 relative">
+                        <div className="p-5 sm:p-6 md:p-10 relative">
                             {/* Decorative blurs */}
                             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-[80px] pointer-events-none -mr-20 -mt-20"></div>
                             <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-600/10 rounded-full blur-[80px] pointer-events-none -ml-20 -mb-20"></div>
 
                             {/* Título principal */}
-                            <div className="relative text-center mb-10 z-10 hidden md:block">
-                                <h2 className="text-3xl md:text-4xl font-black mb-3 text-white">
+                            <div className="relative text-center mb-8 sm:mb-10 z-10 hidden md:block">
+                                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-3 text-white">
                                     Contáctanos <span className="text-primary">directamente</span>
                                 </h2>
-                                <p className="text-gray-300 max-w-xl mx-auto text-sm md:text-base">
+                                <p className="text-gray-300 max-w-xl mx-auto text-xs sm:text-sm md:text-base">
                                     Estamos listos para resolver tus dudas o iniciar un nuevo proyecto.
                                 </p>
                             </div>
 
                             {/* Grid con Mapa y Formulario */}
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 relative z-10">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 relative z-10">
                                 {/* Columna Izquierda - Mapa (Ocultar en móviles muy pequeños para ahorrar espacio vertical si prefieres, 
                                      ahora lo mantendremos pero con menor altura) */}
                                 <motion.div
@@ -140,23 +139,23 @@ const ContactModal = ({ isOpen, onClose }) => {
                                     className="flex flex-col gap-5 order-2 lg:order-1"
                                 >
                                     {/* Dirección */}
-                                    <div className="bg-white/5 border border-white/10 rounded-2xl p-5">
-                                        <h3 className="text-white font-bold text-lg mb-2">Ubicación</h3>
-                                        <p className="text-gray-300 text-sm mb-3">
+                                    <div className="bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-5">
+                                        <h3 className="text-white font-bold text-base sm:text-lg mb-2">Ubicación</h3>
+                                        <p className="text-gray-300 text-xs sm:text-sm mb-3">
                                             Cl 19 #57-20, Guayabal, Medellín, Antioquia
                                         </p>
                                         <a
                                             href="https://maps.google.com/?q=Cl+19+%2357-20,+Guayabal,+Medellín"
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-primary hover:text-emerald-400 font-medium text-sm transition-colors"
+                                            className="text-primary hover:text-emerald-400 font-medium text-xs sm:text-sm transition-colors"
                                         >
                                             Ver en Google Maps &rarr;
                                         </a>
                                     </div>
 
                                     {/* Mapa Compacto */}
-                                    <div className="rounded-2xl overflow-hidden shadow-lg h-[250px] lg:h-full lg:min-h-[300px]">
+                                    <div className="rounded-xl sm:rounded-2xl overflow-hidden shadow-lg h-[200px] sm:h-[250px] lg:h-full lg:min-h-[300px]">
                                         <iframe
                                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.3219474939936!2d-75.55274932346812!3d6.227766924749162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4429e37e48e4c3%3A0x1234567890abcdef!2sCl%2019%20%2357-20%2C%20Guayabal%2C%20Medell%C3%ADn!5e0!3m2!1ses!2sco!4v1700000000000"
                                             width="100%"
@@ -177,8 +176,8 @@ const ContactModal = ({ isOpen, onClose }) => {
                                     initial="hidden"
                                     animate="visible"
                                 >
-                                    <div className="md:hidden text-left mb-6 mt-2">
-                                        <h2 className="text-2xl font-black text-white">
+                                    <div className="md:hidden text-left mb-4 sm:mb-6 mt-2">
+                                        <h2 className="text-xl sm:text-2xl font-black text-white">
                                             Contáctanos
                                         </h2>
                                     </div>

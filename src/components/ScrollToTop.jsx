@@ -5,16 +5,9 @@ export default function ScrollToTop() {
     const { pathname, hash } = useLocation();
 
     useEffect(() => {
-        if (hash) {
-            // Pequeño timeout para permitir que React renderice la nueva página antes de scrollear
-            setTimeout(() => {
-                const element = document.getElementById(hash.replace('#', ''));
-                if (element) element.scrollIntoView({ behavior: 'smooth' });
-            }, 100);
-        } else {
-            window.scrollTo(0, 0);
-        }
-    }, [pathname, hash]);
+        // Solo scrollea al top si la ruta cambia, sin importar el hash
+        window.scrollTo(0, 0);
+    }, [pathname]);
 
     return null;
 }

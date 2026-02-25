@@ -10,7 +10,7 @@ const Footer = () => {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
+                <div className="flex flex-col gap-12 md:gap-8 mb-16">
                     {/* Sección de Contacto (Izquierda) */}
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
@@ -73,7 +73,7 @@ const Footer = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                        className="flex flex-row space-x-12 md:space-x-24"
+                        className="grid grid-cols-2 gap-8 md:flex md:flex-row md:space-x-24 w-full md:w-auto"
                     >
                         <div>
                             <h4 className="text-sm tracking-wider uppercase font-semibold mb-6 text-gray-400">Navegación</h4>
