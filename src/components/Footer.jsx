@@ -5,7 +5,7 @@ import { navLinks, legalLinks } from "../data/navData";
 
 const Footer = () => {
     return (
-        <footer className="bg-[#050505] text-white pt-20 pb-10 border-t border-white/5 relative overflow-hidden">
+        <footer id="Descubre" className="bg-[#050505] text-white pt-20 pb-10 border-t border-white/5 relative overflow-hidden">
             {/* Sutil glow superior */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
 

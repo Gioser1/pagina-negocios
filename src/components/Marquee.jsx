@@ -28,9 +28,17 @@ const Marquee = () => {
                 {marquees.map((item, index) => (
                     <div key={index} className="flex items-center space-x-12">
                         <motion.span
-                            animate={{ backgroundPosition: ["0% 50%", "200% 50%"] }}
-                            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                            className="text-transparent bg-clip-text bg-gradient-to-r from-white via-primary to-white bg-[length:200%_auto] text-2xl md:text-3xl font-black uppercase tracking-widest drop-shadow-[0_0_10px_rgba(16,185,129,0.3)]"
+                            animate={{
+                                backgroundPosition: ["0% 50%", "200% 50%"],
+                                scale: [1, 1.05, 1, 1, 1]
+                            }}
+                            transition={{
+                                duration: 8,
+                                repeat: Infinity,
+                                ease: "linear",
+                                times: [0, 0.1, 0.2, 0.6, 1]
+                            }}
+                            className="text-transparent bg-clip-text bg-gradient-to-r from-white via-primary to-white bg-[length:200%_auto] text-2xl md:text-3xl font-black uppercase tracking-widest drop-shadow-[0_0_10px_rgba(16,185,129,0.3)] cursor-pointer hover:scale-110 transition-transform"
                         >
                             {item}
                         </motion.span>

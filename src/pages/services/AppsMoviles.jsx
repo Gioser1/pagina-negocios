@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import ContactModal from "../../components/ContactModal";
 
 const AppsMoviles = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <main className="min-h-screen pt-28 md:pt-32 pb-20 md:pb-24">
             {/* Hero del Servicio */}
@@ -27,7 +31,7 @@ const AppsMoviles = () => {
                         </motion.span>
                         <motion.h1
                             variants={{ hidden: { opacity: 0, y: 30, scale: 0.95 }, visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 20 } } }}
-                            className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-fuchsia-200 to-white bg-[length:200%_auto] mb-6 tracking-tight leading-tight"
+                            className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-fuchsia-200 to-white bg-[length:200%_auto] mb-6 tracking-tight leading-tight pb-2 md:pb-4"
                             animate={{ backgroundPosition: ["0% 50%", "200% 50%"] }}
                             transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
                         >
@@ -60,7 +64,7 @@ const AppsMoviles = () => {
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.5 }}
-                                    className="text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-400 to-white bg-[length:200%_auto]"
+                                    className="text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-400 to-white bg-[length:200%_auto] pb-2 md:pb-4"
                                     animate={{ backgroundPosition: ["0% 50%", "200% 50%"] }}
                                     style={{ animationDuration: "5s", animationIterationCount: "infinite", animationTimingFunction: "linear" }}
                                 >
@@ -81,7 +85,7 @@ const AppsMoviles = () => {
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.5 }}
-                                    className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-400 to-white bg-[length:200%_auto]"
+                                    className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-400 to-white bg-[length:200%_auto] pb-2 md:pb-4"
                                     animate={{ backgroundPosition: ["0% 50%", "200% 50%"] }}
                                     style={{ animationDuration: "5s", animationIterationCount: "infinite", animationTimingFunction: "linear" }}
                                 >
@@ -99,9 +103,9 @@ const AppsMoviles = () => {
                                 </div>
 
                                 <div className="flex flex-col sm:flex-row items-center sm:space-x-4 space-y-4 sm:space-y-0 border-t border-white/10 pt-8 mt-8">
-                                    <Link to="/#contact" className="w-full sm:w-auto text-center px-6 py-3 sm:px-8 sm:py-4 bg-primary text-gray-900 font-bold rounded-xl hover:bg-emerald-500 transition-colors">
+                                    <button onClick={() => setIsModalOpen(true)} className="w-full sm:w-auto text-center px-6 py-3 sm:px-8 sm:py-4 bg-primary text-gray-900 font-bold rounded-xl hover:bg-emerald-500 transition-colors">
                                         Solicitar Presupuesto
-                                    </Link>
+                                    </button>
                                     <Link to="/" className="w-full sm:w-auto text-center px-6 py-3 sm:px-8 sm:py-4 bg-white/5 text-gray-300 font-medium rounded-xl hover:bg-white/10 transition-colors">
                                         Volver atrás
                                     </Link>
@@ -150,6 +154,8 @@ const AppsMoviles = () => {
 
                 </div>
             </section>
+
+            <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </main>
     );
 };

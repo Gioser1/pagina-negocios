@@ -1,8 +1,8 @@
 // Enlaces principales de navegación compartidos entre Navbar y Footer
 export const navLinks = [
-    { title: "Servicios", path: "/#services" },
+    { title: "Servicios", path: "/#Services" },
     { title: "Proceso", path: "/#process" },
-    { title: "Contacto", path: "/#contact" }
+    { title: "Contacto", path: "/#Descubre" }
 ];
 
 // Enlaces legales para el Footer

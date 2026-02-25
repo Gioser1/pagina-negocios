@@ -3,14 +3,42 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const teamList = [
-    { id: 1, src: "/imagenes/Equipo/image00001.jpg", role: "Estratega" },
-    { id: 2, src: "/imagenes/Equipo/image00002.jpeg", role: "Diseño UI/UX" },
-    { id: 3, src: "/imagenes/Equipo/image00003.jpg", role: "Desarrollo Frontend" },
-    { id: 4, src: "/imagenes/Equipo/image00005.jpg", role: "Desarrollo Backend" },
-    { id: 5, src: "/imagenes/Equipo/image00006.jpeg", role: "Marketing Digital" },
-    { id: 6, src: "/imagenes/Equipo/image00007.jpg", role: "Director Creativo" },
-    { id: 7, src: "/imagenes/Equipo/image00008.jpeg", role: "Producción Audiovisual" },
-    { id: 8, src: "/imagenes/Equipo/image00009.jpeg", role: "Gestión de Proyectos" },
+    {
+        id: 1,
+        src: "/imagenes/Equipo/image00001.jpg",
+        name: "Arlinson Posada",
+        role: "Desarrollador Senior",
+        description: "Arquitecto de código enfocado en soluciones escalables. Convierte problemas complejos en sistemas elegantes.",
+        skills: ["React", "Node.js", "Cloud"]
+    },
+    {
+        id: 2,
+        src: "/imagenes/Equipo/image00002.jpeg",
+        name: "Especialista",
+        role: "Desarrollo Frontend",
+        description: "Maestro de las animaciones web y la interactividad fluida en el navegador.",
+        skills: ["Vue", "React"]
+    },
+    {
+        id: 3,
+        src: "/imagenes/Equipo/image00003.jpg",
+        name: "Santiago Alvarez",
+        role: "Desarrollador UI/UX",
+        description: "Diseña experiencias digitales intuitivas y visualmente impactantes, fusionando estética moderna con usabilidad sin fricciones.",
+        skills: ["Figma", "TailwindCSS", "UX Research"]
+    },
+    {
+        id: 4,
+        src: "/imagenes/Equipo/image00005.jpg",
+        name: "Deivis Jovan",
+        role: "CEO",
+        description: "Líder visionario y fundador. Impulsa la estrategia global de la empresa conectando talento excepcional con oportunidades de negocio transformadoras.",
+        skills: ["Liderazgo", "Estrategia", "Innovación"]
+    },
+    { id: 5, src: "/imagenes/Equipo/image00006.jpeg", name: "Estratega", role: "Marketing Digital", description: "Growth hacker enfocado en la conversión y narrativas transmedia de alto impacto.", skills: ["SEO", "Analytics"] },
+    { id: 6, src: "/imagenes/Equipo/image00007.jpg", name: "Visionario", role: "Director Creativo", description: "El nexo artístico entre la identidad visual de la marca y su ejecución técnica.", skills: ["Branding", "Concept"] },
+    { id: 7, src: "/imagenes/Equipo/image00008.jpeg", name: "Productor", role: "Producción Audiovisual", description: "Capturando la esencia de cada historia corporativa con la lente perfecta.", skills: ["Premiere", "After Effects"] },
+    { id: 8, src: "/imagenes/Equipo/image00009.jpeg", name: "Líder", role: "Gestión de Proyectos", description: "El engranaje principal que asegura entregas a tiempo y con calidad insuperable.", skills: ["Agile", "Scrum"] },
 ];
 
 const variants = {
@@ -133,15 +161,24 @@ const About = () => {
                                 >
                                     <img
                                         src={member.src}
-                                        alt={`Miembro del equipo ${member.id}`}
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter saturate-50 hover:saturate-100"
+                                        alt={`Miembro del equipo ${member.name || member.id}`}
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     />
-                                    {/* Overlay Gradient y Detalles */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 sm:p-8">
-                                        <div className="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                                            <div className="w-10 h-1 bg-primary mb-4 rounded-full shadow-[0_0_10px_rgba(2,223,130,0.8)]" />
-                                            <h4 className="text-white font-black text-2xl mb-1">{member.role}</h4>
-                                            <p className="text-primary font-medium tracking-wide text-xs uppercase">Especialista</p>
+                                    {/* Capa de Información (Slide Up) */}
+                                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#050505] via-[#050505]/95 to-transparent pt-12 pb-6 px-6 sm:px-8 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                                        <div className="h-1 w-12 bg-primary mb-4 rounded-full shadow-[0_0_10px_rgba(2,223,130,0.6)]" />
+                                        <h4 className="text-white font-black text-2xl mb-1">{member.name}</h4>
+                                        <p className="text-primary text-xs font-bold uppercase tracking-wider mb-3">{member.role}</p>
+                                        <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3">
+                                            {member.description}
+                                        </p>
+                                        {/* Insignias de Habilidades */}
+                                        <div className="flex flex-wrap gap-2">
+                                            {member.skills?.map((skill, idx) => (
+                                                <span key={idx} className="text-xs font-semibold px-2 py-1 bg-white/10 text-white rounded-md border border-white/10 backdrop-blur-sm">
+                                                    {skill}
+                                                </span>
+                                            ))}
                                         </div>
                                     </div>
                                 </motion.div>
@@ -150,18 +187,22 @@ const About = () => {
                     </AnimatePresence>
 
                     {/* Controles del Carrusel (Izquierda/Derecha) */}
-                    <button
-                        className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center rounded-full bg-black/60 border border-white/10 text-white backdrop-blur-md hover:bg-primary hover:border-primary hover:text-black hover:scale-110 transition-all z-20 shadow-xl"
+                    <motion.button
+                        animate={{ scale: [1, 1.15, 1], boxShadow: ["0px 0px 0px rgba(2,223,130,0)", "0px 0px 20px rgba(2,223,130,0.4)", "0px 0px 0px rgba(2,223,130,0)"] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center rounded-full bg-black/60 border border-white/10 text-white backdrop-blur-md hover:bg-primary hover:border-primary hover:text-black hover:scale-125 transition-all z-20 shadow-xl"
                         onClick={() => paginate(-1)}
                     >
                         <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8" />
-                    </button>
-                    <button
-                        className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center rounded-full bg-black/60 border border-white/10 text-white backdrop-blur-md hover:bg-primary hover:border-primary hover:text-black hover:scale-110 transition-all z-20 shadow-xl"
+                    </motion.button>
+                    <motion.button
+                        animate={{ scale: [1, 1.15, 1], boxShadow: ["0px 0px 0px rgba(2,223,130,0)", "0px 0px 20px rgba(2,223,130,0.4)", "0px 0px 0px rgba(2,223,130,0)"] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                        className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center rounded-full bg-black/60 border border-white/10 text-white backdrop-blur-md hover:bg-primary hover:border-primary hover:text-black hover:scale-125 transition-all z-20 shadow-xl"
                         onClick={() => paginate(1)}
                     >
                         <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8" />
-                    </button>
+                    </motion.button>
                 </div>
 
                 {/* Puntos de Paginación */}

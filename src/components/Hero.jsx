@@ -109,7 +109,7 @@ const Hero = () => {
 
                 <motion.div
                     variants={itemVariants}
-                    className="flex flex-col sm:flex-row items-start gap-6"
+                    className="flex flex-col sm:flex-row items-start gap-6 mt-16"
                 >
                     <motion.button
                         onClick={() => setIsCalendarOpen(true)}
@@ -119,34 +119,6 @@ const Hero = () => {
                     >
                         Agenda una llamada
                     </motion.button>
-                </motion.div>
-
-                <motion.div variants={itemVariants} className="mt-16 flex flex-col items-start w-full">
-                    <span className="text-gray-400 mb-6 text-sm md:text-base font-bold tracking-[0.2em] uppercase border-l-4 border-primary pl-3">
-                        Nuestros Servicios
-                    </span>
-                    <div className="flex flex-wrap gap-3 sm:gap-4 md:gap-5 w-full">
-                        {servicesData.map((service) => (
-                            <Link
-                                to={`/services/${service.slug}`}
-                                key={service.slug}
-                                className="group relative flex items-center justify-center px-4 py-2 sm:px-5 sm:py-2.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full hover:bg-primary/10 hover:border-primary/50 transition-all duration-300 overflow-hidden"
-                            >
-                                {/* Fondo de hover animado */}
-                                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                                {/* Contenedor texto/icono */}
-                                <div className="relative z-10 flex items-center gap-2">
-                                    <span className="w-0 overflow-hidden group-hover:w-4 transition-all duration-300 text-primary opacity-0 group-hover:opacity-100 flex items-center justify-center">
-                                        <svg className="w-3.5 h-3.5 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7"></path></svg>
-                                    </span>
-                                    <span className="text-white/80 group-hover:text-white font-medium text-xs sm:text-sm md:text-base transition-colors duration-300 whitespace-nowrap">
-                                        {service.title}
-                                    </span>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
                 </motion.div>
 
                 <CalendarScheduler isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />

@@ -89,7 +89,7 @@ const Navbar = () => {
                             onMouseEnter={() => setIsServicesMenuOpen(true)}
                             onMouseLeave={() => setIsServicesMenuOpen(false)}
                         >
-                            <NavLink to="#services">
+                            <NavLink to="#Descubre">
                                 <span className="flex items-center gap-1.5">
                                     Nuestros Servicios
                                     <motion.div

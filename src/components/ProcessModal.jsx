@@ -30,12 +30,15 @@ const ProcessModal = ({ onClose }) => {
                 className="fixed inset-0 z-[99999] flex items-center justify-center bg-[#050505]/98 backdrop-blur-xl p-4 sm:p-8 overflow-y-auto"
             >
                 <div className="min-h-full w-full flex items-center justify-center py-10">
-                    <button
+                    <motion.button
                         onClick={onClose}
-                        className="fixed top-6 right-6 sm:top-8 sm:right-8 text-white hover:text-primary transition-colors p-3 bg-white/5 rounded-full hover:bg-white/10 z-50"
+                        className="fixed top-8 right-8 sm:top-12 sm:right-12 z-[999999] text-white hover:text-primary transition-colors p-3 bg-white/5 rounded-full hover:bg-white/10 cursor-pointer backdrop-blur-md border border-white/10"
+                        whileHover={{ scale: 1.1, rotate: 90 }}
+                        whileTap={{ scale: 0.9 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     >
-                        <X size={32} />
-                    </button>
+                        <X size={28} className="sm:w-8 sm:h-8" />
+                    </motion.button>
 
                     <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center mt-10 lg:mt-0">
 
@@ -47,8 +50,8 @@ const ProcessModal = ({ onClose }) => {
                                     key={index}
                                     onMouseEnter={() => setActive(index)}
                                     className={`cursor-pointer transition-all duration-300 border-l-4 pl-6 sm:pl-8 py-2 ${active === index
-                                            ? "border-primary text-white scale-[1.02] bg-white/[0.02]"
-                                            : "border-gray-800 text-gray-500 hover:text-gray-400"
+                                        ? "border-primary text-white scale-[1.02] bg-white/[0.02]"
+                                        : "border-gray-800 text-gray-500 hover:text-gray-400"
                                         }`}
                                 >
                                     <div className={`text-xl sm:text-2xl font-black mb-2 flex items-center gap-4 transition-colors ${active === index ? "text-primary" : ""}`}>

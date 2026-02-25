@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import ContactModal from "../../components/ContactModal";
 
 const DesarrolloSoftware = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <main className="min-h-screen pt-28 md:pt-32 pb-20 md:pb-24">
             {/* Hero del Servicio */}
@@ -29,7 +33,7 @@ const DesarrolloSoftware = () => {
                         </motion.span>
                         <motion.h1
                             variants={{ hidden: { opacity: 0, y: 30, scale: 0.95 }, visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 20 } } }}
-                            className="text-4xl sm:text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-white bg-[length:200%_auto] mb-8 tracking-tight leading-[1.1]"
+                            className="text-4xl sm:text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-white bg-[length:200%_auto] mb-8 tracking-tight leading-[1.1] pb-2 md:pb-4"
                             animate={{ backgroundPosition: ["0% 50%", "200% 50%"] }}
                             transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
                         >
@@ -111,9 +115,9 @@ const DesarrolloSoftware = () => {
                                 </div>
 
                                 <div className="flex flex-col sm:flex-row items-center sm:space-x-4 space-y-4 sm:space-y-0 pt-8 mt-4 border-t border-white/10">
-                                    <Link to="/#contact" className="w-full sm:w-auto text-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-400 text-white font-bold rounded-xl hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-all hover:-translate-y-1">
+                                    <button onClick={() => setIsModalOpen(true)} className="w-full sm:w-auto text-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-400 text-white font-bold rounded-xl hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-all hover:-translate-y-1">
                                         Iniciar Proyecto
-                                    </Link>
+                                    </button>
                                     <Link to="/" className="w-full sm:w-auto text-center px-8 py-4 bg-white/5 text-gray-300 font-medium rounded-xl hover:bg-white/10 transition-colors">
                                         Volver al Inicio
                                     </Link>
@@ -165,6 +169,8 @@ const DesarrolloSoftware = () => {
 
                 </div>
             </section>
+
+            <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </main>
     );
 };
