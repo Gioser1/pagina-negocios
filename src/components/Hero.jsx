@@ -75,20 +75,19 @@ const Hero = () => {
                 </motion.div>
             )}
 
-            {/* Video de fondo como marca de agua */}
-            <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-                <motion.video
-                    src={`${import.meta.env.BASE_URL}videos/logo.mp4`}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
+            {/* Imagen logo2 de fondo como marca de agua */}
+            <motion.div 
+                className="absolute inset-0 pointer-events-none z-0 overflow-hidden"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.15 }}
+                transition={{ duration: 1.5 }}
+            >
+                <img 
+                    src={`${import.meta.env.BASE_URL}imagenes/Logos/logo2.jpeg`}
+                    alt="Background Logo"
                     className="w-full h-full object-cover"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 0.1 }}
-                    transition={{ duration: 1.5 }}
                 />
-            </div>
+            </motion.div>
 
             <motion.div
                 className="relative z-10 w-full max-w-6xl px-4 sm:px-8 lg:px-12 text-left flex flex-col justify-center"
