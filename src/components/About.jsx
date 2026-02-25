@@ -54,10 +54,10 @@ const teamList = [
     {
         id: 7,
         src: "/imagenes/Equipo/image00008.jpeg",
-        name: "Productor",
-        role: "Producción Audiovisual",
-        description: "Capturando la esencia de cada historia corporativa con la lente perfecta.",
-        skills: ["Premiere", "Media"]
+        name: "Alejandro Mejía",
+        role: "Apoyo Full Stack",
+        description: "Ingeniero de Sistemas. Siempre tiene una idea tecnológica revolucionaria para cambiar el mundo; ahora solo le falta tiempo, financiamiento y convencer al resto del equipo de que no es una locura.",
+        skills: ["Sistemas", "Desarrollo", "Ideas Locas"]
     },
     {
         id: 8,

@@ -1,6 +1,5 @@
 import Hero from "../components/Hero";
 import Marquee from "../components/Marquee";
-import Descubre from "../components/Descubre";
 import CorporateIdentity from "../components/CorporateIdentity";
 import About from "../components/About";
 import Videos from "../components/Videos";
@@ -14,14 +13,11 @@ const Home = () => {
             {/* Scrolling Banner */}
             <Marquee />
 
-            {/* Nueva Sección: Descubre lo que hacemos (Routing a Servicios) */}
-            <Descubre />
+            {/* 3. Quiénes somos: Nuestro equipo y visión */}
+            <About />
 
             {/* Misión, Visión y Valores */}
             <CorporateIdentity />
-
-            {/* 3. Quiénes somos: Nuestro equipo y visión */}
-            <About />
 
             {/* 4. Audiovisual: Nuestros Trabajos */}
             <Videos />
