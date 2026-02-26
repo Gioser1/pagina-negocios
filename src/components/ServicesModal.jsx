@@ -44,7 +44,7 @@ const servicesData = [
 ];
 
 const ServicesModal = ({ isOpen, onClose }) => {
-    const [selectedService, setSelectedService] = useState(null);
+    const [hoveredService, setHoveredService] = useState(null);
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -107,90 +107,69 @@ const ServicesModal = ({ isOpen, onClose }) => {
                         animate="visible"
                     >
                         {servicesData.map((service, index) => (
-                            <motion.button
+                            <div
                                 key={index}
-                                variants={itemVariants}
-                                onClick={() => setSelectedService(service)}
-                                whileHover={{ y: -8, scale: 1.02 }}
-                                className="relative group text-left h-full"
+                                onMouseEnter={() => setHoveredService(index)}
+                                onMouseLeave={() => setHoveredService(null)}
+                                className="relative"
                             >
-                                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500 z-0"></div>
+                                <motion.button
+                                    variants={itemVariants}
+                                    whileHover={{ y: -8, scale: 1.02 }}
+                                    className="relative group text-left h-full w-full"
+                                >
+                                    <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500 z-0"></div>
 
-                                <div className="relative z-10 bg-[#111827]/90 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 group-hover:bg-[#1f2937]/95 group-hover:border-blue-500/40 flex flex-col gap-4 h-full">
-                                    <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                                    <div className="relative z-10 bg-[#111827]/90 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 group-hover:bg-[#1f2937]/95 group-hover:border-blue-500/40 flex flex-col gap-4 h-full">
+                                        <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                                    <div className="text-blue-400 bg-blue-500/10 p-3 rounded-lg group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300 w-fit">
-                                        {service.icon}
+                                        <div className="text-blue-400 bg-blue-500/10 p-3 rounded-lg group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300 w-fit">
+                                            {service.icon}
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-xl sm:text-2xl font-bold mb-2 group-hover:text-blue-400 transition-colors duration-300">
+                                                {service.title}
+                                            </h3>
+                                            <p className="text-gray-400 text-sm group-hover:text-gray-200 transition-colors duration-300">
+                                                {service.description}
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-auto pt-4 text-blue-400 font-semibold text-sm">
+                                            Ver más →
+                                        </div>
                                     </div>
+                                </motion.button>
 
-                                    <div>
-                                        <h3 className="text-xl sm:text-2xl font-bold mb-2 group-hover:text-blue-400 transition-colors duration-300">
-                                            {service.title}
-                                        </h3>
-                                        <p className="text-gray-400 text-sm group-hover:text-gray-200 transition-colors duration-300">
-                                            {service.description}
-                                        </p>
-                                    </div>
-
-                                    <div className="mt-auto pt-4 text-blue-400 font-semibold text-sm">
-                                        Ver más →
-                                    </div>
-                                </div>
-                            </motion.button>
+                                {/* Tooltip con descripción detallada */}
+                                <AnimatePresence>
+                                    {hoveredService === index && (
+                                        <motion.div
+                                            initial={{ opacity: 0, x: -10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: -10 }}
+                                            transition={{ duration: 0.2 }}
+                                            className="absolute top-0 left-full ml-4 z-50 w-72"
+                                        >
+                                            <div className="bg-gradient-to-r from-blue-600 to-cyan-600 p-0.5 rounded-2xl">
+                                                <div className="bg-[#111827]/98 backdrop-blur-xl p-6 rounded-2xl border border-white/20">
+                                                    <h4 className="text-lg sm:text-xl font-bold text-white mb-3">
+                                                        {service.title}
+                                                    </h4>
+                                                    <p className="text-gray-300 text-sm leading-relaxed">
+                                                        {service.detailedDescription}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
                         ))}
                     </motion.div>
 
-                    {selectedService && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="fixed inset-0 z-[999999] flex items-center justify-center bg-[#050505]/98 backdrop-blur-xl p-4 sm:p-8"
-                            onClick={() => setSelectedService(null)}
-                        >
-                            <motion.button
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    setSelectedService(null);
-                                }}
-                                className="fixed top-5 right-5 sm:top-8 sm:right-8 text-white hover:text-primary transition-colors p-2 sm:p-3 bg-white/5 rounded-full hover:bg-white/10 cursor-pointer backdrop-blur-md border border-white/10 z-[9999999]"
-                                whileHover={{ scale: 1.1, rotate: 90 }}
-                                whileTap={{ scale: 0.9 }}
-                            >
-                                <X size={24} />
-                            </motion.button>
-
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.8, y: 20 }}
-                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                className="bg-[#111827]/95 backdrop-blur-sm border border-white/10 rounded-3xl p-8 sm:p-12 max-w-2xl w-full"
-                                onClick={(e) => e.stopPropagation()}
-                            >
-                                <div className="text-blue-400 bg-blue-500/10 p-4 rounded-lg w-fit mb-6">
-                                    {selectedService.icon}
-                                </div>
-
-                                <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">
-                                    {selectedService.title}
-                                </h2>
-
-                                <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-8">
-                                    {selectedService.detailedDescription}
-                                </p>
-
-                                <motion.button
-                                    onClick={() => setSelectedService(null)}
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="w-full bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-bold py-3 px-6 rounded-xl transition-all hover:shadow-[0_0_30px_rgba(59,130,246,0.6)]"
-                                >
-                                    Cerrar
-                                </motion.button>
-                            </motion.div>
-                        </motion.div>
-                    )}
+                    {/* Modal de detalles eliminado - ahora se muestra con hover */}
                 </motion.div>
             </motion.div>
         </AnimatePresence>,
