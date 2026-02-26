@@ -65,12 +65,12 @@ const ProcessModal = ({ onClose }) => {
                                 <div
                                     key={index}
                                     onMouseEnter={() => setActive(index)}
-                                    className={`cursor-pointer transition-all duration-300 border-l-4 pl-6 sm:pl-8 py-2 ${active === index
-                                        ? "border-primary text-white scale-[1.02] bg-white/[0.02]"
-                                        : "border-gray-800 text-gray-500 hover:text-gray-400"
+                                    className={`cursor-pointer transition-all duration-300 border-l-4 rounded-r-xl border-y border-r border-white/5 shadow-md p-4 sm:p-5 mb-3 ${active === index
+                                        ? "border-l-primary bg-white/[0.04] shadow-[0_4px_20px_rgba(2,223,130,0.15)] scale-[1.02]"
+                                        : "border-l-gray-800 bg-black/20 hover:bg-white/[0.02]"
                                         }`}
                                 >
-                                    <div className={`text-xl sm:text-2xl font-black mb-2 flex items-center gap-4 transition-colors ${active === index ? "text-primary" : ""}`}>
+                                    <div className={`text-xl sm:text-2xl font-black mb-1 flex items-center gap-4 transition-colors ${active === index ? "text-primary/90" : "text-gray-400"}`}>
                                         <span className="text-sm sm:text-lg font-medium opacity-50">{step.number}</span>
                                         {step.title}
                                     </div>
@@ -79,7 +79,7 @@ const ProcessModal = ({ onClose }) => {
                                         animate={{ height: active === index ? "auto" : 0, opacity: active === index ? 1 : 0 }}
                                         className="overflow-hidden"
                                     >
-                                        <p className="text-gray-400 text-sm sm:text-base mt-2 mb-4 leading-relaxed pr-4">
+                                        <p className="text-gray-100 font-medium text-sm sm:text-base mt-3 mb-2 leading-relaxed pr-4">
                                             {step.description}
                                         </p>
                                     </motion.div>

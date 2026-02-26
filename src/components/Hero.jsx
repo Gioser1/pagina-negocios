@@ -95,13 +95,13 @@ const Hero = () => {
             )}
 
             {/* Imagen logo2 de fondo como marca de agua */}
-            <motion.div 
+            <motion.div
                 className="absolute inset-0 pointer-events-none z-0 overflow-hidden"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.15 }}
                 transition={{ duration: 1.5 }}
             >
-                <img 
+                <img
                     src={`${import.meta.env.BASE_URL}imagenes/Logos/logo2.jpeg`}
                     alt="Background Logo"
                     className="w-full h-full object-cover"
@@ -163,7 +163,7 @@ const Hero = () => {
                     variants={itemVariants}
                     className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 mt-12 sm:mt-16 relative w-full"
                 >
-                    <div 
+                    <div
                         className="w-full sm:w-auto"
                         {...(!isMobile && {
                             onMouseEnter: () => setShowAdvisory(true),
@@ -179,7 +179,7 @@ const Hero = () => {
                             Agenda una llamada
                         </motion.button>
                     </div>
-                    
+
                     {/* Tarjeta de asesoría - Hover en desktop, visible en móvil */}
                     {(showAdvisory || isMobile) && (
                         <motion.div
@@ -203,9 +203,7 @@ const Hero = () => {
                     )}
                 </motion.div>
 
-                {isCalendarOpen && (
-                    <CalendarScheduler isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
-                )}
+                <CalendarScheduler isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
             </motion.div>
         </section>
     );

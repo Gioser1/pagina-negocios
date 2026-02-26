@@ -6,8 +6,11 @@ const CalendarScheduler = ({ isOpen, onClose }) => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
 
-    // Evitar scroll del body cuando el modal está abierto
+    // Evitar scroll del body cuando el modal está abierto y notificar al Navbar
     useEffect(() => {
+        const toggleEvent = new CustomEvent('calendarStateChange', { detail: { isOpen } });
+        window.dispatchEvent(toggleEvent);
+
         if (isOpen) {
             document.body.style.overflow = "hidden";
         } else {

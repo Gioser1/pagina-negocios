@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
+import { useTheme } from '../context/ThemeContext';
 
 export default function Videos() {
+    const { isGlobalLightMode } = useTheme();
+
     return (
-        <section className="py-24 bg-dark-900/40 relative border-t border-white/5">
+        <section className={`py-24 relative border-t transition-colors duration-1000 ${isGlobalLightMode ? 'bg-[#eef2f6] border-transparent' : 'bg-dark-900/40 border-white/5'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -11,10 +14,12 @@ export default function Videos() {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-primary font-semibold tracking-wide uppercase text-sm mb-3">Audiovisual</h2>
-                    <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white">
-                        Nuestros Trabajos
-                    </h3>
+                    <h2 className={`text-3xl sm:text-4xl md:text-5xl font-black mb-3 transition-colors duration-1000 ${isGlobalLightMode ? 'text-slate-900' : 'text-white'}`}>
+                        Tecnología en Acción
+                    </h2>
+                    <p className={`font-bold tracking-wide uppercase text-sm transition-colors duration-1000 ${isGlobalLightMode ? 'text-cyan-700' : 'text-primary'}`}>
+                        Así transformamos negocios con tecnología.
+                    </p>
                 </motion.div>
 
                 <div className="grid md:grid-cols-2 gap-10">
@@ -23,7 +28,7 @@ export default function Videos() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className="w-full rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-video bg-black"
+                        className={`w-full rounded-2xl overflow-hidden shadow-2xl border aspect-video transition-colors duration-1000 ${isGlobalLightMode ? 'bg-slate-100 border-slate-200 shadow-lg' : 'bg-black border-white/10'}`}
                     >
                         <iframe
                             loading="lazy"
@@ -39,7 +44,7 @@ export default function Videos() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        className="w-full rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-video bg-black"
+                        className={`w-full rounded-2xl overflow-hidden shadow-2xl border aspect-video transition-colors duration-1000 ${isGlobalLightMode ? 'bg-slate-100 border-slate-200 shadow-lg' : 'bg-black border-white/10'}`}
                     >
                         <iframe
                             loading="lazy"

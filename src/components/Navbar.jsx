@@ -1,7 +1,7 @@
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ProcessModal from "./ProcessModal";
 import ServicesModal from "./ServicesModal";
 import { servicesData } from "../data/servicesData";
@@ -33,12 +33,24 @@ const Navbar = () => {
     const [isServicesMenuOpen, setIsServicesMenuOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+    const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
     // Estados para ocultar/mostrar el navbar
     const [hidden, setHidden] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
 
     const { scrollY } = useScroll();
+    const location = useLocation();
+    const isHomeOrServicePage = location.pathname === '/' || location.pathname.startsWith('/services/');
+
+    // Escuchar cuando se abre/cierra el calendario
+    useEffect(() => {
+        const handleCalendarChange = (e) => {
+            setIsCalendarOpen(e.detail.isOpen);
+        };
+        window.addEventListener('calendarStateChange', handleCalendarChange);
+        return () => window.removeEventListener('calendarStateChange', handleCalendarChange);
+    }, []);
 
     // Bloquear el scroll del fondo cuando el menú móvil está abierto
     useEffect(() => {
@@ -102,7 +114,7 @@ const Navbar = () => {
         <>
             {/* Zona invisible para detectar hover en la parte superior cuando el navbar está oculto */}
             <div
-                className="fixed top-0 left-0 w-full h-8 z-[60]"
+                className={`fixed top-0 left-0 w-full h-8 z-[60] ${isHovering || !hidden ? 'pointer-events-none' : ''}`}
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
             />
@@ -335,7 +347,7 @@ const Navbar = () => {
 
             {/* Botón flotante lateral para móviles cuando se oculta el navbar principal */}
             <AnimatePresence>
-                {!isMobileMenuOpen && (
+                {!isMobileMenuOpen && !isCalendarOpen && isHomeOrServicePage && (
                     <motion.button
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}
