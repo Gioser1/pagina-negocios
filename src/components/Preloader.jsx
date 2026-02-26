@@ -53,7 +53,7 @@ const Preloader = () => {
                         ease: "easeOut",
                     }}
                     // Contenedor que recorta la mitad inferior del logo
-                    className="relative z-10 w-32 md:w-48 overflow-hidden h-[3.8rem] md:h-[5.8rem] flex items-start justify-center"
+                    className="relative z-10 w-48 md:w-64 overflow-hidden h-[5.8rem] md:h-[7.8rem] flex items-start justify-center"
                     style={{ filter: "drop-shadow(0px 0px 25px rgba(2,223,130,0.5))" }}
                     whileInView={{
                         y: [0, -10, 0],

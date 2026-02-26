@@ -28,9 +28,9 @@ const ProcessModal = ({ onClose }) => {
                 animate={{ clipPath: "circle(150% at calc(100% - 40px) 40px)", opacity: 1 }}
                 exit={{ clipPath: "circle(0% at calc(100% - 40px) 40px)", opacity: 0 }}
                 transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                className="fixed inset-0 z-[99999] flex items-center justify-center bg-[#050505]/98 backdrop-blur-xl p-4 sm:p-8 overflow-y-auto"
+                className="fixed inset-0 z-[99999] flex items-start md:items-center justify-center bg-[#050505]/98 backdrop-blur-xl p-4 sm:p-8 overflow-y-auto"
             >
-                <div className="min-h-full w-full flex items-center justify-center py-10">
+                <div className="min-h-full w-full flex items-start md:items-center justify-center py-16 md:py-10">
                     <motion.button
                         onClick={onClose}
                         className="fixed top-5 right-5 sm:top-8 sm:right-8 md:top-12 md:right-12 z-[999999] text-white hover:text-primary transition-colors p-2 sm:p-3 md:p-3 bg-white/5 rounded-full hover:bg-white/10 cursor-pointer backdrop-blur-md border border-white/10"
