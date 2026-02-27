@@ -27,7 +27,7 @@ const ClientesAliados = () => {
             <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-cyan-400 rounded-xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 z-0"></div>
 
             {/* Tarjeta principal con Glassmorphism */}
-            <div className="w-full h-full relative z-10 bg-white rounded-xl border border-white/20 group-hover:border-primary transition-all flex flex-col items-center justify-center cursor-pointer shadow-md group-hover:shadow-[0_15px_30px_-10px_rgba(2,223,130,0.5)] overflow-hidden p-2 sm:p-4">
+            <div className="w-full h-full relative z-10 bg-white/5 backdrop-blur-md rounded-xl border border-white/10 group-hover:border-primary transition-all flex flex-col items-center justify-center cursor-pointer shadow-md group-hover:shadow-[0_15px_30px_-10px_rgba(2,223,130,0.5)] overflow-hidden p-2 sm:p-4">
                 {/* Destello interior superior derecho */}
                 <div className="absolute top-0 right-0 -mt-2 -mr-2 w-20 h-20 bg-primary/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 

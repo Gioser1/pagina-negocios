@@ -13,77 +13,6 @@ const Footer = () => {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="flex flex-col gap-12 md:gap-8 mb-16">
-                    {/* Sección de Contacto (Izquierda) */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="flex flex-col space-y-4"
-                    >
-                        <div className="flex items-center space-x-3 group">
-                            <MapPin className="w-5 h-5 text-primary group-hover:text-emerald-400 transition-colors" />
-                            <span className="text-gray-200 font-medium tracking-wide">Calle 19 # 57-20, Guayabal, Medellín</span>
-                        </div>
-                        <div className="flex items-center space-x-3 group">
-                            <Mail className="w-5 h-5 text-primary group-hover:text-emerald-400 transition-colors" />
-                            <a href="mailto:contactenos@olimpo-empresa.com" className="text-gray-200 font-medium tracking-wide hover:text-white transition-colors">
-                                contactenos@olimpo-empresa.com
-                            </a>
-                        </div>
-                        <div className="flex items-center space-x-3 group">
-                            <Phone className="w-5 h-5 text-primary group-hover:text-emerald-400 transition-colors" />
-                            <a href="tel:+573025627200" className="text-gray-200 font-medium tracking-wide hover:text-white transition-colors">
-                                +57 302 562 7200
-                            </a>
-                        </div>
-                    </motion.div>
-
-                    {/* Redes y Logo (Centro) */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-                        className="flex flex-col items-start md:items-center w-full md:w-auto"
-                    >
-                        <div className="flex flex-wrap gap-6 justify-start md:justify-center">
-                            <motion.a
-                                whileHover={{ y: -8, backgroundColor: "#02DF82", color: "#0a192f" }}
-                                transition={{ duration: 0.2 }}
-                                href="https://www.facebook.com/people/Olimpo-Innova/61587587151310/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex flex-col items-center gap-3 w-16 h-24 rounded-lg bg-white/5 text-gray-400 flex items-center justify-center transition-colors hover:text-white"
-                            >
-                                <Facebook className="w-8 h-8" />
-                                <span className="text-xs font-medium text-gray-300">Facebook</span>
-                            </motion.a>
-                            <motion.a
-                                whileHover={{ y: -8, backgroundColor: "#02DF82", color: "#0a192f" }}
-                                transition={{ duration: 0.2 }}
-                                href="https://www.instagram.com/olimpoinnova/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex flex-col items-center gap-3 w-16 h-24 rounded-lg bg-white/5 text-gray-400 flex items-center justify-center transition-colors hover:text-white"
-                            >
-                                <Instagram className="w-8 h-8" />
-                                <span className="text-xs font-medium text-gray-300">Instagram</span>
-                            </motion.a>
-                            <motion.a
-                                whileHover={{ y: -8, backgroundColor: "#02DF82", color: "#0a192f" }}
-                                transition={{ duration: 0.2 }}
-                                href="https://linkedin.com/company/olimpo-innova/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex flex-col items-center gap-3 w-16 h-24 rounded-lg bg-white/5 text-gray-400 flex items-center justify-center transition-colors hover:text-white"
-                            >
-                                <Linkedin className="w-8 h-8" />
-                                <span className="text-xs font-medium text-gray-300">LinkedIn</span>
-                            </motion.a>
-                        </div>
-                    </motion.div>
-
                     {/* Certificados y Awards (Derecha) */}
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -92,6 +21,9 @@ const Footer = () => {
                         transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
                         className="w-full"
                     >
+                        <h3 className="text-2xl sm:text-3xl font-bold text-center text-white mb-12">
+                            Estos <span className="text-primary">certificados</span> nos respaldan
+                        </h3>
                         <Certificados />
                     </motion.div>
 
@@ -125,6 +57,76 @@ const Footer = () => {
                         <span className="text-primary">Tecnología</span> que inspira, <span className="text-primary">Soluciones</span> que transforman.
                     </h2>
                 </motion.div>
+
+                {/* Nueva Sección de Contacto y Redes (Movida al final) */}
+                <div className="flex flex-col md:flex-row justify-between items-center gap-8 mt-12 mb-8 border-t border-white/10 pt-12">
+                    {/* Columna Izquierda: Contacto */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        className="flex flex-col space-y-4 items-center md:items-start"
+                    >
+                        <div className="flex items-center space-x-3 group">
+                            <MapPin className="w-5 h-5 text-primary group-hover:text-emerald-400 transition-colors" />
+                            <span className="text-gray-200 font-medium tracking-wide">Calle 19 # 57-20, Guayabal, Medellín</span>
+                        </div>
+                        <div className="flex items-center space-x-3 group">
+                            <Mail className="w-5 h-5 text-primary group-hover:text-emerald-400 transition-colors" />
+                            <a href="mailto:contactenos@olimpo-empresa.com" className="text-gray-200 font-medium tracking-wide hover:text-white transition-colors">
+                                contactenos@olimpo-empresa.com
+                            </a>
+                        </div>
+                        <div className="flex items-center space-x-3 group">
+                            <Phone className="w-5 h-5 text-primary group-hover:text-emerald-400 transition-colors" />
+                            <a href="tel:+573025627200" className="text-gray-200 font-medium tracking-wide hover:text-white transition-colors">
+                                +57 302 562 7200
+                            </a>
+                        </div>
+                    </motion.div>
+
+                    {/* Columna Derecha: Redes Sociales */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        className="flex flex-wrap gap-6 justify-center md:justify-end"
+                    >
+                        <motion.a
+                            whileHover={{ y: -8, backgroundColor: "#02DF82", color: "#0a192f" }}
+                            transition={{ duration: 0.2 }}
+                            href="https://www.facebook.com/people/Olimpo-Innova/61587587151310/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex flex-col items-center gap-3 w-16 h-24 rounded-lg bg-white/5 text-gray-400 flex items-center justify-center transition-colors hover:text-white"
+                        >
+                            <Facebook className="w-8 h-8" />
+                            <span className="text-xs font-medium text-gray-300">Facebook</span>
+                        </motion.a>
+                        <motion.a
+                            whileHover={{ y: -8, backgroundColor: "#02DF82", color: "#0a192f" }}
+                            transition={{ duration: 0.2 }}
+                            href="https://www.instagram.com/olimpoinnova/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex flex-col items-center gap-3 w-16 h-24 rounded-lg bg-white/5 text-gray-400 flex items-center justify-center transition-colors hover:text-white"
+                        >
+                            <Instagram className="w-8 h-8" />
+                            <span className="text-xs font-medium text-gray-300">Instagram</span>
+                        </motion.a>
+                        <motion.a
+                            whileHover={{ y: -8, backgroundColor: "#02DF82", color: "#0a192f" }}
+                            transition={{ duration: 0.2 }}
+                            href="https://linkedin.com/company/olimpo-innova/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex flex-col items-center gap-3 w-16 h-24 rounded-lg bg-white/5 text-gray-400 flex items-center justify-center transition-colors hover:text-white"
+                        >
+                            <Linkedin className="w-8 h-8" />
+                            <span className="text-xs font-medium text-gray-300">LinkedIn</span>
+                        </motion.a>
+                    </motion.div>
+                </div>
 
                 {/* Copyright */}
                 <div className="pt-8 border-t border-white/10 flex justify-center items-center">
