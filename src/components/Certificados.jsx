@@ -46,25 +46,14 @@ const Certificados = () => {
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-cyan-400 rounded-lg blur-md opacity-0 group-hover:opacity-30 transition duration-500 z-0"></div>
                     <div className="relative z-10 w-full h-full bg-white/5 backdrop-blur-xl rounded-lg border border-white/10 p-4 md:p-6 group-hover:border-primary/40 transition-all duration-300 flex flex-col items-center text-center group-hover:bg-white/10 shadow-sm group-hover:shadow-[0_20px_40px_-15px_rgba(2,223,130,0.3)] overflow-hidden">
                         <div className="absolute top-0 left-0 -mt-2 -ml-2 w-20 h-20 bg-primary/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                        {/* Año */}
-                        <div className="text-2xl md:text-3xl font-black text-primary mb-2 group-hover:text-primary-light transition-colors">
-                            {cert.year}
+                        {/* Imagen del Certificado */}
+                        <div className="w-full flex justify-center items-center rounded-lg overflow-hidden border border-white/10 group-hover:border-primary/50 transition-colors relative bg-gray-900/50 p-2 h-[250px] md:h-[300px]">
+                            <img
+                                src={cert.image}
+                                alt={cert.title}
+                                className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
+                            />
                         </div>
-
-                        {/* Icono */}
-                        <div className="text-4xl md:text-5xl mb-3">
-                            {cert.icon}
-                        </div>
-
-                        {/* Título */}
-                        <h4 className="text-xs md:text-sm font-bold text-white mb-2 group-hover:text-primary transition-colors duration-300 line-clamp-2">
-                            {cert.title}
-                        </h4>
-
-                        {/* Descripción */}
-                        <p className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors duration-300 line-clamp-3">
-                            {cert.description}
-                        </p>
                     </div>
                 </motion.div>
             ))}
