@@ -151,7 +151,7 @@ const Navbar = () => {
                                 onMouseEnter={() => setIsServicesMenuOpen(true)}
                                 onMouseLeave={() => setIsServicesMenuOpen(false)}
                             >
-                                <NavLink to="#Descubre">
+                                <div className="relative text-gray-300 hover:text-primary transition-colors py-2 group font-medium cursor-pointer">
                                     <span className="flex items-center gap-1.5 text-sm xl:text-base">
                                         Nuestros Servicios
                                         <motion.div
@@ -161,7 +161,8 @@ const Navbar = () => {
                                             <ChevronDown size={16} className="mt-0.5" />
                                         </motion.div>
                                     </span>
-                                </NavLink>
+                                    <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100" />
+                                </div>
                                 <AnimatePresence>
                                     {isServicesMenuOpen && (
                                         <motion.div

@@ -72,7 +72,7 @@ const PorQueOlimpo = () => {
     };
 
     return (
-        <section className="py-20 bg-[#0a0a0a] text-white overflow-hidden relative">
+        <section className="py-20 bg-white text-gray-900 overflow-hidden relative">
             {/* Fondo decorativo */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
                 <motion.div
@@ -91,10 +91,10 @@ const PorQueOlimpo = () => {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-4 leading-tight text-white">
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-4 leading-tight text-gray-900">
                         Por qué <span className="text-primary">Olimpo Innova</span>
                     </h2>
-                    <p className="text-lg max-w-2xl mx-auto text-gray-400">
+                    <p className="text-lg max-w-2xl mx-auto text-gray-600">
                         Nos apasiona el desarrollo de NODOS de tecnología y transformación digital.
                     </p>
                 </motion.div>
@@ -105,7 +105,7 @@ const PorQueOlimpo = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-50px" }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+                    className="flex flex-col gap-6 max-w-4xl mx-auto"
                 >
                     {porQueData.map((item, index) => {
                         const IconComponent = item.icon;
@@ -113,33 +113,32 @@ const PorQueOlimpo = () => {
                             <motion.div
                                 key={index}
                                 variants={itemVariants}
-                                whileHover={{ y: -8, scale: 1.02 }}
+                                whileHover={{ y: -4 }}
                                 className="group"
                             >
-                                <div className="h-full rounded-2xl border p-8 transition-all flex flex-col bg-gradient-to-br from-white/5 to-white/10 border-primary/20 hover:border-primary/50">
+                                <div className="h-full rounded-2xl border p-6 sm:p-8 transition-all flex flex-col md:flex-row items-center md:items-start gap-6 bg-white border-gray-200 shadow-xl hover:shadow-2xl hover:border-primary/50">
                                     {/* Número grande y icono */}
-                                    <div className="flex items-start gap-4 mb-6">
-                                        <div className="text-5xl sm:text-6xl font-black text-primary group-hover:text-primary-light">
+                                    <div className="flex items-center gap-4 shrink-0">
+                                        <div className="text-5xl sm:text-6xl font-black text-primary">
                                             {item.number}
                                         </div>
                                         <motion.div
                                             whileHover={{ rotate: 10, scale: 1.1 }}
                                             transition={{ type: "spring", stiffness: 200 }}
-                                            className="w-16 h-16 rounded-xl flex items-center justify-center transition-all flex-shrink-0 bg-primary/10 text-white group-hover:bg-primary group-hover:text-black"
+                                            className="w-16 h-16 rounded-xl flex items-center justify-center transition-all flex-shrink-0 bg-primary/10 text-primary"
                                         >
                                             <IconComponent className="w-8 h-8" />
                                         </motion.div>
                                     </div>
 
-                                    {/* Título */}
-                                    <h3 className="text-xl font-bold mb-3 text-white group-hover:text-primary">
-                                        {item.title}
-                                    </h3>
-
-                                    {/* Descripción */}
-                                    <p className="text-sm leading-relaxed flex-grow text-gray-400 group-hover:text-gray-300">
-                                        {item.description}
-                                    </p>
+                                    <div className="text-center md:text-left">
+                                        <h3 className="text-xl font-bold mb-2 text-gray-900 group-hover:text-primary transition-colors">
+                                            {item.title}
+                                        </h3>
+                                        <p className="text-sm leading-relaxed text-gray-600">
+                                            {item.description}
+                                        </p>
+                                    </div>
                                 </div>
                             </motion.div>
                         );
