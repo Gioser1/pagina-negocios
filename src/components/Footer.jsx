@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { MapPin, Mail, Phone, Facebook, Linkedin, Instagram } from "lucide-react";
-import { navLinks, legalLinks } from "../data/navData";
+import Faq from "./Faq";
+import ClientesAliados from "./ClientesAliados";
+import Certificados from "./Certificados";
 
 const Footer = () => {
     return (
@@ -45,72 +47,70 @@ const Footer = () => {
                         transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
                         className="flex flex-col items-start md:items-center w-full md:w-auto"
                     >
-                        <div className="flex space-x-4">
+                        <div className="flex flex-wrap gap-6 justify-start md:justify-center">
                             <motion.a
-                                whileHover={{ y: -5, backgroundColor: "#02DF82", color: "#0a192f" }}
+                                whileHover={{ y: -8, backgroundColor: "#02DF82", color: "#0a192f" }}
                                 transition={{ duration: 0.2 }}
                                 href="https://www.facebook.com/people/Olimpo-Innova/61587587151310/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-10 h-10 rounded-full bg-white/5 text-gray-400 flex items-center justify-center transition-colors"
+                                className="flex flex-col items-center gap-3 w-16 h-24 rounded-lg bg-white/5 text-gray-400 flex items-center justify-center transition-colors hover:text-white"
                             >
-                                <span className="sr-only">Facebook</span>
-                                <Facebook className="w-5 h-5" />
+                                <Facebook className="w-8 h-8" />
+                                <span className="text-xs font-medium text-gray-300">Facebook</span>
                             </motion.a>
                             <motion.a
-                                whileHover={{ y: -5, backgroundColor: "#02DF82", color: "#0a192f" }}
+                                whileHover={{ y: -8, backgroundColor: "#02DF82", color: "#0a192f" }}
                                 transition={{ duration: 0.2 }}
                                 href="https://www.instagram.com/olimpoinnova/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-10 h-10 rounded-full bg-white/5 text-gray-400 flex items-center justify-center transition-colors"
+                                className="flex flex-col items-center gap-3 w-16 h-24 rounded-lg bg-white/5 text-gray-400 flex items-center justify-center transition-colors hover:text-white"
                             >
-                                <span className="sr-only">Instagram</span>
-                                <Instagram className="w-5 h-5" />
+                                <Instagram className="w-8 h-8" />
+                                <span className="text-xs font-medium text-gray-300">Instagram</span>
                             </motion.a>
                             <motion.a
-                                whileHover={{ y: -5, backgroundColor: "#02DF82", color: "#0a192f" }}
+                                whileHover={{ y: -8, backgroundColor: "#02DF82", color: "#0a192f" }}
                                 transition={{ duration: 0.2 }}
                                 href="https://linkedin.com/company/olimpo-innova/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-10 h-10 rounded-full bg-white/5 text-gray-400 flex items-center justify-center transition-colors"
+                                className="flex flex-col items-center gap-3 w-16 h-24 rounded-lg bg-white/5 text-gray-400 flex items-center justify-center transition-colors hover:text-white"
                             >
-                                <span className="sr-only">LinkedIn</span>
-                                <Linkedin className="w-5 h-5" />
+                                <Linkedin className="w-8 h-8" />
+                                <span className="text-xs font-medium text-gray-300">LinkedIn</span>
                             </motion.a>
                         </div>
                     </motion.div>
 
-                    {/* Enlaces de Navegación y Legal (Derecha) */}
+                    {/* Certificados y Awards (Derecha) */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                        className="w-full"
+                    >
+                        <Certificados />
+                    </motion.div>
+
+                    {/* Espacio de contenido secundario (ahora FAQ completa) */}
                     <motion.div
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                        className="grid grid-cols-2 gap-8 md:flex md:flex-row md:space-x-24 w-full md:w-auto"
+                        className="w-full"
                     >
-                        <div>
-                            <h4 className="text-sm tracking-wider uppercase font-semibold mb-6 text-gray-400">Navegación</h4>
-                            <ul className="space-y-4">
-                                {navLinks.map((link, index) => (
-                                    <li key={index}>
-                                        <Link to={link.path} className="text-gray-400 text-sm hover:text-primary transition-colors hover:translate-x-1 inline-block transform duration-300">{link.title}</Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="text-sm tracking-wider uppercase font-semibold mb-6 text-gray-400">Legal</h4>
-                            <ul className="space-y-4">
-                                {legalLinks.map((link, index) => (
-                                    <li key={index}>
-                                        <a href={link.path} className="text-gray-400 text-sm hover:text-primary transition-colors hover:translate-x-1 inline-block transform duration-300">{link.title}</a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+                        <Faq />
                     </motion.div>
+                </div>
+
+                {/* Clientes y Aliados */}
+                <ClientesAliados />
+
+                <div className="flex flex-col gap-12 md:gap-8">
                 </div>
 
                 {/* Slogan Centrado */}
@@ -119,9 +119,9 @@ const Footer = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="text-center mb-16"
+                    className="text-center mb-16 pt-16 border-t border-white/10"
                 >
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white max-w-4xl mx-auto leading-tight">
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white max-w-5xl mx-auto leading-tight">
                         <span className="text-primary">Tecnología</span> que inspira, <span className="text-primary">Soluciones</span> que transforman.
                     </h2>
                 </motion.div>

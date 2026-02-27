@@ -2,6 +2,7 @@ import Hero from "../components/Hero";
 import Marquee from "../components/Marquee";
 import CorporateIdentity from "../components/CorporateIdentity";
 import About from "../components/About";
+import PorQueOlimpo from "../components/PorQueOlimpo";
 import Videos from "../components/Videos";
 
 const Home = () => {
@@ -18,6 +19,9 @@ const Home = () => {
 
             {/* Misión, Visión y Valores */}
             <CorporateIdentity />
+
+            {/* Por qué Olimpo Innova */}
+            <PorQueOlimpo />
 
             {/* 4. Audiovisual: Nuestros Trabajos */}
             <Videos />
