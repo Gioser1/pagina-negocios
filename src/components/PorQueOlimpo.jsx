@@ -91,10 +91,10 @@ const PorQueOlimpo = () => {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-4 leading-tight">
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-4 leading-tight text-white">
                         Por qué <span className="text-primary">Olimpo Innova</span>
                     </h2>
-                    <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                    <p className="text-lg max-w-2xl mx-auto text-gray-400">
                         Nos apasiona el desarrollo de NODOS de tecnología y transformación digital.
                     </p>
                 </motion.div>
@@ -116,28 +116,28 @@ const PorQueOlimpo = () => {
                                 whileHover={{ y: -8, scale: 1.02 }}
                                 className="group"
                             >
-                                <div className="h-full bg-gradient-to-br from-white/5 to-white/10 rounded-2xl border border-primary/20 p-8 hover:border-primary/50 transition-all duration-300 flex flex-col">
+                                <div className="h-full rounded-2xl border p-8 transition-all flex flex-col bg-gradient-to-br from-white/5 to-white/10 border-primary/20 hover:border-primary/50">
                                     {/* Número grande y icono */}
                                     <div className="flex items-start gap-4 mb-6">
-                                        <div className="text-5xl sm:text-6xl font-black text-primary group-hover:text-primary-light transition-colors">
+                                        <div className="text-5xl sm:text-6xl font-black text-primary group-hover:text-primary-light">
                                             {item.number}
                                         </div>
                                         <motion.div
                                             whileHover={{ rotate: 10, scale: 1.1 }}
                                             transition={{ type: "spring", stiffness: 200 }}
-                                            className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-black transition-all duration-300 flex-shrink-0"
+                                            className="w-16 h-16 rounded-xl flex items-center justify-center transition-all flex-shrink-0 bg-primary/10 text-white group-hover:bg-primary group-hover:text-black"
                                         >
                                             <IconComponent className="w-8 h-8" />
                                         </motion.div>
                                     </div>
 
                                     {/* Título */}
-                                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors duration-300">
+                                    <h3 className="text-xl font-bold mb-3 text-white group-hover:text-primary">
                                         {item.title}
                                     </h3>
 
                                     {/* Descripción */}
-                                    <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors duration-300 flex-grow">
+                                    <p className="text-sm leading-relaxed flex-grow text-gray-400 group-hover:text-gray-300">
                                         {item.description}
                                     </p>
                                 </div>

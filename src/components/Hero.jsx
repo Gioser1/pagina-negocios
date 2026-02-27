@@ -96,10 +96,16 @@ const Hero = () => {
 
             {/* Imagen logo2 de fondo como marca de agua */}
             <motion.div
-                className="absolute inset-0 pointer-events-none z-0 overflow-hidden"
+                className="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 0.15 }}
-                transition={{ duration: 1.5 }}
+                animate={{
+                    opacity: 0.15,
+                    y: [0, -15, 0] // Floating effect
+                }}
+                transition={{
+                    opacity: { duration: 1.5 },
+                    y: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+                }}
             >
                 <img
                     src={`${import.meta.env.BASE_URL}imagenes/Logos/logo2.jpeg`}
@@ -127,19 +133,22 @@ const Hero = () => {
                         whileHover={{ x: 5 }}
                     >
                         <motion.span
-                            className="bg-clip-text text-transparent bg-gradient-to-r from-white to-primary inline"
-                            style={{ backgroundSize: '200% auto' }}
-                            animate={{ backgroundPosition: ['0% center', '100% center'] }}
+                            className="bg-clip-text text-transparent inline-block pb-1"
+                            style={{
+                                backgroundImage: "linear-gradient(90deg, #FFFFFF, #02df82, #0ea5e9, #34d399, #FFFFFF)",
+                                backgroundSize: "300% 100%"
+                            }}
+                            animate={{
+                                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
+                            }}
                             transition={{
-                                duration: 3,
-                                repeat: Infinity,
-                                repeatType: 'mirror',
-                                ease: 'easeInOut'
+                                duration: 3, // 🔥 Mucho más rápido (antes era estático o muy lento)
+                                ease: "linear",
+                                repeat: Infinity
                             }}
                         >
-                            CREAMOS EXPERIENCIAS{" "}
+                            CREAMOS EXPERIENCIAS DIGITALES ÚNICAS
                         </motion.span>
-                        <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent inline">DIGITALES ÚNICAS</span>
                     </motion.button>
 
                     {showTypewriter && (
@@ -172,9 +181,10 @@ const Hero = () => {
                     >
                         <motion.button
                             onClick={() => setIsCalendarOpen(true)}
-                            whileHover={{ scale: 1.05, boxShadow: "0px 0px 30px 0px rgba(2, 223, 130, 0.6)" }}
+                            whileHover={{ scale: 1.05, boxShadow: "0px 0px 40px 0px rgba(2, 223, 130, 0.8)", y: -4 }}
                             whileTap={{ scale: 0.95 }}
-                            className="w-full sm:w-auto bg-gradient-to-r from-secondary to-primary text-white text-xs sm:text-sm md:text-base lg:text-lg font-bold tracking-wide px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-full transition-all hover:from-primary hover:to-primary-light border border-primary/50 shadow-[0_0_20px_rgba(2,223,130,0.2)]"
+                            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                            className="w-full sm:w-auto bg-gradient-to-r from-secondary to-primary text-white text-xs sm:text-sm md:text-base lg:text-lg font-bold tracking-wide px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full transition-all hover:from-primary hover:to-primary-light border border-primary/50 shadow-[0_0_20px_rgba(2,223,130,0.3)]"
                         >
                             Agenda una llamada
                         </motion.button>

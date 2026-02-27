@@ -215,12 +215,15 @@ const Navbar = () => {
                                     Quiénes somos
                                 </span>
                             </NavLink>
-                            <button
+                            <motion.button
                                 onClick={() => setIsServicesModalOpen(true)}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                transition={{ type: "spring", stiffness: 400, damping: 10 }}
                                 className="px-3 py-2 xl:px-4 xl:py-2 bg-gradient-to-r from-primary to-cyan-400 hover:from-primary/90 hover:to-cyan-300 text-black font-medium rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(2,223,130,0.5)] text-xs xl:text-sm whitespace-nowrap"
                             >
                                 Descubre lo que hacemos
-                            </button>
+                            </motion.button>
                         </div>
 
                         <div className="flex items-center ml-4">

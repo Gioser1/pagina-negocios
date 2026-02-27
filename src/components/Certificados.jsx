@@ -39,10 +39,13 @@ const Certificados = () => {
                 <motion.div
                     key={index}
                     variants={itemVariants}
-                    whileHover={{ y: -6, scale: 1.05 }}
-                    className="group"
+                    whileHover={{ y: -8, scale: 1.05, zIndex: 10 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="relative group h-full flex"
                 >
-                    <div className="h-full bg-gradient-to-br from-white/5 to-white/10 rounded-lg border border-primary/20 p-4 md:p-6 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center hover:bg-white/15">
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-cyan-400 rounded-lg blur-md opacity-0 group-hover:opacity-30 transition duration-500 z-0"></div>
+                    <div className="relative z-10 w-full h-full bg-white/5 backdrop-blur-xl rounded-lg border border-white/10 p-4 md:p-6 group-hover:border-primary/40 transition-all duration-300 flex flex-col items-center text-center group-hover:bg-white/10 shadow-sm group-hover:shadow-[0_20px_40px_-15px_rgba(2,223,130,0.3)] overflow-hidden">
+                        <div className="absolute top-0 left-0 -mt-2 -ml-2 w-20 h-20 bg-primary/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                         {/* Año */}
                         <div className="text-2xl md:text-3xl font-black text-primary mb-2 group-hover:text-primary-light transition-colors">
                             {cert.year}

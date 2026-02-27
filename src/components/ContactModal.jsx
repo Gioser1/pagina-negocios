@@ -297,12 +297,14 @@ const ContactModal = ({ isOpen, onClose }) => {
                                         <motion.button
                                             type="submit"
                                             disabled={status === "loading" || status === "success"}
-                                            whileTap={status === "idle" ? { scale: 0.98 } : {}}
+                                            whileHover={status === "idle" ? { scale: 1.02, y: -2, boxShadow: "0px 10px 20px -10px rgba(2, 223, 130, 0.6)" } : {}}
+                                            whileTap={status === "idle" ? { scale: 0.95 } : {}}
+                                            transition={{ type: "spring", stiffness: 400, damping: 10 }}
                                             className={`
                                                 w-full px-6 py-3 font-bold text-sm tracking-wide rounded-xl transition-all duration-300 overflow-hidden relative
                                                 ${status === "success"
                                                     ? "bg-white text-primary"
-                                                    : "bg-primary text-gray-900 border border-primary/50 hover:bg-emerald-500 hover:shadow-[0_0_20px_rgba(2,223,130,0.3)]"}
+                                                    : "bg-primary text-gray-900 border border-primary/50 hover:bg-emerald-500 hover:shadow-[0_0_20px_rgba(2,223,130,0.4)]"}
                                                 disabled:opacity-90 disabled:cursor-not-allowed
                                             `}
                                         >

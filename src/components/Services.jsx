@@ -76,18 +76,19 @@ const Services = () => {
                         <motion.div
                             key={service.slug}
                             variants={itemVariants}
-                            whileHover={{ y: -8, scale: 1.02 }}
+                            whileHover={{ y: -10, scale: 1.03, zIndex: 10 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
                             className="relative group h-full flex"
                         >
                             {/* Glow exterior al hacer hover en la tarjeta */}
-                            <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-cyan-400 rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500 z-0"></div>
+                            <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-cyan-400 rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 z-0"></div>
 
                             <Link
                                 to={`/services/${service.slug}`}
-                                className="w-full relative z-10 bg-[#0f0f0f] p-6 sm:p-7 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 group-hover:bg-[#151515] group-hover:border-primary/40 flex flex-col"
+                                className="w-full relative z-10 bg-white/5 backdrop-blur-xl p-6 sm:p-7 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 group-hover:bg-white/10 group-hover:border-primary/50 group-hover:shadow-[0_20px_40px_-15px_rgba(2,223,130,0.3)] flex flex-col"
                             >
                                 {/* Destello de fondo dentro de la tarjeta */}
-                                <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-primary/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                                <div className="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-primary/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
                                 <div className="mb-6 relative">
                                     <motion.div

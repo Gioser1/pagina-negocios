@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { useTheme } from '../context/ThemeContext';
 
 const teamList = [
     {
@@ -101,7 +100,6 @@ const swipePower = (offset, velocity) => {
 };
 
 const About = () => {
-    const { isGlobalLightMode } = useTheme();
     const [[page, direction], setPage] = useState([0, 0]);
     const [selectedMember, setSelectedMember] = useState(null);
 
@@ -131,7 +129,7 @@ const About = () => {
     const currentItems = teamList.slice(page * itemsPerPage, (page + 1) * itemsPerPage);
 
     return (
-        <section id="about" className={`py-24 relative overflow-hidden transition-colors duration-1000 ${isGlobalLightMode ? 'bg-[#eef2f6] border-transparent' : 'bg-[#0a0a0a] border-t border-white/10'}`}>
+        <section id="about" className="py-24 relative overflow-hidden bg-[#0a0a0a] border-t border-white/10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <motion.div
                     initial="hidden"
@@ -145,19 +143,19 @@ const About = () => {
                 >
                     <motion.h2
                         variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                        className={`font-semibold tracking-wide uppercase text-sm mb-3 transition-colors duration-1000 ${isGlobalLightMode ? 'text-cyan-700' : 'text-primary'}`}
+                        className="font-semibold tracking-wide uppercase text-sm mb-3 text-primary"
                     >
                         Quiénes Somos
                     </motion.h2>
                     <motion.h3
                         variants={{ hidden: { opacity: 0, y: 30, scale: 0.95 }, visible: { opacity: 1, y: 0, scale: 1 } }}
-                        className={`text-3xl sm:text-4xl md:text-5xl font-black mb-6 transition-colors duration-1000 ${isGlobalLightMode ? 'text-slate-900' : 'text-white'}`}
+                        className="text-3xl sm:text-4xl md:text-5xl font-black mb-6 text-white"
                     >
                         Un equipo apasionado por la innovación
                     </motion.h3>
                     <motion.p
                         variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                        className={`text-lg md:text-xl leading-relaxed font-light transition-colors duration-1000 ${isGlobalLightMode ? 'text-slate-600' : 'text-gray-400'}`}
+                        className="text-lg md:text-xl leading-relaxed font-light text-gray-400"
                     >
                         Cada día creamos valor 360° explorando y aportando a nuestros clientes, colaboradores y comunidades, el diseño y desarrollo de soluciones tecnológicas que transforman procesos, optimizan operaciones y potencian el crecimiento empresarial y la transformación positiva de la vida.
                     </motion.p>
@@ -194,7 +192,7 @@ const About = () => {
                             {currentItems.map((member) => (
                                 <motion.div
                                     key={member.id}
-                                    className={`relative group overflow-hidden rounded-[2rem] aspect-[4/5] flex-1 max-w-[350px] shadow-2xl cursor-pointer transition-colors duration-1000 ${isGlobalLightMode ? 'bg-white border border-slate-200' : 'bg-white/5 border border-white/10'}`}
+                                    className="relative group overflow-hidden rounded-[2rem] aspect-[4/5] flex-1 max-w-[350px] shadow-2xl cursor-pointer bg-white/5 border border-white/10"
                                     onClick={() => setSelectedMember(member)}
                                     whileHover={{ y: -10 }}
                                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -205,24 +203,24 @@ const About = () => {
                                         className={`w-full h-full object-cover transition-transform duration-700 ${member.id === 9 ? 'scale-[1.25] group-hover:scale-[1.35] object-center' : 'group-hover:scale-110 object-top'}`}
                                     />
                                     {/* Capa de Información (Slide Up) */}
-                                    <div className={`absolute inset-x-0 bottom-0 pt-12 pb-6 px-6 sm:px-8 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out flex flex-col justify-end ${isGlobalLightMode ? 'bg-gradient-to-t from-white via-white/95 to-transparent' : 'bg-gradient-to-t from-[#050505] via-[#050505]/95 to-transparent'}`}>
-                                        <div className={`h-1 w-12 mb-4 rounded-full shadow-[0_0_10px_rgba(2,223,130,0.6)] shrink-0 ${isGlobalLightMode ? 'bg-cyan-600' : 'bg-primary'}`} />
-                                        <h4 className={`font-black text-2xl mb-1 shrink-0 ${isGlobalLightMode ? 'text-slate-900' : 'text-white'}`}>{member.name}</h4>
-                                        <p className={`text-xs font-bold uppercase tracking-wider mb-3 shrink-0 ${isGlobalLightMode ? 'text-cyan-700' : 'text-primary'}`}>{member.role}</p>
+                                    <div className="absolute inset-x-0 bottom-0 pt-12 pb-6 px-6 sm:px-8 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out flex flex-col justify-end bg-gradient-to-t from-[#050505] via-[#050505]/95 to-transparent">
+                                        <div className="h-1 w-12 mb-4 rounded-full shadow-[0_0_10px_rgba(2,223,130,0.6)] shrink-0 bg-primary" />
+                                        <h4 className="font-black text-2xl mb-1 shrink-0 text-white">{member.name}</h4>
+                                        <p className="text-xs font-bold uppercase tracking-wider mb-3 shrink-0 text-primary">{member.role}</p>
 
-                                        <p className={`text-sm leading-relaxed mb-4 line-clamp-2 ${isGlobalLightMode ? 'text-slate-600' : 'text-gray-300'}`}>
+                                        <p className="text-sm leading-relaxed mb-4 line-clamp-2 text-gray-300">
                                             {member.description}
                                         </p>
 
                                         {/* Insignias de Habilidades */}
                                         <div className="flex flex-wrap gap-2 shrink-0">
                                             {member.skills?.slice(0, 2).map((skill, idx) => (
-                                                <span key={idx} className={`text-xs font-semibold px-2 py-1 rounded-md border backdrop-blur-sm ${isGlobalLightMode ? 'bg-cyan-100 text-cyan-800 border-cyan-200' : 'bg-white/10 text-white border-white/10'}`}>
+                                                <span key={idx} className="text-xs font-semibold px-2 py-1 rounded-md border backdrop-blur-sm bg-white/10 text-white border-white/10">
                                                     {skill}
                                                 </span>
                                             ))}
                                             {member.skills?.length > 2 && (
-                                                <span className={`text-xs font-semibold px-2 py-1 bg-transparent ${isGlobalLightMode ? 'text-cyan-700' : 'text-primary'}`}>
+                                                <span className="text-xs font-semibold px-2 py-1 bg-transparent text-primary">
                                                     +{member.skills.length - 2}
                                                 </span>
                                             )}
@@ -237,7 +235,7 @@ const About = () => {
                     <motion.button
                         animate={{ scale: [1, 1.15, 1] }}
                         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                        className={`absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center rounded-full border transition-all z-20 shadow-xl ${isGlobalLightMode ? 'bg-white/80 border-slate-200 text-slate-700 hover:bg-cyan-500 hover:text-white hover:border-cyan-500' : 'bg-black/60 border-white/10 text-white backdrop-blur-md hover:bg-primary hover:border-primary hover:text-black hover:scale-125'}`}
+                        className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center rounded-full border transition-all z-20 shadow-xl bg-black/60 border-white/10 text-white backdrop-blur-md hover:bg-primary hover:border-primary hover:text-black hover:scale-125"
                         onClick={() => paginate(-1)}
                     >
                         <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8" />
@@ -245,7 +243,7 @@ const About = () => {
                     <motion.button
                         animate={{ scale: [1, 1.15, 1] }}
                         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                        className={`absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center rounded-full border transition-all z-20 shadow-xl ${isGlobalLightMode ? 'bg-white/80 border-slate-200 text-slate-700 hover:bg-cyan-500 hover:text-white hover:border-cyan-500' : 'bg-black/60 border-white/10 text-white backdrop-blur-md hover:bg-primary hover:border-primary hover:text-black hover:scale-125'}`}
+                        className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center rounded-full border transition-all z-20 shadow-xl bg-black/60 border-white/10 text-white backdrop-blur-md hover:bg-primary hover:border-primary hover:text-black hover:scale-125"
                         onClick={() => paginate(1)}
                     >
                         <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8" />
@@ -261,7 +259,7 @@ const About = () => {
                                 const dir = idx > page ? 1 : -1;
                                 setPage([idx, dir]);
                             }}
-                            className={`h-2.5 rounded-full transition-all duration-300 ${page === idx ? (isGlobalLightMode ? "w-10 bg-cyan-700 shadow-[0_0_12px_rgba(14,116,144,0.3)]" : "w-10 bg-primary shadow-[0_0_12px_rgba(2,223,130,0.6)]") : (isGlobalLightMode ? "w-2.5 bg-slate-300 hover:bg-slate-400" : "w-2.5 bg-white/20 hover:bg-white/40")}`}
+                            className={`h-2.5 rounded-full transition-all duration-300 ${page === idx ? "w-10 bg-primary shadow-[0_0_12px_rgba(2,223,130,0.6)]" : "w-2.5 bg-white/20 hover:bg-white/40"}`}
                             aria-label={`Ir a página ${idx + 1}`}
                         />
                     ))}

@@ -8,6 +8,7 @@ const Cursor = () => {
 
     // Estados visuales
     const [isHovered, setIsHovered] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
     // Física para el cursor principal (menos delay)
     const springConfig = { damping: 25, stiffness: 1000, mass: 0.01 };
@@ -16,6 +17,8 @@ const Cursor = () => {
 
     useEffect(() => {
         const handleMouseMove = (e) => {
+            if (!isVisible) setIsVisible(true);
+
             const clientX = e.clientX;
             const clientY = e.clientY;
 
@@ -25,26 +28,30 @@ const Cursor = () => {
 
             // Verificamos si estamos sobre un elemento interactivo
             const target = e.target;
-            const interactive = target.closest("button") || target.closest("a") || target.closest("input") || target.closest("textarea") || target.closest(".cursor-pointer");
+            const interactive = target?.closest?.("button") || target?.closest?.("a") || target?.closest?.("input") || target?.closest?.("textarea") || target?.closest?.(".cursor-pointer");
 
             setIsHovered(!!interactive);
         };
 
         const handleMouseLeaveWindow = () => {
+            setIsVisible(false);
             setIsHovered(false);
+        };
+
+        const handleMouseEnterWindow = () => {
+            setIsVisible(true);
         };
 
         window.addEventListener("mousemove", handleMouseMove);
         document.addEventListener("mouseleave", handleMouseLeaveWindow);
+        document.addEventListener("mouseenter", handleMouseEnterWindow);
 
         return () => {
             window.removeEventListener("mousemove", handleMouseMove);
             document.removeEventListener("mouseleave", handleMouseLeaveWindow);
+            document.removeEventListener("mouseenter", handleMouseEnterWindow);
         };
-    }, [mouseX, mouseY]);
-
-    // Ocultar en dispositivos móviles
-    if (typeof window !== "undefined" && window.innerWidth < 768) return null;
+    }, [mouseX, mouseY, isVisible]);
 
     // Animaciones del cursor:
     // - normal: pequeño círculo verde
@@ -70,8 +77,10 @@ const Cursor = () => {
 
     return (
         <motion.div
-            className="fixed top-0 left-0 pointer-events-none z-[999999]"
-            style={{ x: cursorX, y: cursorY }}
+            className="fixed top-0 left-0 pointer-events-none z-[999999] hidden md:block"
+            style={{ x: cursorX, y: cursorY, opacity: isVisible ? 1 : 0 }}
+            animate={{ opacity: isVisible ? 1 : 0 }}
+            transition={{ duration: 0.2 }}
         >
             <motion.div
                 className="flex items-center justify-center transform -translate-x-1/2 -translate-y-1/2"

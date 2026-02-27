@@ -1,22 +1,39 @@
 import { useState, useRef, useEffect } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Target, Eye, Star, Users, Lightbulb, Shield, Zap, ChevronDown, Rocket, ShieldCheck, HeartHandshake, Globe, Activity, MapPin } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 const CorporateIdentity = () => {
-    const { setIsGlobalLightMode } = useTheme();
-    const [openIndex, setOpenIndex] = useState(0); // Abrir la Misión por defecto
     const sectionRef = useRef(null);
-    const isLightMode = useInView(sectionRef, { margin: "-30%" }); // Cambia a modo claro al scrollear 30% en la seccion
+    const { setIsGlobalLightMode, isGlobalLightMode } = useTheme();
+    const isLightMode = isGlobalLightMode;
+    const [openIndex, setOpenIndex] = useState(0); // Abrir la Misión por defecto
 
     useEffect(() => {
-        if (setIsGlobalLightMode) {
-            setIsGlobalLightMode(isLightMode);
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsGlobalLightMode(true);
+                } else {
+                    setIsGlobalLightMode(false);
+                }
+            },
+            {
+                threshold: 0.15, // 🔥 comienza a cambiar al ver apenas el 15% de la sección
+            }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
         }
+
         return () => {
-            if (setIsGlobalLightMode) setIsGlobalLightMode(false);
-        }
-    }, [isLightMode, setIsGlobalLightMode]);
+            observer.disconnect();
+            if (setIsGlobalLightMode) {
+                setIsGlobalLightMode(false);
+            }
+        };
+    }, [setIsGlobalLightMode]);
 
     const values = [
         {
@@ -71,7 +88,7 @@ const CorporateIdentity = () => {
                 className={`group/accordion relative rounded-3xl overflow-hidden mb-6 transition-colors duration-700 
                 ${isOpen
                         ? (isLightMode ? 'bg-white shadow-[0_8px_40px_rgba(15,23,42,0.08)] ring-1 ring-cyan-600/20 border border-slate-200' : 'bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-primary/40 shadow-[0_0_40px_rgba(2,223,130,0.15)] ring-1 ring-primary/20 backdrop-blur-xl')
-                        : (isLightMode ? 'bg-[#eef2f6] border border-slate-300 hover:border-cyan-500/50 hover:bg-white shadow-sm' : 'bg-white/[0.02] border border-white/10 hover:border-white/30 hover:bg-white/[0.04] backdrop-blur-lg')}`}
+                        : (isLightMode ? 'bg-slate-200 border border-slate-300 hover:border-cyan-500/50 hover:bg-white shadow-sm' : 'bg-white/[0.02] border border-white/10 hover:border-white/30 hover:bg-white/[0.04] backdrop-blur-lg')}`}
             >
                 {/* Subtle highlight effect on open */}
                 {isOpen && !isLightMode && (
@@ -129,7 +146,7 @@ const CorporateIdentity = () => {
     };
 
     return (
-        <section id="identidad" ref={sectionRef} className={`py-24 relative transition-colors duration-1000 overflow-hidden ${isLightMode ? 'bg-[#eef2f6] text-slate-900 border-transparent' : 'bg-transparent border-white/5 text-white'}`}>
+        <section id="identidad" ref={sectionRef} className={`py-24 relative transition-colors duration-1000 overflow-hidden ${isLightMode ? 'bg-slate-200 text-slate-900 border-transparent' : 'bg-transparent border-white/5 text-white'}`}>
 
             {/* Background elements (ligeramente más brillantes en el modo claro) */}
             <div className={`absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0 transition-opacity duration-1000 ${isLightMode ? 'opacity-30' : 'opacity-100'}`}>
