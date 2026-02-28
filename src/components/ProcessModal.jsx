@@ -106,7 +106,7 @@ const ProcessModal = ({ onClose }) => {
                             >
                                 <div className="absolute inset-0 bg-primary/20 blur-[40px] rounded-full group-hover:bg-primary/30 transition-colors duration-500" />
                                 <img
-                                    src="/imagenes/Avatar/AVATAR-Photoroom.png"
+                                    src={`${import.meta.env.BASE_URL}imagenes/Avatar/AVATAR-Photoroom.png`}
                                     alt="Avatar Olimpo Innova"
                                     className="w-32 sm:w-40 md:w-56 relative z-10 object-contain transition-transform duration-700 group-hover:scale-105 group-hover:-translate-y-2"
                                 />

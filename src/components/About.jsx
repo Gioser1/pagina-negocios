@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 const teamList = [
     {
         id: 1,
-        src: "/imagenes/Equipo/image00001.jpg",
+        src: "imagenes/Equipo/image00001.jpg",
         name: "Arlinson Posada",
         role: "Co Founder",
         description: "Profesional en Costos y Presupuestos. Es un teso para los números. Le encanta salir a caminar con su mascota Chane. Si los algoritmos fallan, Chane tiene el plan B durante sus caminatas estratégicas.",
@@ -13,7 +13,7 @@ const teamList = [
     },
     {
         id: 2,
-        src: "/imagenes/Equipo/image00002.jpeg",
+        src: "imagenes/Equipo/image00002.jpeg",
         name: "Óscar Sánchez",
         role: "Project Manager",
         description: "Magister en IA. Docente Catedrático. Siempre tiene una sonrisa. Probablemente la IA le escribe los chistes, pero su sonrisa es 100% real (y contagiosa).",
@@ -21,7 +21,7 @@ const teamList = [
     },
     {
         id: 3,
-        src: "/imagenes/Equipo/image00003.jpg",
+        src: "imagenes/Equipo/image00003.jpg",
         name: "Santiago Durango",
         role: "Diseñador UI/UX",
         description: "Profesional UI/UX. También es músico. Hace que todo se vea bonito y fácil de usar, lo que explica por qué sus diseños siempre tienen 'buen ritmo'.",
@@ -29,7 +29,7 @@ const teamList = [
     },
     {
         id: 4,
-        src: "/imagenes/Equipo/image00005.jpg",
+        src: "imagenes/Equipo/image00005.jpg",
         name: "Deivis Posada",
         role: "CEO y FOUNDER",
         description: "Magíster en Transformación Digital. Siempre sereno para tomar las decisiones. Tiene el súper poder de mantenerse increíblemente sereno mientras todo el código alrededor parece arder.",
@@ -37,7 +37,7 @@ const teamList = [
     },
     {
         id: 5,
-        src: "/imagenes/Equipo/image00006.jpeg",
+        src: "imagenes/Equipo/image00006.jpeg",
         name: "Laura Muñoz",
         role: "Full Stack",
         description: "Ingeniera de Datos y Software que deslumbra tanto con su deslumbrante belleza como con su brillante ingenio para dominar el código. Su compañera de viaje en la vida es Kira, su mascota (y la verdadera CEO en las sombras que aprueba el estilo de todos sus proyectos).",
@@ -45,7 +45,7 @@ const teamList = [
     },
     {
         id: 6,
-        src: "/imagenes/Equipo/image00007.jpg",
+        src: "imagenes/Equipo/image00007.jpg",
         name: "Esteban Muñeton",
         role: "Apoyo Full Stack",
         description: "Técnico en Desarollo de Software. Hombre de fe. Su pose para la sesión de foto no le favoreció. Juraba que le saldría su lado Brad Pitt... pero la cámara decidió otra cosa. Seguimos orando por esa foto.",
@@ -53,7 +53,7 @@ const teamList = [
     },
     {
         id: 7,
-        src: "/imagenes/Equipo/image00008.jpeg",
+        src: "imagenes/Equipo/image00008.jpeg",
         name: "Alejandro Mejía",
         role: "Apoyo Full Stack",
         description: "Ingeniero de Sistemas. Siempre tiene una idea tecnológica revolucionaria para cambiar el mundo; ahora solo le falta tiempo, financiamiento y convencer al resto del equipo de que no es una locura.",
@@ -61,7 +61,7 @@ const teamList = [
     },
     {
         id: 8,
-        src: "/imagenes/Equipo/image00009.jpeg",
+        src: "imagenes/Equipo/image00009.jpeg",
         name: "Lorena Isaza Gómez",
         role: "Partner",
         description: "Con una presencia espectacular que roba miradas y un talento nato para hacer brillar los proyectos. Le encanta ir al GYM para mantener esa figura increíble, y salir a caminar con su esposo y su bella hija para desconectarse de la Matrix.",
@@ -69,7 +69,7 @@ const teamList = [
     },
     {
         id: 9,
-        src: "/imagenes/Equipo/imagen00004.jpeg",
+        src: "imagenes/Equipo/imagen00004.jpeg",
         name: "Sindy Carvajal",
         role: "Apoyo en diseño IU",
         description: "Diseñadora gráfica IU y creadora de interfaces y diseños tan hermosos, deslumbrantes y perfectos como ella misma. Su gran sueño es viajar y conquistar toda Europa junto a sus padres (y de paso, enseñarle a los europeos un par de cosas sobre la verdadera elegancia y buen gusto).",
@@ -198,7 +198,7 @@ const About = () => {
                                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                                 >
                                     <img
-                                        src={member.src}
+                                        src={`${import.meta.env.BASE_URL}${member.src}`}
                                         alt={`Miembro del equipo ${member.name || member.id}`}
                                         className={`w-full h-full object-cover transition-transform duration-700 ${member.id === 9 ? 'scale-[1.25] group-hover:scale-[1.35] object-center' : 'group-hover:scale-110 object-top'}`}
                                     />
@@ -295,7 +295,7 @@ const About = () => {
                             <div className="w-full md:w-2/5 h-64 md:h-auto overflow-hidden shrink-0 relative bg-black/50">
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1a] to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#0a0f1a] z-10" />
                                 <img
-                                    src={selectedMember.src}
+                                    src={`${import.meta.env.BASE_URL}${selectedMember.src}`}
                                     alt={selectedMember.name}
                                     className={`w-full h-full object-cover ${selectedMember.id === 9 ? 'scale-[1.25] object-center' : 'object-top'}`}
                                 />

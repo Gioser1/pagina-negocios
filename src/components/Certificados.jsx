@@ -49,7 +49,7 @@ const Certificados = () => {
                         {/* Imagen del Certificado */}
                         <div className="w-full flex justify-center items-center rounded-lg overflow-hidden border border-white/10 group-hover:border-primary/50 transition-colors relative bg-gray-900/50 p-2 h-[250px] md:h-[300px]">
                             <img
-                                src={cert.image}
+                                src={`${import.meta.env.BASE_URL}${cert.image}`}
                                 alt={cert.title}
                                 className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
                             />
