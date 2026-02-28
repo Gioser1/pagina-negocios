@@ -33,18 +33,22 @@ export const clientesData = [
 export const aliadosData = [
     {
         name: "Procolombia",
-        initials: "PC"
+        initials: "PC",
+        image: "/imagenes/aliados/procolombia.png"
     },
     {
         name: "INNpulsa Colombia",
-        initials: "INC"
+        initials: "INC",
+        image: "/imagenes/aliados/innpulsa.png"
     },
     {
         name: "Alcaldía de Medellín",
-        initials: "AM"
+        initials: "AM",
+        image: "/imagenes/aliados/alcaldia-medellin.png"
     },
     {
         name: "Cámara de Comercio",
-        initials: "CC"
+        initials: "CC",
+        image: "/imagenes/aliados/camara-comercio.png"
     }
 ];
