@@ -5,35 +5,16 @@ import { useTheme } from '../context/ThemeContext';
 
 const CorporateIdentity = () => {
     const sectionRef = useRef(null);
-    const { setIsGlobalLightMode, isGlobalLightMode } = useTheme();
-    const isLightMode = isGlobalLightMode;
+    const { setIsGlobalLightMode } = useTheme();
+    const isLightMode = true; // Forzamos siempre a light mode
     const [openIndex, setOpenIndex] = useState(0); // Abrir la Misión por defecto
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsGlobalLightMode(true);
-                } else {
-                    setIsGlobalLightMode(false);
-                }
-            },
-            {
-                threshold: 0.15, // 🔥 comienza a cambiar al ver apenas el 15% de la sección
-            }
-        );
-
-        if (sectionRef.current) {
-            observer.observe(sectionRef.current);
-        }
-
+        // Observer removido para evitar conflicto con el cambio de tema global
         return () => {
-            observer.disconnect();
-            if (setIsGlobalLightMode) {
-                setIsGlobalLightMode(false);
-            }
+            // Cleanup si hubiera estado el observer
         };
-    }, [setIsGlobalLightMode]);
+    }, []);
 
     const values = [
         {
