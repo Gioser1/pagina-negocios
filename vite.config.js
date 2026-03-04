@@ -4,7 +4,10 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
-    minify: false
+    // Elimina 'minify: false' o cámbialo a true para producción
+    minify: true, 
+    outDir: 'dist',
   },
-  base: './'
+  // './' ayuda a que funcione en subcarpetas en cPanel
+  base: './' 
 })

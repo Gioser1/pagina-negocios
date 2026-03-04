@@ -21,7 +21,8 @@ export const clientesData = [
     },
     {
         name: "Universidad Nacional",
-        initials: "UN"
+        initials: "UN",
+        image: "imagenes/clientes/u-nacional.png"
     },
     {
         name: "SmartPay",
@@ -34,7 +35,7 @@ export const aliadosData = [
     {
         name: "Procolombia",
         initials: "PC",
-        image: "imagenes/aliados/ProColombia.png"
+        image: "imagenes/aliados/procolombia.png"
     },
     {
         name: "INNpulsa Colombia",
