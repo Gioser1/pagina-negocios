@@ -2,129 +2,360 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import ContactModal from "../../components/ContactModal";
+import Accordion from "../../components/Accordion";
+
+const services = [
+{
+title: "Asistentes Virtuales Cognitivos",
+description:
+"Automatización inteligente con interacción humana avanzada. Desarrollamos asistentes capaces de comprender contexto, intención y comportamiento del usuario, integrándose con sistemas empresariales para ejecutar tareas reales.",
+benefits: [
+"Comprensión contextual",
+"Integración con CRM / ERP",
+"Respuesta multicanal (web, WhatsApp, app)",
+"Automatización 24/7"
+],
+stats: [
+"+80% de empresas planean implementar IA",
+"70% de interacciones digitales pueden automatizarse",
+"Reducción de +40% en costos operativos"
+],
+image: "/imagenes/micrositios/Motores-ia/asistentes.jpg"
+},
+
+{
+title: "Procesamiento de Lenguaje Natural (NLP)",
+description:
+"Implementamos modelos de PNL que permiten a las plataformas interpretar texto, voz e intención para clasificación, análisis semántico y automatización avanzada.",
+benefits: [
+"Análisis de sentimientos",
+"Clasificación automática de textos",
+"Extracción de entidades",
+"Automatización documental"
+],
+stats: [
+"80% de los datos empresariales son no estructurados",
+"IA basada en lenguaje mejora precisión hasta 30%",
+"Automatización documental reduce tiempos 50–70%"
+],
+image: "/imagenes/micrositios/Motores-ia/npl.jpg"
+},
+
+{
+title: "Análisis Predictivo",
+description:
+"Desarrollamos modelos de machine learning que identifican patrones, anticipan comportamientos y proyectan escenarios estratégicos para la toma de decisiones.",
+benefits: [
+"Proyección de demanda",
+"Detección de riesgos",
+"Optimización de inventarios",
+"Modelos de scoring y segmentación"
+],
+stats: [
+"Empresas data-driven son 23x más propensas a adquirir clientes",
+"IA predictiva puede aumentar ingresos hasta 15%",
+"Reducción de riesgos operativos hasta 30%"
+],
+image: "/imagenes/micrositios/motores-ia/predictivo.jpg"
+},
+
+{
+title: "IA Generativa Empresarial",
+description:
+"Implementamos soluciones de IA generativa para creación de contenido, automatización documental, generación de código y asistentes internos empresariales.",
+benefits: [
+"Generación automática de contenido",
+"Automatización de documentos",
+"Copilotos empresariales internos",
+"Optimización de procesos creativos"
+],
+stats: [
+"75% de empresas ya experimentan con IA generativa",
+"Aumento de productividad hasta 40%",
+"Reducción de tiempos operativos hasta 30%"
+],
+image: "/imagenes/micrositios/motores-ia/generativa.jpg"
+},
+
+{
+title: "Visión Computacional",
+description:
+"Desarrollamos soluciones de visión artificial capaces de analizar imágenes y video en tiempo real para detección, reconocimiento y automatización de decisiones.",
+benefits: [
+"Reconocimiento facial y biométrico",
+"Detección de objetos y anomalías",
+"Automatización de inspección visual",
+"Monitoreo inteligente en tiempo real"
+],
+stats: [
+"Reducción de errores humanos hasta 90%",
+"Mejora detección temprana +35%",
+"Crecimiento anual del sector >20%"
+],
+image: "/imagenes/micrositios/motores-ia/vision.jpg"
+},
+
+{
+title: "Modelos de IA Personalizados",
+description:
+"Desarrollamos modelos de lenguaje y sistemas de IA entrenados con información privada de la organización garantizando seguridad y precisión.",
+benefits: [
+"Entrenamiento con datos corporativos",
+"Mayor precisión contextual",
+"Control y confidencialidad",
+"Implementación on-premise o cloud privada"
+],
+stats: [
+"68% de empresas priorizan IA privada",
+"Precisión mejora 25-40%",
+"+60% corporaciones adoptan IA propietaria"
+],
+image: "/imagenes/micrositios/motores-ia/modelos.jpg"
+}
+];
 
 const MotoresIA = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    return (
-        <main className="min-h-screen pt-28 md:pt-32 pb-20 md:pb-24">
-            <section className="relative py-16 md:py-24 mb-12 md:mb-16 overflow-hidden rounded-3xl mx-4 sm:mx-6 lg:mx-8 bg-gradient-to-br from-emerald-600 to-indigo-900 border border-white/10 shadow-2xl">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/connected.png')] opacity-20 mix-blend-overlay" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80" />
+const [isModalOpen, setIsModalOpen] = useState(false);
 
-                <div className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 text-center">
-                    <motion.div
-                        initial="hidden"
-                        animate="visible"
-                        variants={{
-                            hidden: { opacity: 0 },
-                            visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } }
-                        }}
-                    >
-                        <motion.span
-                            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                            className="inline-block py-1 px-4 rounded-full bg-white/10 backdrop-blur-md text-emerald-200 text-xs sm:text-sm tracking-[0.2em] font-bold uppercase mb-6 border border-white/20 shadow-[0_0_15px_rgba(16,185,129,0.3)]"
-                        >
-                            Inteligencia Artificial
-                        </motion.span>
-                        <motion.h1
-                            variants={{ hidden: { opacity: 0, y: 30, scale: 0.95 }, visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 20 } } }}
-                            className="text-4xl sm:text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-200 to-white bg-[length:200%_auto] mb-8 tracking-tight leading-[1.1] pb-2 md:pb-4"
-                            animate={{ backgroundPosition: ["0% 50%", "200% 50%"] }}
-                            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-                        >
-                            Motores de IA
-                        </motion.h1>
-                        <motion.p
-                            variants={{ hidden: { opacity: 0, y: 20, filter: "blur(10px)" }, visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8 } } }}
-                            className="text-xl md:text-2xl text-emerald-100/90 font-light max-w-3xl mx-auto leading-relaxed"
-                        >
-                            Dota de inteligencia a tus procesos y productos. Desarrollamos, entrenamos e integramos modelos de IA que aprenden, predicen y deciden.
-                        </motion.p>
-                    </motion.div>
-                </div>
-            </section>
+return (
+<main className="min-h-screen pt-28 pb-24">
 
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div className="lg:col-span-2">
-                        <div className="bg-[#111111]/80 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 md:p-12 shadow-2xl border border-white/5 mb-8 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 blur-[100px] rounded-full pointer-events-none" />
+{/* HERO */}
 
-                            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="relative z-10">
-                                <motion.h2 className="text-3xl font-bold mb-6 text-white">El futuro es predictivo</motion.h2>
-                                <motion.p className="text-lg text-gray-400 leading-relaxed mb-12">
-                                    La Inteligencia Artificial no es solo Chatbots. Es la capacidad de tu negocio para analizar tendencias ocultas, personalizar experiencias de usuario a escala masiva, y tomar decisiones basadas en modelos matemáticos complejos en milisegundos.
-                                </motion.p>
+<section className="relative py-28 mb-20 overflow-hidden rounded-3xl mx-6">
 
-                                <motion.h3 className="text-2xl font-bold mb-8 text-white flex items-center gap-3">
-                                    <div className="w-8 h-1 bg-gradient-to-r from-emerald-500 to-transparent rounded-full" />
-                                    ¿Qué incluye este servicio?
-                                </motion.h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
-                                    {[
-                                        "Asistentes Virtuales Cognitivos",
-                                        "Sistemas de Recomendación",
-                                        "Procesamiento de Lenguaje (NLP)",
-                                        "Visión Computacional",
-                                        "Análisis Predictivo de Ventas",
-                                        "Fine-Tuning de LLMs Privados"
-                                    ].map((feature, idx) => (
-                                        <div key={idx} className="flex items-center space-x-4 p-4 bg-white/[0.03] hover:bg-white/[0.08] transition-colors rounded-xl border border-white/[0.05]">
-                                            <span className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold border border-emerald-500/30">
-                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7"></path></svg>
-                                            </span>
-                                            <span className="text-gray-300 font-medium">{feature}</span>
-                                        </div>
-                                    ))}
-                                </div>
+<div
+className="absolute inset-0 bg-cover bg-center scale-110"
+style={{
+backgroundImage: "url('/imagenes/micrositios/Motores-ia/banner.jpg')"
+}}
+/>
 
-                                <div className="flex flex-col sm:flex-row items-center sm:space-x-4 space-y-4 sm:space-y-0 pt-8 mt-4 border-t border-white/10">
-                                    <button onClick={() => setIsModalOpen(true)} className="w-full sm:w-auto text-center px-8 py-4 bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-bold rounded-xl hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all hover:-translate-y-1">
-                                        Implementar IA
-                                    </button>
-                                    <Link to="/" className="w-full sm:w-auto text-center px-8 py-4 bg-white/5 text-gray-300 font-medium rounded-xl hover:bg-white/10 transition-colors">
-                                        Volver al Inicio
-                                    </Link>
-                                </div>
-                            </motion.div>
-                        </div>
-                    </div>
+<div className="absolute inset-0 bg-gradient-to-br from-emerald-900/80 via-teal-900/70 to-indigo-900/90"/>
 
-                    <div className="lg:col-span-1">
-                        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.4 }} className="bg-[#111111]/80 backdrop-blur-xl rounded-3xl p-6 sm:p-8 lg:sticky lg:top-32 shadow-2xl border border-white/5">
-                            <h4 className="text-white font-bold text-xl mb-8 flex items-center gap-3">
-                                <span className="w-1.5 h-6 bg-emerald-500 rounded-full" />
-                                Resumen Técnico
-                            </h4>
-                            <ul className="space-y-6 mb-10">
-                                <li className="flex flex-col bg-white/5 p-4 rounded-xl border border-white/5">
-                                    <span className="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">Precisión</span>
-                                    <span className="text-gray-200">Modelos Ajustados (Fine-Tuned)</span>
-                                </li>
-                                <li className="flex flex-col bg-white/5 p-4 rounded-xl border border-white/5">
-                                    <span className="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">Privacidad</span>
-                                    <span className="text-gray-200">Datos asegurados In-House</span>
-                                </li>
-                            </ul>
-                            <div className="pt-6 border-t border-white/10">
-                                <h5 className="text-white/80 font-medium mb-4 text-sm uppercase tracking-wide">Stack de IA</h5>
-                                <div className="flex flex-wrap gap-2">
-                                    {['OpenAI API', 'TensorFlow', 'PyTorch', 'HuggingFace', 'Pinecone', 'LangChain'].map((tech) => (
-                                        <span key={tech} className="px-3 py-1.5 bg-emerald-500/10 text-emerald-200 rounded-lg text-sm font-medium border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors">
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
-                </div>
-            </section>
+<div className="relative z-10 max-w-5xl mx-auto text-center px-6">
 
-            <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-        </main>
-    );
+<motion.span
+initial={{opacity:0,y:20}}
+animate={{opacity:1,y:0}}
+className="inline-block py-1 px-4 rounded-full bg-white/10 text-emerald-200 text-sm tracking-widest mb-6 backdrop-blur"
+>
+Inteligencia Artificial
+</motion.span>
+
+<motion.h1
+initial={{opacity:0,y:30}}
+animate={{opacity:1,y:0}}
+transition={{duration:0.6}}
+className="text-5xl md:text-7xl font-black text-white mb-6"
+>
+Motores de IA
+</motion.h1>
+
+<p className="text-xl text-emerald-100 max-w-3xl mx-auto">
+Dota de inteligencia a tus procesos y productos mediante modelos que
+aprenden, predicen y automatizan decisiones.
+</p>
+
+</div>
+
+</section>
+
+{/* CONTENIDO */}
+
+<section className="max-w-7xl mx-auto px-6 grid lg:grid-cols-3 gap-10">
+
+<div className="lg:col-span-2 space-y-6">
+
+{services.map((service,index)=>(
+
+<Accordion key={index} title={service.title}>
+
+<motion.div
+initial={{opacity:0,y:20}}
+animate={{opacity:1,y:0}}
+className="flex flex-col md:flex-row gap-8 pt-4"
+>
+
+{/* TEXTO */}
+
+<div className="md:w-1/2 space-y-6">
+
+<p className="text-gray-300 leading-relaxed">
+{service.description}
+</p>
+
+<div className="bg-white/5 p-5 rounded-xl border border-white/10">
+<h4 className="font-semibold text-white mb-3">
+Beneficios Clave
+</h4>
+
+<ul className="space-y-2 text-gray-300 text-sm">
+
+{service.benefits.map((b,i)=>(
+
+<li key={i} className="flex items-start gap-2">
+
+<span className="text-emerald-400 mt-1">●</span>
+
+{b}
+
+</li>
+
+))}
+
+</ul>
+
+</div>
+
+<div className="bg-white/5 p-5 rounded-xl border border-white/10">
+
+<h4 className="font-semibold text-white mb-3">
+Datos Globales
+</h4>
+
+<ul className="space-y-2 text-gray-300 text-sm">
+
+{service.stats.map((s,i)=>(
+
+<li key={i} className="flex items-start gap-2">
+
+<span className="text-indigo-400 mt-1">◆</span>
+
+{s}
+
+</li>
+
+))}
+
+</ul>
+
+</div>
+
+</div>
+
+{/* IMAGEN */}
+
+<div className="md:w-1/2">
+
+<div className="overflow-hidden rounded-xl shadow-2xl group">
+
+<img
+src={service.image}
+alt={service.title}
+className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+/>
+
+</div>
+
+</div>
+
+</motion.div>
+
+</Accordion>
+
+))}
+
+{/* BOTONES */}
+
+<div className="flex gap-4 pt-8 border-t border-white/10">
+
+<button
+onClick={()=>setIsModalOpen(true)}
+className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl shadow-lg hover:scale-105 hover:shadow-emerald-500/30 transition"
+>
+Implementar IA
+</button>
+
+<Link
+to="/"
+className="px-8 py-4 bg-white/5 text-gray-300 rounded-xl border border-white/10 hover:bg-white/10 transition"
+>
+Volver al Inicio
+</Link>
+
+</div>
+
+</div>
+
+{/* SIDEBAR */}
+
+<div className="bg-[#0e1117]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 h-fit sticky top-32">
+
+<h4 className="text-white font-bold text-xl mb-6">
+Resumen Técnico
+</h4>
+
+<ul className="space-y-4 mb-8">
+
+<li className="bg-white/5 p-4 rounded-lg border border-white/10">
+
+<span className="text-emerald-400 text-xs uppercase">
+Precisión
+</span>
+
+<p className="text-gray-200 mt-1">
+Modelos Fine-Tuned
+</p>
+
+</li>
+
+<li className="bg-white/5 p-4 rounded-lg border border-white/10">
+
+<span className="text-emerald-400 text-xs uppercase">
+Privacidad
+</span>
+
+<p className="text-gray-200 mt-1">
+Datos empresariales protegidos
+</p>
+
+</li>
+
+</ul>
+
+<div>
+
+<h5 className="text-white/70 mb-3 text-sm uppercase">
+Stack IA
+</h5>
+
+<div className="flex flex-wrap gap-2">
+
+{[
+"OpenAI API",
+"TensorFlow",
+"PyTorch",
+"HuggingFace",
+"Pinecone",
+"LangChain"
+].map((tech)=>(
+
+<span
+key={tech}
+className="px-3 py-1 bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 rounded-md text-sm"
+>
+{tech}
+</span>
+
+))}
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<ContactModal
+isOpen={isModalOpen}
+onClose={()=>setIsModalOpen(false)}
+/>
+
+</main>
+);
 };
 
 export default MotoresIA;
