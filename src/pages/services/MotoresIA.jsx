@@ -21,7 +21,7 @@ const services = [
       { value: "70%", label: "interacciones automatizables" },
       { value: "-40%", label: "costos operativos" }
     ],
-    image: "/imagenes/micrositios/Motores-ia/imagen-ia2.jpg"
+    image: "/imagenes/micrositios/Motores-ia/asistentes.jpg"
   },
   {
     title: "Procesamiento de Lenguaje NPL",
