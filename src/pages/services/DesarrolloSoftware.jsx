@@ -1,800 +1,700 @@
-import React, { useState, useRef, useEffect, memo, useCallback } from "react";
-import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { Link } from "react-router-dom";
-import CountUp from "react-countup";
-import ContactModal from "/src/components/ContactModal";
+import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef, useCallback, memo } from "react";
+import ContactModal from "../../components/ContactModal";
 
-// --- SHARED UTILS ---
-const fadeIn = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-};
-
-const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.1,
-            delayChildren: 0.1
-        }
+const services = [
+    {
+        title: "Aplicaciones Web Progresivas (PWA)",
+        description: "Interfaces rápidas, instalables y offline-first que eliminan la fricción de descarga.",
+        icon: "🌐",
+        color: "#3b82f6",
+        glowColor: "rgba(59,130,246,0.4)",
+        benefits: [
+            "Velocidad de carga instantánea",
+            "Funcionalidad sin conexión",
+            "Notificaciones Push",
+            "Sin comisiones de App Store"
+        ],
+        stats: [
+            { value: "50%", label: "más retención" },
+            { value: "-70%", label: "uso de datos" },
+            { value: "3x", label: "más engagement" }
+        ],
+        image: "/imagenes/micrositios/Desarrollo-software/primer_texto.jpg"
+    },
+    {
+        title: "Desarrollo Full-Stack",
+        description: "Arquitecturas de extremo a extremo diseñadas para manejar alto tráfico con latencia mínima.",
+        icon: "💻",
+        color: "#818cf8",
+        glowColor: "rgba(129,140,248,0.4)",
+        benefits: [
+            "React & Next.js Pro",
+            "Node.js Escalable",
+            "Bases de Datos Robustas",
+            "Optimización SEO"
+        ],
+        stats: [
+            { value: "99.9%", label: "uptime" },
+            { value: "+40%", label: "velocidad" },
+            { value: "Zero", label: "duda técnica" }
+        ],
+        image: "/imagenes/micrositios/Desarrollo-software/people-working-html-codes.jpg"
+    },
+    {
+        title: "Apps Nativas iOS y Android",
+        description: "Experiencia de usuario total aprovechando al máximo el hardware nativo de cada dispositivo.",
+        icon: "📱",
+        color: "#f472b6",
+        glowColor: "rgba(244,114,182,0.4)",
+        benefits: [
+            "Rendimiento nativo 100%",
+            "Acceso a sensores",
+            "Seguridad biométrica",
+            "Publicación en Stores"
+        ],
+        stats: [
+            { value: "88%", label: "tiempo en apps" },
+            { value: "1.2s", label: "tiempo de inicio" },
+            { value: "+60%", label: "conversión" }
+        ],
+        image: "/imagenes/micrositios/Desarrollo-software/smile-young-man-playing-happy-woman.jpg"
+    },
+    {
+        title: "DevOps & Cloud Engineering",
+        description: "Automatización de despliegues y gestión de infraestructura como código para escala infinita.",
+        icon: "⚙️",
+        color: "#fb923c",
+        glowColor: "rgba(251,146,60,0.4)",
+        benefits: [
+            "CI/CD Pipelines",
+            "Terraform & IaC",
+            "Kubernetes Clusters",
+            "Azure / AWS Expertise"
+        ],
+        stats: [
+            { value: "-80%", label: "tiempo despliegue" },
+            { value: "Zero", label: "caídas" },
+            { value: "94%", label: "adopción cloud" }
+        ],
+        image: "/imagenes/micrositios/Desarrollo-software/young-engineer-server-room-medium-shot.jpg"
+    },
+    {
+        title: "Arquitectura Microservicios",
+        description: "Sistemas modulares desacoplados donde cada componente escala de forma independiente.",
+        icon: "🧱",
+        color: "#22d3ee",
+        glowColor: "rgba(34,211,238,0.4)",
+        benefits: [
+            "Evolución por módulos",
+            "Resiliencia extrema",
+            "Deployment aislado",
+            "Fácil mantenimiento"
+        ],
+        stats: [
+            { value: "85%", label: "uso empresarial" },
+            { value: "+50%", label: "escalabilidad" },
+            { value: "24/7", label: "operativo" }
+        ],
+        image: "/imagenes/micrositios/Desarrollo-software/computer-scientists-data-center-managing-maintaining-databases.jpg"
+    },
+    {
+        title: "Mantenimiento Proactivo",
+        description: "Monitoreo técnico y actualizaciones constantes para garantizar el rendimiento perpetuo.",
+        icon: "🛡️",
+        color: "#a78bfa",
+        glowColor: "rgba(167,139,250,0.4)",
+        benefits: [
+            "Parches de seguridad",
+            "Auditoría de performance",
+            "Soporte 24/7",
+            "Optimización de costos"
+        ],
+        stats: [
+            { value: "60%", label: "menos ataques" },
+            { value: "-40%", label: "incidentes" },
+            { value: "100%", label: "tranquilidad" }
+        ],
+        image: "/imagenes/micrositios/Desarrollo-software/professional-hacker-using-ransomware-phishing-tactics-compromise-networks.jpg"
     }
-};
+];
 
-// --- BACKGROUND EFFECTS ---
+// Neural Canvas
+function NeuralCanvas() {
+    const canvasRef = useRef(null);
+    const mouse = useRef({ x: -999, y: -999 });
+    const animRef = useRef(null);
 
-const FloatingNodes = memo(() => (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {Array.from({ length: 12 }).map((_, i) => (
-            <motion.div
-                key={i}
-                className="absolute w-1.5 h-1.5 bg-blue-500/20 rounded-full"
-                initial={{
-                    x: Math.random() * 100 + "%",
-                    y: Math.random() * 100 + "%",
-                    opacity: 0
-                }}
-                animate={{
-                    y: [null, Math.random() * 100 + "%"],
-                    opacity: [0, 0.4, 0],
-                    scale: [0.5, 1.2, 0.5]
-                }}
-                transition={{
-                    duration: 10 + Math.random() * 20,
-                    repeat: Infinity,
-                    ease: "linear",
-                    delay: Math.random() * 10
-                }}
-            />
-        ))}
-    </div>
-));
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
 
-const DataStream = memo(() => (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-        {Array.from({ length: 8 }).map((_, i) => (
-            <motion.div
-                key={i}
-                className="absolute h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent w-full"
-                style={{ top: (i * 15) + 5 + "%" }}
-                initial={{ x: "-100%" }}
-                animate={{ x: "100%" }}
-                transition={{
-                    duration: 4 + Math.random() * 6,
-                    repeat: Infinity,
-                    ease: "linear",
-                    delay: Math.random() * 5
-                }}
-            />
-        ))}
-    </div>
-));
+        function resize() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        resize();
+        window.addEventListener("resize", resize);
 
-const BackgroundBlobs = memo(() => (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#050505]">
-        <FloatingNodes />
-        <DataStream />
-        <div
-            className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] opacity-15"
-            style={{
-                background: 'radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%)',
-                filter: 'blur(100px)'
-            }}
-        />
-        <div
-            className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] opacity-15"
-            style={{
-                background: 'radial-gradient(circle, rgba(8, 145, 178, 0.1) 0%, transparent 70%)',
-                filter: 'blur(120px)'
-            }}
-        />
-    </div>
-));
+        const onMove = (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.current.x = e.clientX - rect.left;
+            mouse.current.y = e.clientY - rect.top;
+        };
+        canvas.addEventListener("mousemove", onMove);
 
-const ServiceDetailModal = ({ info, onClose }) => {
-    if (!info) return null;
+        const N = 80;
+        let particles = Array.from({ length: N }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            size: Math.random() * 2 + 0.5,
+            pulse: Math.random() * Math.PI * 2,
+            hue: Math.random() > 0.5 ? 210 : (Math.random() > 0.5 ? 240 : 200) // Blue variants for software
+        }));
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.pulse += 0.02;
+
+                const dx = p.x - mouse.current.x;
+                const dy = p.y - mouse.current.y;
+                const d = Math.sqrt(dx * dx + dy * dy);
+                if (d < 100) {
+                    p.x += (dx / d) * 1;
+                    p.y += (dy / d) * 1;
+                }
+
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                const r = p.size * (1 + 0.2 * Math.sin(p.pulse));
+                const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 4);
+                grd.addColorStop(0, `hsla(${p.hue},100%,70%,0.8)`);
+                grd.addColorStop(1, `hsla(${p.hue},100%,70%,0)`);
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, r * 4, 0, Math.PI * 2);
+                ctx.fillStyle = grd;
+                ctx.fill();
+            });
+
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const d = Math.sqrt(dx * dx + dy * dy);
+                    if (d < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(59,130,246,${(1 - d / 100) * 0.2})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            animRef.current = requestAnimationFrame(animate);
+        }
+        animate();
+
+        return () => {
+            window.removeEventListener("resize", resize);
+            canvas.removeEventListener("mousemove", onMove);
+            cancelAnimationFrame(animRef.current);
+        };
+    }, []);
+
+    return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
+}
+
+// Tilt card
+function TiltCard({ children, className = "" }) {
+    const ref = useRef(null);
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    const rotX = useTransform(y, [-0.5, 0.5], [10, -10]);
+    const rotY = useTransform(x, [-0.5, 0.5], [-10, 10]);
+    const springX = useSpring(rotX, { stiffness: 150, damping: 20 });
+    const springY = useSpring(rotY, { stiffness: 150, damping: 20 });
+
+    const onMove = useCallback((e) => {
+        const rect = ref.current.getBoundingClientRect();
+        x.set((e.clientX - rect.left) / rect.width - 0.5);
+        y.set((e.clientY - rect.top) / rect.height - 0.5);
+    }, [x, y]);
+
+    const onLeave = useCallback(() => {
+        x.set(0);
+        y.set(0);
+    }, [x, y]);
+
     return (
         <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
+            ref={ref}
+            onMouseMove={onMove}
+            onMouseLeave={onLeave}
+            style={{ rotateX: springX, rotateY: springY, transformPerspective: 1200 }}
+            className={className}
         >
-            <motion.div
-                initial={{ scale: 0.95, y: 20 }}
-                animate={{ scale: 1, y: 0 }}
-                exit={{ scale: 0.95, opacity: 0 }}
-                className="bg-[#0a0a0a] border border-white/10 p-10 rounded-[2.5rem] max-w-2xl w-full relative overflow-hidden shadow-2xl"
-            >
-                <div className="absolute top-0 right-0 p-8">
-                    <button onClick={onClose} className="text-gray-400 hover:text-white text-2xl transition-colors">✕</button>
-                </div>
-                <div className="relative z-10">
-                    <span className="text-blue-500 font-bold tracking-widest uppercase text-[10px] mb-4 block underline decoration-blue-500/30 underline-offset-4">{info.category}</span>
-                    <h3 className="text-3xl font-bold mb-6 text-white tracking-tight leading-tight">{info.title}</h3>
-                    <p className="text-gray-400 leading-relaxed text-lg italic opacity-80">{info.description}</p>
-                </div>
-                <div className="absolute top-[-10%] left-[-10%] w-32 h-32 bg-blue-600/10 blur-[50px] rounded-full" />
-            </motion.div>
+            {children}
         </motion.div>
     );
-};
+}
 
-// --- SECTION COMPONENTS ---
+// Animated counter
+function Counter({ value, label }) {
+    const [display, setDisplay] = useState("0");
+    const ref = useRef(null);
+    const started = useRef(false);
 
-const HeroSoftware = () => (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden transform-gpu">
-        <div className="absolute inset-0 z-0 bg-[#050505]">
-            <div
-                className="absolute inset-0 bg-cover bg-center opacity-40 blur-[2px]"
-                style={{ backgroundImage: "url('/imagenes/micrositios/Desarrollo-software/portrait-male-engineer-working-field-engineers-day-celebration.jpg')" }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-blue-900/30 via-black/40 to-[#050505]" />
+    useEffect(() => {
+        const observer = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting && !started.current) {
+                started.current = true;
+                const num = parseFloat(value.replace(/[^0-9.]/g, ""));
+                const prefix = value.match(/^[+\-]/) ? value[0] : "";
+                const suffix = value.replace(/[0-9.\-+]/g, "");
+                let start = 0;
+                const duration = 2000;
+                const step = (ts) => {
+                    if (!start) start = ts;
+                    const p = Math.min((ts - start) / duration, 1);
+                    const ease = 1 - Math.pow(1 - p, 4);
+                    setDisplay(`${prefix}${Math.round(ease * num)}${suffix}`);
+                    if (p < 1) requestAnimationFrame(step);
+                };
+                requestAnimationFrame(step);
+            }
+        }, { threshold: 0.5 });
+        if (ref.current) observer.observe(ref.current);
+        return () => observer.disconnect();
+    }, [value]);
+
+    return (
+        <div ref={ref} className="text-center">
+            <div className="text-4xl font-black">{display}</div>
+            <div className="text-[10px] text-gray-500 mt-1 uppercase tracking-widest">{label}</div>
         </div>
+    );
+}
 
-        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
+// Glitch text
+function GlitchText({ text, className = "" }) {
+    return (
+        <span className={`relative inline-block ${className}`}>
+            <style>{`
+        @keyframes glitch1 {
+          0%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+          20% { clip-path: inset(20% 0 60% 0); transform: translate(-4px, 2px); }
+          40% { clip-path: inset(60% 0 10% 0); transform: translate(4px, -2px); }
+        }
+        @keyframes glitch2 {
+          0%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+          50% { clip-path: inset(10% 0 70% 0); transform: translate(-4px, 4px); }
+        }
+        .glitch::before {
+          content: attr(data-text);
+          position: absolute; inset: 0;
+          color: #3b82f6;
+          animation: glitch1 3s infinite;
+        }
+        .glitch::after {
+          content: attr(data-text);
+          position: absolute; inset: 0;
+          color: #818cf8;
+          animation: glitch2 3s infinite 0.5s;
+        }
+      `}</style>
+            <span className="glitch" data-text={text}>{text}</span>
+        </span>
+    );
+}
+
+// Typing text
+function TypingText({ texts, className = "" }) {
+    const [idx, setIdx] = useState(0);
+    const [display, setDisplay] = useState("");
+    const [phase, setPhase] = useState("type");
+
+    useEffect(() => {
+        const current = texts[idx];
+        let timeout;
+        if (phase === "type") {
+            if (display.length < current.length) {
+                timeout = setTimeout(() => setDisplay(current.slice(0, display.length + 1)), 50);
+            } else {
+                timeout = setTimeout(() => setPhase("pause"), 2500);
+            }
+        } else if (phase === "pause") {
+            timeout = setTimeout(() => setPhase("delete"), 500);
+        } else if (phase === "delete") {
+            if (display.length > 0) {
+                timeout = setTimeout(() => setDisplay(display.slice(0, -1)), 30);
+            } else {
+                setIdx((idx + 1) % texts.length);
+                setPhase("type");
+            }
+        }
+        return () => clearTimeout(timeout);
+    }, [display, phase, idx, texts]);
+
+    return (
+        <span className={className}>
+            {display}
+            <motion.span
+                animate={{ opacity: [1, 0] }}
+                transition={{ duration: 0.5, repeat: Infinity }}
+                className="inline-block w-0.5 h-6 bg-blue-500 ml-1 align-middle"
+            />
+        </span>
+    );
+}
+
+// Service Card
+function ServiceCard({ service, index }) {
+    const [open, setOpen] = useState(false);
+    const [hovered, setHovered] = useState(false);
+
+    return (
+        <TiltCard className="relative group cursor-pointer h-full">
             <motion.div
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            >
-                <motion.h1
-                    className="text-5xl md:text-8xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-200 to-blue-500 tracking-tight"
-                    initial={{ y: 30, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                >
-                    Desarrollo de Software
-                </motion.h1>
-                <motion.p
-                    className="text-xl md:text-2xl text-gray-300 mb-10 max-w-4xl mx-auto font-light leading-relaxed italic"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                >
-                    Soluciones tecnológicas modernas diseñadas para escalar, <br />
-                    <span className="text-blue-400 font-medium">optimizar procesos y potenciar el crecimiento digital.</span>
-                </motion.p>
-                <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.6 }}
-                >
-                    <button
-                        onClick={() => {
-                            document.getElementById('pwa-section').scrollIntoView({ behavior: 'smooth' });
-                        }}
-                        className="group relative px-10 py-5 bg-blue-600 rounded-full font-bold overflow-hidden transition-all duration-300 hover:bg-blue-500 hover:scale-[1.05] active:scale-95 shadow-2xl shadow-blue-500/30"
-                    >
-                        <span className="relative z-10 flex items-center gap-2 text-lg uppercase tracking-wider">
-                            Explorar servicios
-                            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </span>
-                        <div className="absolute inset-0 bg-blue-400/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </button>
-                </motion.div>
-            </motion.div>
-        </div>
-
-        <motion.div
-            className="absolute bottom-10 left-1/2 -translate-x-1/2"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-        >
-            <div className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-1">
-                <div className="w-1 h-2 bg-blue-400 rounded-full" />
-            </div>
-        </motion.div>
-    </section>
-);
-
-const PWADevelopment = ({ onOpenDetail }) => (
-    <section id="pwa-section" className="relative py-32 px-4 bg-[#0a0a0a]/60 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeIn}
-                    className="relative group h-full"
-                >
-                    <div className="absolute -inset-4 bg-blue-500/10 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-60 transition-opacity duration-700" />
-                    <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl aspect-square md:aspect-video lg:aspect-square">
-                        <img
-                            src="/imagenes/micrositios/Desarrollo-software/primer_texto.jpg"
-                            alt="PWA Development"
-                            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                            loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                        <div className="absolute bottom-8 left-8">
-                            <span className="text-blue-400 font-black text-6xl opacity-10 leading-none">01</span>
-                        </div>
-                    </div>
-
-                    <motion.div
-                        className="absolute -bottom-6 -right-6 bg-blue-600 p-6 rounded-2xl shadow-2xl border border-white/20 hidden md:block"
-                        initial={{ y: 20, opacity: 0 }}
-                        whileInView={{ y: 0, opacity: 1 }}
-                        viewport={{ once: true }}
-                        animate={{ y: [0, -10, 0] }}
-                        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                    >
-                        <p className="text-xs font-bold uppercase tracking-widest text-blue-100 italic">Offline Ready</p>
-                    </motion.div>
-                </motion.div>
-
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={staggerContainer}
-                >
-                    <motion.span variants={fadeIn} className="text-blue-500 font-bold tracking-[0.4em] uppercase mb-6 block underline decoration- blue-500/30 underline-offset-8">Vanguardia Digital</motion.span>
-                    <motion.h2 variants={fadeIn} className="text-5xl md:text-7xl font-black mb-8 leading-[0.9] tracking-tighter">
-                        Aplicaciones Web <br /><span className="text-white/90">Progresivas (PWA)</span>
-                    </motion.h2>
-                    <motion.p variants={fadeIn} className="text-xl text-gray-400 mb-10 leading-relaxed italic">
-                        Combinamos lo mejor de la web y móvil. <span className="text-white font-medium underline decoration-blue-500/50">Funcionan offline</span>, cargan en milisegundos y eliminan la fricción de descarga.
-                    </motion.p>
-
-                    <div className="grid grid-cols-2 gap-4 mb-12">
-                        {[
-                            { name: "Sistemas Financieros" },
-                            { name: "Turismo y Reservas" },
-                            { name: "E-commerce Pro" },
-                            { name: "Plataformas SaaS" }
-                        ].map((item, i) => (
-                            <motion.div
-                                key={i}
-                                variants={fadeIn}
-                                className="group/item relative overflow-hidden rounded-xl border border-white/5 p-4 bg-white/[0.03] hover:bg-white/[0.08] transition-all"
-                            >
-                                <span className="relative z-10 text-xs text-blue-100 font-medium italic uppercase tracking-wider">{item.name}</span>
-                                <div className="absolute top-0 right-0 w-12 h-12 bg-blue-500/10 blur-xl rounded-full" />
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    <motion.button
-                        variants={fadeIn}
-                        onClick={() => onOpenDetail({
-                            category: "PWA",
-                            title: "Aplicaciones Web Progresivas",
-                            description: "Velocidad nativa en el navegador. Las PWA permiten una experiencia de usuario fluida sin depender de tiendas de aplicaciones, optimizando la tasa de conversión y el engagement."
-                        })}
-                        className="group flex items-center gap-3 text-blue-400 font-bold uppercase tracking-widest text-xs hover:text-white transition-colors"
-                    >
-                        Explorar Tecnología
-                        <span className="w-8 h-px bg-blue-500 group-hover:w-12 transition-all" />
-                        <span className="text-lg">→</span>
-                    </motion.button>
-                </motion.div>
-            </div>
-        </div>
-    </section>
-);
-
-const FullStackDev = ({ onOpenDetail }) => (
-    <>
-        <section className="py-24 bg-[#050505] relative overflow-hidden">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
-            <div className="max-w-7xl mx-auto px-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-                    {[
-                        { value: 3, suffix: "X", label: "Desempeño superior" },
-                        { value: 50, suffix: "%", label: "Mayor retención" },
-                        { value: 70, suffix: "%", label: "Eficiencia operativa" }
-                    ].map((stat, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
-                            className="relative p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 group hover:bg-white/[0.04] transition-all"
-                        >
-                            <h3 className="text-7xl font-black text-white mb-2 tracking-tighter">
-                                <CountUp end={stat.value} duration={3} enableScrollSpy scrollSpyOnce />
-                                <span className="text-blue-500">{stat.suffix}</span>
-                            </h3>
-                            <p className="text-gray-500 text-xs font-bold uppercase tracking-[0.2em]">{stat.label}</p>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-        </section>
-
-        <section className="relative py-32 px-4 bg-[#0a0a0a]/60 overflow-hidden">
-            <div className="max-w-7xl mx-auto">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={staggerContainer}
-                    >
-                        <h2 className="text-5xl md:text-7xl font-black mb-8 italic underline underline-offset-8 decoration-blue-500/30 tracking-tighter leading-none">
-                            Desarrollo <br />Full-Stack <br /><span className="text-blue-500">Escalable</span>
-                        </h2>
-                        <motion.p variants={fadeIn} className="text-xl text-gray-300 mb-10 leading-relaxed italic">
-                            Construimos plataformas <span className="text-white font-medium underline decoration-blue-500/30">end-to-end</span>. Arquitecturas robustas listas para manejar alto tráfico con una latencia mínima.
-                        </motion.p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                            {[
-                                { title: "React/Next.js", desc: "Interfaces dinámicas y SEO" },
-                                { title: "Node.js/Python", desc: "Backend de alto rendimiento" },
-                                { title: "NoSQL/SQL", desc: "Gestión eficiente de datos" },
-                                { title: "Cloud Ready", desc: "Azure / AWS / GCP" }
-                            ].map((item, i) => (
-                                <motion.div
-                                    key={i}
-                                    variants={fadeIn}
-                                    className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-blue-500/30 transition-all group"
-                                >
-                                    <h4 className="font-black text-white text-sm mb-2 uppercase tracking-widest group-hover:text-blue-400 transition-colors">{item.title}</h4>
-                                    <p className="text-xs text-gray-500 italic leading-snug">{item.desc}</p>
-                                </motion.div>
-                            ))}
-                        </div>
-
-                        <motion.button
-                            variants={fadeIn}
-                            onClick={() => onOpenDetail({
-                                category: "Full-Stack",
-                                title: "Ingeniería de Extremo a Extremo",
-                                description: "Desde bases de datos optimizadas hasta interfaces reactivas. Nuestra metodología asegura que el backend y el frontend trabajen en perfecta sincronía."
-                            })}
-                            className="bg-blue-600/10 border border-blue-500/30 px-8 py-4 rounded-xl text-blue-400 font-bold uppercase tracking-widest text-xs hover:bg-blue-600 hover:text-white transition-all"
-                        >
-                            Detalle Arquitectónico
-                        </motion.button>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        className="relative group mt-10 lg:mt-0"
-                    >
-                        <div className="absolute -inset-10 bg-blue-500/10 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                        <div className="relative rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group-hover:border-blue-500/40 transition-all duration-700">
-                            <img
-                                src="/imagenes/micrositios/Desarrollo-software/people-working-html-codes.jpg"
-                                alt="Full-Stack Dev"
-                                className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
-                                loading="lazy"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
-                            <div className="absolute top-10 right-10 flex gap-2">
-                                <div className="w-3 h-3 rounded-full bg-red-500/50" />
-                                <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
-                                <div className="w-3 h-3 rounded-full bg-green-500/50" />
-                            </div>
-                        </div>
-                    </motion.div>
-                </div>
-            </div>
-        </section>
-    </>
-);
-
-const MobileApps = ({ onOpenDetail }) => (
-    <section className="relative py-32 px-4 bg-[#050505] overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                <motion.div
-                    initial={{ opacity: 0, x: -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    className="order-2 lg:order-1 relative group"
-                >
-                    <div className="absolute -inset-10 bg-indigo-600/10 blur-[80px] rounded-full" />
-                    <div className="relative rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl transition-all duration-700 aspect-square md:aspect-[4/3] group-hover:border-blue-500/30">
-                        <img
-                            src="/imagenes/micrositios/Desarrollo-software/smile-young-man-playing-happy-woman.jpg"
-                            alt="Mobile Development"
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]"
-                            loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-tr from-blue-950/40 to-transparent" />
-                    </div>
-
-                    <motion.div
-                        className="absolute top-12 left-[-20px] bg-blue-600 px-8 py-5 rounded-2xl rotate-[-4deg] shadow-2xl border border-white/20 hidden md:block"
-                        animate={{ y: [0, -10, 0] }}
-                        transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-                    >
-                        <p className="text-xs font-black uppercase tracking-widest text-white italic">Rendimiento Nativo</p>
-                    </motion.div>
-                </motion.div>
-
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={staggerContainer}
-                    className="order-1 lg:order-2"
-                >
-                    <span className="text-blue-500 font-bold tracking-[0.4em] uppercase mb-6 block underline decoration-blue-500/30 underline-offset-8">Experiencia móvil total</span>
-                    <h2 className="text-5xl md:text-7xl font-black mb-8 underline underline-offset-8 decoration-white/5 tracking-tighter leading-none">Apps Nativas <br />iOS y Android</h2>
-                    <motion.p variants={fadeIn} className="text-xl text-gray-300 mb-10 leading-relaxed italic">
-                        Velocidad sin compromisos. Desarrollamos aplicaciones que aprovechan al máximo el <span className="text-white font-medium underline decoration-blue-500">hardware nativo</span> para una experiencia fluida y segura.
-                    </motion.p>
-
-                    <motion.button
-                        variants={fadeIn}
-                        onClick={() => onOpenDetail({
-                            category: "Mobile",
-                            title: "Apps Nativas iOS y Android",
-                            description: "Maximizamos el potencial de cada plataforma. Usamos tecnologías líderes para asegurar que tu app sea rápida, eficiente y esté lista para las tiendas de aplicaciones."
-                        })}
-                        className="mb-12 text-blue-400 font-bold flex items-center gap-3 hover:text-white transition-colors uppercase tracking-widest text-xs"
-                    >
-                        Ver capacidades móviles <span className="text-2xl">→</span>
-                    </motion.button>
-
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-8 pt-10 border-t border-white/10">
-                        {[
-                            { val: 6.8, suf: "B", lab: "Usuarios móviles" },
-                            { val: 88, suf: "%", lab: "Uso en apps" },
-                            { val: 70, suf: "%", lab: "Ventas móviles" }
-                        ].map((stat, i) => (
-                            <div key={i}>
-                                <div className="text-3xl font-black text-white tabular-nums">
-                                    <CountUp end={stat.val} decimals={stat.val % 1 !== 0 ? 1 : 0} duration={2} enableScrollSpy scrollSpyOnce />
-                                    {stat.suf}
-                                </div>
-                                <p className="text-[10px] text-gray-500 uppercase tracking-widest font-black leading-tight mt-1">{stat.lab}</p>
-                            </div>
-                        ))}
-                    </div>
-                </motion.div>
-            </div>
-        </div>
-    </section>
-);
-
-const DevOpsEngineering = ({ onOpenDetail }) => (
-    <section className="relative py-32 px-4 bg-[#0a0a0a]/60 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-10">
-                <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                >
-                    <span className="text-blue-500 font-bold tracking-[0.4em] uppercase mb-6 block underline decoration-blue-500/30 underline-offset-8">Alta Disponibilidad</span>
-                    <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-none">Ingeniería <br />DevOps & Cloud</h2>
-                </motion.div>
-                <motion.p
-                    initial={{ opacity: 0, x: 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    className="text-gray-400 max-w-md italic border-l-4 border-blue-600 pl-8 p-4 text-lg bg-white/[0.01] rounded-r-2xl"
-                >
-                    Estabilidad y escala. Implementamos pipelines CI/CD y arquitecturas en la nube que permiten despliegues frecuentes con riesgo cero.
-                </motion.p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-                {[
-                    { title: "CI/CD Pipelines", desc: "Despliegue automatizado sin caídas" },
-                    { title: "IaC (Terraform)", desc: "Infraestructura definida por código" },
-                    { title: "Kubernetes", desc: "Orquestación de contenedores a escala" },
-                    { title: "Monitoreo SRE", desc: "Salud del sistema activa 24/7" }
-                ].map((card, i) => (
-                    <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.1 }}
-                        className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 hover:bg-blue-600/5 hover:border-blue-500/30 transition-all group"
-                    >
-                        <h3 className="text-xl font-bold text-white mb-3 tracking-tight group-hover:text-blue-400 transition-colors uppercase italic">{card.title}</h3>
-                        <p className="text-xs text-gray-500 leading-relaxed italic">{card.desc}</p>
-                    </motion.div>
-                ))}
-            </div>
-
-            <div className="relative p-12 lg:p-20 rounded-[4rem] border border-white/5 overflow-hidden group">
-                <div
-                    className="absolute inset-0 -z-10 bg-cover bg-center grayscale opacity-30 transition-transform duration-[3s] group-hover:scale-110"
-                    style={{ backgroundImage: "url('/imagenes/micrositios/Desarrollo-software/young-engineer-server-room-medium-shot.jpg')" }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-900/40 via-transparent to-[#0a0a0a] -z-10" />
-
-                <div className="flex flex-wrap justify-between gap-12 text-center items-center">
-                    {[
-                        { val: 61, suf: "%", lab: "Fast-Deploy Boost" },
-                        { val: 94, suf: "%", lab: "Cloud Adoption" },
-                        { val: 99.9, suf: "%", lab: "SLA Availability" }
-                    ].map((stat, i) => (
-                        <div key={i} className="flex-1 min-w-[200px]">
-                            <div className="text-6xl font-black text-white mb-2 tabular-nums tracking-tighter">
-                                <CountUp end={stat.val} decimals={stat.val % 1 !== 0 ? 1 : 0} duration={3} enableScrollSpy scrollSpyOnce />
-                                <span className="text-blue-500">{stat.suf}</span>
-                            </div>
-                            <p className="text-xs text-blue-300 uppercase tracking-[0.3em] font-bold opacity-60 italic">{stat.lab}</p>
-                        </div>
-                    ))}
-                    <div className="flex-1 min-w-[200px]">
-                        <button
-                            onClick={() => onOpenDetail({
-                                category: "DevOps",
-                                title: "Automatización & Cloud",
-                                description: "Reducimos el tiempo de salida al mercado (TTM). Mediante la infraestructura como código y el monitoreo proactivo, tu software siempre estará operativo y actualizado."
-                            })}
-                            className="bg-white text-black px-8 py-5 rounded-full font-black uppercase tracking-widest text-[10px] hover:bg-blue-500 hover:text-white transition-all shadow-2xl"
-                        >
-                            Ver Stack Completo
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-);
-
-const MicroservicesSection = ({ onOpenDetail }) => (
-    <section className="relative py-32 px-4 bg-[#050505] overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    className="relative lg:order-2 group"
-                >
-                    <div className="absolute -inset-10 bg-blue-600/10 blur-[120px] rounded-full opacity-60" />
-                    <div className="relative rounded-[4rem] overflow-hidden border border-white/10 shadow-2xl group-hover:border-blue-500/40 transition-all duration-700">
-                        <img
-                            src="/imagenes/micrositios/Desarrollo-software/computer-scientists-data-center-managing-maintaining-databases.jpg"
-                            alt="Microservices Architecture"
-                            className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105"
-                            loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-blue-900/20 mix-blend-overlay" />
-                    </div>
-                </motion.div>
-
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={staggerContainer}
-                    className="lg:order-1"
-                >
-                    <h2 className="text-5xl md:text-7xl font-black mb-10 italic underline underline-offset-[16px] decoration-blue-500/30 tracking-tighter leading-none">
-                        Arquitectura de <br /><span className="text-blue-500">Microservicios</span>
-                    </h2>
-                    <motion.p variants={fadeIn} className="text-xl text-gray-300 mb-12 leading-relaxed italic border-l-4 border-blue-600/40 pl-8">
-                        Desacopla tu negocio. Construimos sistemas modulares donde cada servicio escala de forma <span className="text-white font-medium underline decoration-blue-500/40">independiente</span>, minimizando puntos de falla.
-                    </motion.p>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
-                        {["Escalado elástico por módulo", "Resiliencia ante fallos", "Deployment independiente", "Stack tecnológico flexible"].map((item, i) => (
-                            <motion.div
-                                key={i}
-                                variants={fadeIn}
-                                className="flex items-center gap-4 p-5 rounded-2xl bg-white/[0.02] border-l-4 border-blue-600 transition-all hover:bg-white/[0.05]"
-                            >
-                                <span className="text-blue-100 text-sm font-bold italic uppercase tracking-wider">{item}</span>
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    <div className="flex flex-wrap gap-12 items-center">
-                        {[
-                            { val: 85, suf: "%", lab: "Enterprise Adoption" },
-                            { val: 50, suf: "%", lab: "Fast-to-Market Boost" }
-                        ].map((stat, i) => (
-                            <div key={i}>
-                                <div className="text-4xl font-black text-blue-500 tabular-nums tracking-tighter">
-                                    <CountUp end={stat.val} duration={2} enableScrollSpy scrollSpyOnce />
-                                    {stat.suf}
-                                </div>
-                                <p className="text-[10px] text-gray-500 uppercase tracking-widest font-black leading-tight mt-1 max-w-[100px]">{stat.lab}</p>
-                            </div>
-                        ))}
-                        <button
-                            onClick={() => onOpenDetail({
-                                category: "Infraestructura",
-                                title: "Sistemas Modulares",
-                                description: "Eliminamos el monolito. Nuestra arquitectura permite actualizar partes del sistema sin afectar al resto, asegurando una evolución técnica sin fricciones."
-                            })}
-                            className="bg-transparent border border-white/20 px-8 py-4 rounded-full text-white font-bold uppercase tracking-widest text-[10px] hover:bg-white hover:text-black transition-all"
-                        >
-                            Diseño Evolutivo →
-                        </button>
-                    </div>
-                </motion.div>
-            </div>
-        </div>
-    </section>
-);
-
-const MaintenanceSection = ({ onOpenDetail }) => (
-    <section className="relative py-32 px-4 bg-[#0a0a0a]/60 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-24 max-w-4xl mx-auto">
-                <motion.span
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    className="text-blue-500 font-bold tracking-[0.5em] uppercase mb-6 block underline decoration-blue-500/30 underline-offset-8"
-                >
-                    Evolución Constante
-                </motion.span>
-                <motion.h2
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-6xl md:text-8xl font-black mb-8 text-white tracking-tighter leading-none italic"
-                >
-                    Mantenimiento & <br /><span className="text-blue-500">Soporte Continuo</span>
-                </motion.h2>
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-xl text-gray-400 italic mb-12 leading-relaxed"
-                >
-                    Estabilidad garantizada. Aseguramos que tu plataforma <span className="text-white font-medium underline decoration-blue-500/30">evolucione</span> al ritmo de la tecnología, sin deudas técnicas ni vulnerabilidades.
-                </motion.p>
-
-                <button
-                    onClick={() => onOpenDetail({
-                        category: "Soporte",
-                        title: "Ciclo de Vida del Software",
-                        description: "No solo construimos, cuidamos. Nuestro equipo realiza monitoreo proactivo y actualizaciones críticas para mantener el rendimiento al 100%."
-                    })}
-                    className="mx-auto bg-blue-600 text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-xs hover:scale-105 transition-transform shadow-2xl shadow-blue-500/40"
-                >
-                    Políticas de Soporte 🛡️
-                </button>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
-                {[
-                    { title: "Patching", desc: "Gestión de seguridad constante" },
-                    { title: "Perf-Audit", desc: "Monitoreo técnico de carga real" },
-                    { title: "Scale-Out", desc: "Optimización continua de recursos" },
-                    { title: "Help-Desk", desc: "Respuesta inmediata ante incidentes" }
-                ].map((item, i) => (
-                    <motion.div
-                        key={i}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.1 }}
-                        className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 hover:border-blue-500/40 transition-all text-center group"
-                    >
-                        <h4 className="text-2xl font-black text-white mb-3 tracking-tighter leading-none uppercase italic group-hover:text-blue-400 transition-colors">{item.title}</h4>
-                        <p className="text-[10px] text-gray-500 leading-relaxed italic uppercase font-bold tracking-widest">{item.desc}</p>
-                    </motion.div>
-                ))}
-            </div>
-
-            <div className="relative p-1 gap-8 overflow-hidden rounded-[4rem] border border-white/5 bg-white/[0.02] shadow-2xl group">
-                <div
-                    className="absolute inset-0 -z-10 bg-cover bg-center opacity-40 grayscale group-hover:grayscale-0 transition-all duration-[3s] group-hover:scale-110"
-                    style={{ backgroundImage: "url('/imagenes/micrositios/Desarrollo-software/professional-hacker-using-ransomware-phishing-tactics-compromise-networks.jpg')" }}
-                />
-                <div className="grid grid-cols-1 md:grid-cols-3 relative z-10 bg-[#0a0a0a]/80 divide-y md:divide-y-0 md:divide-x divide-white/5 backdrop-blur-sm">
-                    {[
-                        { val: 60, suf: "%", lab: "Lower Attack Vector" },
-                        { val: 70, suf: "%", lab: "Incident Reduction" },
-                        { val: 40, suf: "%", lab: "Efficiency Boost" }
-                    ].map((stat, i) => (
-                        <div key={i} className="p-16 text-center group/stat">
-                            <div className="text-7xl font-black text-white mb-3 transition-transform duration-500 group-hover/stat:scale-110 tabular-nums tracking-tighter">
-                                <CountUp end={stat.val} duration={2} enableScrollSpy scrollSpyOnce />
-                                <span className="text-blue-500">{stat.suf}</span>
-                            </div>
-                            <p className="text-[10px] text-gray-400 uppercase tracking-[0.3em] font-black leading-relaxed max-w-[150px] mx-auto opacity-60 group-hover/stat:opacity-100 transition-opacity whitespace-pre-line">{stat.lab}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    </section>
-);
-
-const CTASoftware = ({ onOpenModal }) => (
-    <section className="relative py-40 px-4 bg-[#050505] overflow-hidden">
-        <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0 bg-blue-600/10 blur-[150px] opacity-40 animate-pulse" />
-            <div
-                className="absolute inset-0 bg-cover bg-center mix-blend-overlay opacity-30 grayscale"
-                style={{ backgroundImage: "url('/imagenes/micrositios/Desarrollo-software/person-working-html-computer.jpg')" }}
-            />
-            <img
-                src="/imagenes/micrositios/Desarrollo-software/person-pressing-power-button.jpg"
-                alt="Final CTA"
-                className="absolute right-0 bottom-0 w-1/2 h-full object-cover opacity-20 grayscale pointer-events-none hidden lg:block"
-                loading="lazy"
-            />
-        </div>
-
-        <div className="relative z-10 max-w-5xl mx-auto text-center">
-            <motion.div
+                onClick={() => setOpen(o => !o)}
+                onHoverStart={() => setHovered(true)}
+                onHoverEnd={() => setHovered(false)}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.8, delay: (index % 3) * 0.1 }}
+                className="relative rounded-3xl overflow-hidden border border-white/5 bg-[#0a0a0a] flex flex-col h-full shadow-2xl transition-all duration-500"
+                style={{
+                    boxShadow: hovered
+                        ? `0 0 50px ${service.glowColor}, 0 0 100px ${service.glowColor.replace("0.4", "0.1")}`
+                        : "0 0 0 transparent"
+                }}
             >
-                <h2 className="text-6xl md:text-[8rem] font-black mb-10 leading-[0.85] tracking-tighter">
-                    ¿Listo para <br />desarrollar tu <br /><span className="text-blue-500 italic underline decoration-white/20">plataforma?</span>
-                </h2>
-                <p className="text-2xl text-gray-400 mb-16 font-light italic max-w-3xl mx-auto leading-relaxed">
-                    Transformamos ideas complejas en realidades técnicas escalables. Del concepto al código de producción.
-                </p>
+                {/* Top Glow */}
+                <div
+                    className="absolute top-0 left-0 right-0 h-1 transition-opacity duration-500"
+                    style={{ background: service.color, opacity: hovered ? 1 : 0.2 }}
+                />
 
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
-                    <button
-                        onClick={onOpenModal}
-                        className="group relative px-14 py-8 bg-blue-600 rounded-full font-black text-2xl overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_50px_rgba(37,99,235,0.4)]"
+                {/* Image */}
+                <div className="relative h-60 overflow-hidden shrink-0">
+                    <motion.img
+                        src={service.image}
+                        alt={service.title}
+                        className="w-full h-full object-cover"
+                        animate={{ scale: hovered ? 1.15 : 1 }}
+                        transition={{ duration: 1 }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-90" />
+
+                    <div className="absolute top-6 right-6">
+                        <div
+                            className="w-14 h-14 rounded-2xl flex items-center justify-center backdrop-blur-xl text-3xl border border-white/10"
+                            style={{ background: `${service.color}22` }}
+                        >
+                            {service.icon}
+                        </div>
+                    </div>
+
+                    <div
+                        className="absolute bottom-4 left-6 text-6xl font-black opacity-10 italic"
+                        style={{ color: service.color }}
                     >
-                        <span className="relative z-10 uppercase tracking-[0.2em] text-white">Solicitar asesoría</span>
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-transparent opacity-0 group-hover:opacity-40 transition-opacity" />
-                    </button>
-                    <Link
-                        to="/"
-                        className="px-14 py-8 bg-white/5 rounded-full font-black text-2xl border border-white/10 hover:bg-white/10 transition-all uppercase tracking-[0.2em] text-white/80"
-                        onClick={() => window.scrollTo(0, 0)}
-                    >
-                        Volver al inicio
-                    </Link>
+                        {String(index + 1).padStart(2, "0")}
+                    </div>
                 </div>
+
+                {/* Content */}
+                <div className="p-8 flex flex-col flex-1">
+                    <h3
+                        className="text-2xl font-black mb-4 tracking-tighter italic uppercase transition-colors duration-300"
+                        style={{ color: hovered ? service.color : "white" }}
+                    >
+                        {service.title}
+                    </h3>
+                    <p className="text-gray-400 text-sm leading-relaxed mb-8 italic">
+                        {service.description}
+                    </p>
+
+                    <footer className="mt-auto flex items-center gap-3">
+                        <div className="w-8 h-px bg-white/10" />
+                        <span className="text-[10px] uppercase font-bold tracking-widest text-gray-500">
+                            {open ? "Cerrar Detalles" : "Ver Especificaciones"}
+                        </span>
+                    </footer>
+                </div>
+
+                {/* Details */}
+                <AnimatePresence>
+                    {open && (
+                        <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="overflow-hidden border-t border-white/5 bg-white/[0.02]"
+                        >
+                            <div className="p-8 space-y-8">
+                                {/* Benefits */}
+                                <div>
+                                    <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 mb-6 underline decoration-white/10 underline-offset-4">Capacidades Clave</h4>
+                                    <ul className="grid grid-cols-1 gap-4">
+                                        {service.benefits.map((b, i) => (
+                                            <li key={i} className="flex items-center gap-4 text-sm text-gray-300 italic group/li">
+                                                <div className="w-1.5 h-1.5 rounded-full transition-transform group-hover/li:scale-150" style={{ background: service.color }} />
+                                                {b}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                {/* Stats */}
+                                <div className="grid grid-cols-3 gap-4">
+                                    {service.stats.map((s, i) => (
+                                        <div key={i} className="p-4 rounded-2xl border border-white/5 bg-black/50 text-center">
+                                            <div className="text-xl font-black text-white">{s.value}</div>
+                                            <div className="text-[8px] text-gray-500 uppercase font-bold tracking-tighter">{s.label}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </motion.div>
-        </div>
-    </section>
-);
+        </TiltCard>
+    );
+}
 
-// --- MAIN PAGE ORCHESTRATOR ---
-
+// Main Component
 const DesarrolloSoftware = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [activeServiceInfo, setActiveServiceInfo] = useState(null);
+    const heroRef = useRef(null);
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+
+    const onMouseMove = useCallback((e) => {
+        const rect = heroRef.current?.getBoundingClientRect();
+        if (rect) {
+            mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+            mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+        }
+    }, [mouseX, mouseY]);
+
+    const pX = useTransform(mouseX, [-0.5, 0.5], [-20, 20]);
+    const pY = useTransform(mouseY, [-0.5, 0.5], [-15, 15]);
 
     return (
-        <main className="min-h-screen bg-[#050505] text-white overflow-x-hidden relative selection:bg-blue-500/30">
-            <BackgroundBlobs />
+        <>
+            <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'Space Grotesk', sans-serif; cursor: default; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
+      `}</style>
 
-            <HeroSoftware />
-            <PWADevelopment onOpenDetail={setActiveServiceInfo} />
-            <FullStackDev onOpenDetail={setActiveServiceInfo} />
-            <MobileApps onOpenDetail={setActiveServiceInfo} />
-            <DevOpsEngineering onOpenDetail={setActiveServiceInfo} />
-            <MicroservicesSection onOpenDetail={setActiveServiceInfo} />
-            <MaintenanceSection onOpenDetail={setActiveServiceInfo} />
-            <CTASoftware onOpenModal={() => setIsModalOpen(true)} />
+            <main className="min-h-screen bg-[#050505] text-white selection:bg-blue-500/3s0 overflow-x-hidden pt-28">
 
-            <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-
-            <AnimatePresence>
-                {activeServiceInfo && (
-                    <ServiceDetailModal
-                        info={activeServiceInfo}
-                        onClose={() => setActiveServiceInfo(null)}
+                {/* HERO */}
+                <section
+                    ref={heroRef}
+                    onMouseMove={onMouseMove}
+                    className="relative h-[700px] mx-6 md:mx-12 rounded-[4rem] overflow-hidden mb-32 border border-white/5"
+                >
+                    <motion.div
+                        className="absolute inset-[-40px] bg-cover bg-center transition-opacity duration-1000"
+                        style={{
+                            backgroundImage: "url('/imagenes/micrositios/Desarrollo-software/portrait-male-engineer-working-field-engineers-day-celebration.jpg')",
+                            x: pX, y: pY, opacity: 0.4
+                        }}
                     />
-                )}
-            </AnimatePresence>
-
-            <footer className="py-24 px-4 border-t border-white/5 text-center bg-[#050505]">
-                <div className="max-w-7xl mx-auto">
-                    <div className="mb-8 flex justify-center">
-                        <div className="w-12 h-px bg-blue-500/30" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-black via-blue-950/40 to-black/80" />
+                    <div className="absolute inset-0 opacity-40">
+                        <NeuralCanvas />
                     </div>
-                    <p className="text-gray-500 text-[10px] font-black tracking-[0.6em] uppercase">
-                        © {new Date().getFullYear()} Olimpo Innova • High-Performance Software Factory
-                    </p>
-                </div>
-            </footer>
-        </main>
+
+                    <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-10">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="mb-10 px-6 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 text-[10px] font-black tracking-[0.5em] uppercase text-blue-400"
+                        >
+                            High-Performance Software Factory
+                        </motion.div>
+
+                        <h1 className="text-6xl md:text-[8rem] font-black leading-[0.8] tracking-tighter mb-8 italic">
+                            Desarrollo <br />
+                            <GlitchText text="Software" className="text-blue-500 underline decoration-white/10 underline-offset-[20px]" />
+                        </h1>
+
+                        <div className="h-10 mb-12">
+                            <TypingText
+                                texts={[
+                                    "Escalamos tu visión al siguiente nivel.",
+                                    "Arquitecturas modernas, resultados reales.",
+                                    "Innovación pura en cada línea de código.",
+                                    "Sistemas que evolucionan con tu negocio."
+                                ]}
+                                className="text-xl md:text-3xl text-gray-300 font-light italic"
+                            />
+                        </div>
+
+                        <p className="text-gray-500 max-w-2xl text-sm leading-relaxed mb-12 opacity-80">
+                            Desde aplicaciones web progresivas hasta infraestructuras en la nube ultra-resilientes.
+                            Diseñamos el futuro técnico de tu empresa hoy mismo.
+                        </p>
+
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => window.scrollTo({ top: 1200, behavior: "smooth" })}
+                            className="px-16 py-6 bg-white text-black rounded-full font-black text-xs uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-[0_0_50px_rgba(255,255,255,0.15)]"
+                        >
+                            Explorar Tecnologías
+                        </motion.button>
+                    </div>
+                </section>
+
+                {/* METRICS */}
+                <section className="max-w-7xl mx-auto px-10 mb-40">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-12 py-16 px-12 rounded-[4rem] bg-white/[0.02] border border-white/5 relative overflow-hidden shadow-2xl">
+                        <div className="absolute top-0 right-0 w-60 h-60 bg-blue-600/5 blur-[100px] rounded-full" />
+                        {[
+                            { val: "100", suf: "%", lab: "CÓDIGO PROPIO" },
+                            { val: "24", suf: "/7", lab: "MONITOREO ACTIVO" },
+                            { val: "3", suf: "X", lab: "MÁS VELOCIDAD" },
+                            { val: "50", suf: "+", lab: "SISTEMAS DESPLEGADOS" }
+                        ].map((m, i) => (
+                            <div key={i} className="relative z-10">
+                                <Counter value={m.val + m.suf} label={m.lab} />
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* MAIN SERVICES GRID */}
+                <section className="max-w-7xl mx-auto px-10 mb-40">
+                    <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-10">
+                        <div>
+                            <span className="text-blue-500 font-bold tracking-[0.5em] text-[10px] uppercase block mb-6 px-1">Expertise Técnico</span>
+                            <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none italic uppercase">
+                                Nuestros <br /><span className="text-gray-600">Servicios</span>
+                            </h2>
+                        </div>
+                        <p className="text-gray-500 max-w-sm text-right italic text-lg leading-relaxed border-r-4 border-blue-600 pr-8">
+                            Soluciones modulares diseñadas para la era del alto rendimiento digital.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                        {services.map((s, i) => (
+                            <div key={i} className="h-full">
+                                <ServiceCard service={s} index={i} />
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* FEATURE HIGHLIGHT */}
+                <section className="max-w-7xl mx-auto px-10 mb-40">
+                    <div className="relative rounded-[5rem] overflow-hidden border border-white/5 bg-gradient-to-br from-[#0a0a0a] to-black p-16 md:p-32 group">
+                        <div
+                            className="absolute inset-0 bg-cover bg-center opacity-10 grayscale group-hover:opacity-30 transition-all duration-1000"
+                            style={{ backgroundImage: "url('/imagenes/micrositios/Desarrollo-software/people-working-html-codes.jpg')" }}
+                        />
+                        <div className="relative z-10 grid lg:grid-cols-2 gap-20 items-center">
+                            <div>
+                                <h2 className="text-5xl md:text-8xl font-black mb-12 italic leading-[0.8] tracking-tighter">
+                                    Arquitectura <br />Evolutiva.
+                                </h2>
+                                <p className="text-xl text-gray-400 mb-14 font-light italic leading-relaxed">
+                                    No creamos software estático. Construimos ecosistemas que <span className="text-white underline decoration-blue-500/40">aprenden, escalan y se adaptan</span> al crecimiento real de tu negocio.
+                                </p>
+                                <Link
+                                    to="/servicios/infraestructura-nube"
+                                    onClick={() => window.scrollTo(0, 0)}
+                                    className="inline-flex items-center gap-4 text-blue-400 font-black uppercase tracking-widest text-xs group/link"
+                                >
+                                    Explorar Nube <span className="text-2xl transition-transform group-hover/link:translate-x-3">→</span>
+                                </Link>
+                            </div>
+                            <div className="grid grid-cols-2 gap-6">
+                                {[
+                                    { t: "Resiliencia", d: "Zero downtime" },
+                                    { t: "Escala", d: "Horizontal scaling" },
+                                    { t: "Seguridad", d: "Encryption AES" },
+                                    { t: "Velo", d: "Cache L1/L2" }
+                                ].map((box, i) => (
+                                    <div key={i} className="p-10 rounded-[3rem] bg-white/[0.03] border border-white/5 hover:bg-blue-600/10 transition-colors">
+                                        <h4 className="text-white font-black text-sm mb-2 uppercase italic">{box.t}</h4>
+                                        <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">{box.d}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* CTA */}
+                <section className="relative py-48 px-10 text-center overflow-hidden">
+                    <div className="absolute inset-0 z-0 opactiy-20">
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/5 blur-[150px] rounded-full" />
+                    </div>
+
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        className="relative z-10"
+                    >
+                        <h2 className="text-7xl md:text-[12rem] font-black leading-[0.8] tracking-tighter mb-16 italic">
+                            ¿Siguiente <br /><span className="text-blue-600">Despliegue?</span>
+                        </h2>
+                        <p className="text-2xl text-gray-400 mb-20 italic font-light max-w-3xl mx-auto leading-relaxed">
+                            Transformamos la complejidad técnica en una ventaja competitiva brutal para tu empresa.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row gap-8 justify-center">
+                            <button
+                                onClick={() => setIsModalOpen(true)}
+                                className="px-20 py-10 bg-blue-600 rounded-[3rem] font-black text-2xl uppercase tracking-[0.2em] hover:bg-blue-500 transition-all shadow-[0_0_80px_rgba(59,130,246,0.3)] active:scale-95"
+                            >
+                                Contactar Ahora
+                            </button>
+                            <Link
+                                to="/"
+                                className="px-20 py-10 bg-white/5 border border-white/10 rounded-[3rem] font-black text-2xl uppercase tracking-[0.2em] text-white/50 hover:text-white transition-all shadow-2xl"
+                                onClick={() => window.scrollTo(0, 0)}
+                            >
+                                Inicio
+                            </Link>
+                        </div>
+                    </motion.div>
+                </section>
+
+                <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
+                <footer className="py-32 px-10 border-t border-white/5 text-center bg-black">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="w-20 h-px bg-blue-600 mx-auto mb-12 opacity-30" />
+                        <p className="text-gray-600 text-[10px] font-black tracking-[0.7em] uppercase">
+                            © {new Date().getFullYear()} Olimpo Innova • Engineering Beyond Limits
+                        </p>
+                    </div>
+                </footer>
+
+            </main>
+        </>
     );
 };
 
