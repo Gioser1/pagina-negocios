@@ -35,8 +35,7 @@ const CorporateIdentity = () => {
         {
             icon: <Target className="w-6 h-6" />,
             title: "Innovación Constante",
-            description: "Buscamos continuamente nuevas formas de resolver problemas y mejorar procesos mediante la tecnología.",
-            icon: <Lightbulb className="w-6 h-6" />
+            description: "Buscamos continuamente nuevas formas de resolver problemas y mejorar procesos mediante la tecnología."
         },
         {
             title: "Excelencia y Calidad",
