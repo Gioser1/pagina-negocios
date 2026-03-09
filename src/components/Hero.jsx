@@ -115,7 +115,7 @@ const Hero = () => {
             </motion.div>
 
             <motion.div
-                className="relative z-10 w-full max-w-6xl px-4 sm:px-8 lg:px-12 text-left flex flex-col justify-center"
+                className="relative z-10 w-full max-w-6xl px-4 sm:px-16 md:px-24 lg:px-32 xl:px-40 text-left flex flex-col justify-center"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
@@ -129,7 +129,7 @@ const Hero = () => {
                     onMouseLeave={() => setShowTypewriter(false)}
                 >
                     <motion.button
-                        className="text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-black tracking-tight mb-4 sm:mb-6 md:mb-8 leading-tight py-2 text-left cursor-pointer group transition-all hover:scale-105 whitespace-normal sm:whitespace-nowrap -ml-1 sm:-ml-2 md:-ml-4 lg:-ml-8"
+                        className="text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-black tracking-tight mb-4 sm:mb-6 md:mb-8 leading-tight py-2 text-left cursor-pointer group transition-all hover:scale-105 whitespace-normal sm:whitespace-nowrap"
                         whileHover={{ x: 5 }}
                     >
                         <motion.span
