@@ -537,22 +537,16 @@ const InfraestructuraNube = () => {
                 {/* HERO */}
                 <section className="relative h-[750px] mx-8 md:mx-16 rounded-[5rem] overflow-hidden mb-40 border border-white/5 shadow-2xl">
                     <motion.div
-                        className="absolute inset-[-60px] bg-cover bg-center"
-                        style={{
-                            backgroundImage: "url('/imagenes/micrositios/audiovisuales/creative-team-working-project-studio.jpg')",
-                            x: pX, y: pY, opacity: 0.35
+                        initial="hidden"
+                        animate="visible"
+                        variants={{
+                            hidden: { opacity: 0 },
+                            visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } }
                         }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#020202] via-sky-950/40 to-black/90" />
-                    <div className="absolute inset-0 opacity-50">
-                        <NeuralCanvas />
-                    </div>
-
-                    <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-12">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="mb-12 px-8 py-3 rounded-full border border-sky-500/40 bg-sky-500/10 text-[11px] font-black tracking-[0.6em] uppercase text-sky-400 shadow-[0_0_40px_rgba(14,165,233,0.15)]"
+                    >
+                        <motion.span
+                            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                            className="inline-block py-1 px-4 rounded-full bg-white/10 backdrop-blur-md text-sky-200 text-xs sm:text-sm tracking-[0.2em] font-bold uppercase mb-6 border border-white/20 shadow-[0_0_15px_rgba(14,165,233,0.3)]"
                         >
                             Architecting Global Scale
                         </motion.div>
