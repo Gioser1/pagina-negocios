@@ -1,743 +1,700 @@
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useState, useRef, memo } from "react";
-import CountUp from "react-countup";
+import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef, useCallback, memo } from "react";
 import ContactModal from "../../components/ContactModal";
 
-const DesarrolloSoftware = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [activeServiceInfo, setActiveServiceInfo] = useState(null);
-    const heroRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: heroRef,
-        offset: ["start start", "end start"]
-    });
+const services = [
+    {
+        title: "Aplicaciones Web Progresivas (PWA)",
+        description: "Interfaces rápidas, instalables y offline-first que eliminan la fricción de descarga.",
+        icon: "🌐",
+        color: "#3b82f6",
+        glowColor: "rgba(59,130,246,0.4)",
+        benefits: [
+            "Velocidad de carga instantánea",
+            "Funcionalidad sin conexión",
+            "Notificaciones Push",
+            "Sin comisiones de App Store"
+        ],
+        stats: [
+            { value: "50%", label: "más retención" },
+            { value: "-70%", label: "uso de datos" },
+            { value: "3x", label: "más engagement" }
+        ],
+        image: "/imagenes/micrositios/Desarrollo-software/primer_texto.jpg"
+    },
+    {
+        title: "Desarrollo Full-Stack",
+        description: "Arquitecturas de extremo a extremo diseñadas para manejar alto tráfico con latencia mínima.",
+        icon: "💻",
+        color: "#818cf8",
+        glowColor: "rgba(129,140,248,0.4)",
+        benefits: [
+            "React & Next.js Pro",
+            "Node.js Escalable",
+            "Bases de Datos Robustas",
+            "Optimización SEO"
+        ],
+        stats: [
+            { value: "99.9%", label: "uptime" },
+            { value: "+40%", label: "velocidad" },
+            { value: "Zero", label: "duda técnica" }
+        ],
+        image: "/imagenes/micrositios/Desarrollo-software/people-working-html-codes.jpg"
+    },
+    {
+        title: "Apps Nativas iOS y Android",
+        description: "Experiencia de usuario total aprovechando al máximo el hardware nativo de cada dispositivo.",
+        icon: "📱",
+        color: "#f472b6",
+        glowColor: "rgba(244,114,182,0.4)",
+        benefits: [
+            "Rendimiento nativo 100%",
+            "Acceso a sensores",
+            "Seguridad biométrica",
+            "Publicación en Stores"
+        ],
+        stats: [
+            { value: "88%", label: "tiempo en apps" },
+            { value: "1.2s", label: "tiempo de inicio" },
+            { value: "+60%", label: "conversión" }
+        ],
+        image: "/imagenes/micrositios/Desarrollo-software/smile-young-man-playing-happy-woman.jpg"
+    },
+    {
+        title: "DevOps & Cloud Engineering",
+        description: "Automatización de despliegues y gestión de infraestructura como código para escala infinita.",
+        icon: "⚙️",
+        color: "#fb923c",
+        glowColor: "rgba(251,146,60,0.4)",
+        benefits: [
+            "CI/CD Pipelines",
+            "Terraform & IaC",
+            "Kubernetes Clusters",
+            "Azure / AWS Expertise"
+        ],
+        stats: [
+            { value: "-80%", label: "tiempo despliegue" },
+            { value: "Zero", label: "caídas" },
+            { value: "94%", label: "adopción cloud" }
+        ],
+        image: "/imagenes/micrositios/Desarrollo-software/young-engineer-server-room-medium-shot.jpg"
+    },
+    {
+        title: "Arquitectura Microservicios",
+        description: "Sistemas modulares desacoplados donde cada componente escala de forma independiente.",
+        icon: "🧱",
+        color: "#22d3ee",
+        glowColor: "rgba(34,211,238,0.4)",
+        benefits: [
+            "Evolución por módulos",
+            "Resiliencia extrema",
+            "Deployment aislado",
+            "Fácil mantenimiento"
+        ],
+        stats: [
+            { value: "85%", label: "uso empresarial" },
+            { value: "+50%", label: "escalabilidad" },
+            { value: "24/7", label: "operativo" }
+        ],
+        image: "/imagenes/micrositios/Desarrollo-software/computer-scientists-data-center-managing-maintaining-databases.jpg"
+    },
+    {
+        title: "Mantenimiento Proactivo",
+        description: "Monitoreo técnico y actualizaciones constantes para garantizar el rendimiento perpetuo.",
+        icon: "🛡️",
+        color: "#a78bfa",
+        glowColor: "rgba(167,139,250,0.4)",
+        benefits: [
+            "Parches de seguridad",
+            "Auditoría de performance",
+            "Soporte 24/7",
+            "Optimización de costos"
+        ],
+        stats: [
+            { value: "60%", label: "menos ataques" },
+            { value: "-40%", label: "incidentes" },
+            { value: "100%", label: "tranquilidad" }
+        ],
+        image: "/imagenes/micrositios/Desarrollo-software/professional-hacker-using-ransomware-phishing-tactics-compromise-networks.jpg"
+    }
+];
 
-    const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-    const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+// Neural Canvas
+function NeuralCanvas() {
+    const canvasRef = useRef(null);
+    const mouse = useRef({ x: -999, y: -999 });
+    const animRef = useRef(null);
 
-    const fadeIn = {
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
-    };
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
 
-    const fadeInUp = {
-        hidden: { opacity: 0, y: 40 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
-    };
-
-    const staggerContainer = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.05,
-                delayChildren: 0.05
-            }
+        function resize() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
         }
-    };
+        resize();
+        window.addEventListener("resize", resize);
 
-    const BackgroundBlobs = memo(() => (
-        <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#050505]">
-            <div
-                className="absolute top-[-10%] left-[-10%] w-[800px] h-[800px] opacity-20"
-                style={{
-                    background: 'radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%)',
-                    willChange: 'transform'
-                }}
-            />
-            <div
-                className="absolute bottom-[-10%] right-[-10%] w-[800px] h-[800px] opacity-20"
-                style={{
-                    background: 'radial-gradient(circle, rgba(8, 145, 178, 0.15) 0%, transparent 70%)',
-                    willChange: 'transform'
-                }}
-            />
-        </div>
-    ));
+        const onMove = (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.current.x = e.clientX - rect.left;
+            mouse.current.y = e.clientY - rect.top;
+        };
+        canvas.addEventListener("mousemove", onMove);
 
+        const N = 80;
+        let particles = Array.from({ length: N }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            size: Math.random() * 2 + 0.5,
+            pulse: Math.random() * Math.PI * 2,
+            hue: Math.random() > 0.5 ? 210 : (Math.random() > 0.5 ? 240 : 200) // Blue variants for software
+        }));
 
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const ServiceDetailModal = ({ info, onClose }) => {
-        if (!info) return null;
-        return (
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
-            >
-                <motion.div
-                    initial={{ scale: 0.9, y: 50 }}
-                    animate={{ scale: 1, y: 0 }}
-                    className="bg-[#0f0f0f] border border-white/10 p-8 rounded-[2.5rem] max-w-2xl w-full relative overflow-hidden"
-                >
-                    <div className="absolute top-0 right-0 p-6">
-                        <button onClick={onClose} className="text-gray-400 hover:text-white text-2xl">✕</button>
-                    </div>
-                    <div className="relative z-10">
-                        <span className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4 block">{info.category}</span>
-                        <h3 className="text-4xl font-bold mb-6 text-white">{info.title}</h3>
-                        <p className="text-gray-400 leading-relaxed text-lg">{info.description}</p>
-                    </div>
-                </motion.div>
-            </motion.div>
-        );
-    };
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.pulse += 0.02;
+
+                const dx = p.x - mouse.current.x;
+                const dy = p.y - mouse.current.y;
+                const d = Math.sqrt(dx * dx + dy * dy);
+                if (d < 100) {
+                    p.x += (dx / d) * 1;
+                    p.y += (dy / d) * 1;
+                }
+
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                const r = p.size * (1 + 0.2 * Math.sin(p.pulse));
+                const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 4);
+                grd.addColorStop(0, `hsla(${p.hue},100%,70%,0.8)`);
+                grd.addColorStop(1, `hsla(${p.hue},100%,70%,0)`);
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, r * 4, 0, Math.PI * 2);
+                ctx.fillStyle = grd;
+                ctx.fill();
+            });
+
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const d = Math.sqrt(dx * dx + dy * dy);
+                    if (d < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(59,130,246,${(1 - d / 100) * 0.2})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            animRef.current = requestAnimationFrame(animate);
+        }
+        animate();
+
+        return () => {
+            window.removeEventListener("resize", resize);
+            canvas.removeEventListener("mousemove", onMove);
+            cancelAnimationFrame(animRef.current);
+        };
+    }, []);
+
+    return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
+}
+
+// Tilt card
+function TiltCard({ children, className = "" }) {
+    const ref = useRef(null);
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    const rotX = useTransform(y, [-0.5, 0.5], [10, -10]);
+    const rotY = useTransform(x, [-0.5, 0.5], [-10, 10]);
+    const springX = useSpring(rotX, { stiffness: 150, damping: 20 });
+    const springY = useSpring(rotY, { stiffness: 150, damping: 20 });
+
+    const onMove = useCallback((e) => {
+        const rect = ref.current.getBoundingClientRect();
+        x.set((e.clientX - rect.left) / rect.width - 0.5);
+        y.set((e.clientY - rect.top) / rect.height - 0.5);
+    }, [x, y]);
+
+    const onLeave = useCallback(() => {
+        x.set(0);
+        y.set(0);
+    }, [x, y]);
 
     return (
-        <main className="min-h-screen bg-[#050505] text-white overflow-x-hidden relative">
-            <BackgroundBlobs />
+        <motion.div
+            ref={ref}
+            onMouseMove={onMove}
+            onMouseLeave={onLeave}
+            style={{ rotateX: springX, rotateY: springY, transformPerspective: 1200 }}
+            className={className}
+        >
+            {children}
+        </motion.div>
+    );
+}
 
-            {/* 1️⃣ HERO / BANNER PRINCIPAL */}
-            <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
-                <motion.div style={{ y, opacity }} className="absolute inset-0 z-0 transform-gpu will-change-transform">
-                    <div
-                        className="absolute inset-0 bg-cover bg-center opacity-60 transform-gpu"
-                        style={{ backgroundImage: "url('/imagenes/micrositios/Desarrollo-software/portrait-male-engineer-working-field-engineers-day-celebration.jpg')" }}
-                        loading="lazy"
-                        decoding="async"
+// Animated counter
+function Counter({ value, label }) {
+    const [display, setDisplay] = useState("0");
+    const ref = useRef(null);
+    const started = useRef(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting && !started.current) {
+                started.current = true;
+                const num = parseFloat(value.replace(/[^0-9.]/g, ""));
+                const prefix = value.match(/^[+\-]/) ? value[0] : "";
+                const suffix = value.replace(/[0-9.\-+]/g, "");
+                let start = 0;
+                const duration = 2000;
+                const step = (ts) => {
+                    if (!start) start = ts;
+                    const p = Math.min((ts - start) / duration, 1);
+                    const ease = 1 - Math.pow(1 - p, 4);
+                    setDisplay(`${prefix}${Math.round(ease * num)}${suffix}`);
+                    if (p < 1) requestAnimationFrame(step);
+                };
+                requestAnimationFrame(step);
+            }
+        }, { threshold: 0.5 });
+        if (ref.current) observer.observe(ref.current);
+        return () => observer.disconnect();
+    }, [value]);
+
+    return (
+        <div ref={ref} className="text-center">
+            <div className="text-4xl font-black">{display}</div>
+            <div className="text-[10px] text-gray-500 mt-1 uppercase tracking-widest">{label}</div>
+        </div>
+    );
+}
+
+// Glitch text
+function GlitchText({ text, className = "" }) {
+    return (
+        <span className={`relative inline-block ${className}`}>
+            <style>{`
+        @keyframes glitch1 {
+          0%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+          20% { clip-path: inset(20% 0 60% 0); transform: translate(-4px, 2px); }
+          40% { clip-path: inset(60% 0 10% 0); transform: translate(4px, -2px); }
+        }
+        @keyframes glitch2 {
+          0%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+          50% { clip-path: inset(10% 0 70% 0); transform: translate(-4px, 4px); }
+        }
+        .glitch::before {
+          content: attr(data-text);
+          position: absolute; inset: 0;
+          color: #3b82f6;
+          animation: glitch1 3s infinite;
+        }
+        .glitch::after {
+          content: attr(data-text);
+          position: absolute; inset: 0;
+          color: #818cf8;
+          animation: glitch2 3s infinite 0.5s;
+        }
+      `}</style>
+            <span className="glitch" data-text={text}>{text}</span>
+        </span>
+    );
+}
+
+// Typing text
+function TypingText({ texts, className = "" }) {
+    const [idx, setIdx] = useState(0);
+    const [display, setDisplay] = useState("");
+    const [phase, setPhase] = useState("type");
+
+    useEffect(() => {
+        const current = texts[idx];
+        let timeout;
+        if (phase === "type") {
+            if (display.length < current.length) {
+                timeout = setTimeout(() => setDisplay(current.slice(0, display.length + 1)), 50);
+            } else {
+                timeout = setTimeout(() => setPhase("pause"), 2500);
+            }
+        } else if (phase === "pause") {
+            timeout = setTimeout(() => setPhase("delete"), 500);
+        } else if (phase === "delete") {
+            if (display.length > 0) {
+                timeout = setTimeout(() => setDisplay(display.slice(0, -1)), 30);
+            } else {
+                setIdx((idx + 1) % texts.length);
+                setPhase("type");
+            }
+        }
+        return () => clearTimeout(timeout);
+    }, [display, phase, idx, texts]);
+
+    return (
+        <span className={className}>
+            {display}
+            <motion.span
+                animate={{ opacity: [1, 0] }}
+                transition={{ duration: 0.5, repeat: Infinity }}
+                className="inline-block w-0.5 h-6 bg-blue-500 ml-1 align-middle"
+            />
+        </span>
+    );
+}
+
+// Service Card
+function ServiceCard({ service, index }) {
+    const [open, setOpen] = useState(false);
+    const [hovered, setHovered] = useState(false);
+
+    return (
+        <TiltCard className="relative group cursor-pointer h-full">
+            <motion.div
+                onClick={() => setOpen(o => !o)}
+                onHoverStart={() => setHovered(true)}
+                onHoverEnd={() => setHovered(false)}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: (index % 3) * 0.1 }}
+                className="relative rounded-3xl overflow-hidden border border-white/5 bg-[#0a0a0a] flex flex-col h-full shadow-2xl transition-all duration-500"
+                style={{
+                    boxShadow: hovered
+                        ? `0 0 50px ${service.glowColor}, 0 0 100px ${service.glowColor.replace("0.4", "0.1")}`
+                        : "0 0 0 transparent"
+                }}
+            >
+                {/* Top Glow */}
+                <div
+                    className="absolute top-0 left-0 right-0 h-1 transition-opacity duration-500"
+                    style={{ background: service.color, opacity: hovered ? 1 : 0.2 }}
+                />
+
+                {/* Image */}
+                <div className="relative h-60 overflow-hidden shrink-0">
+                    <motion.img
+                        src={service.image}
+                        alt={service.title}
+                        className="w-full h-full object-cover"
+                        animate={{ scale: hovered ? 1.15 : 1 }}
+                        transition={{ duration: 1 }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-blue-900/40 via-black/40 to-[#050505]" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-90" />
 
-                    {/* Futuristic Grid Pattern - Static and simplified */}
-                    <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "linear-gradient(#ffffff10 1px, transparent 1px), linear-gradient(90deg, #ffffff10 1px, transparent 1px)", backgroundSize: "100px 100px" }} />
-                </motion.div>
+                    <div className="absolute top-6 right-6">
+                        <div
+                            className="w-14 h-14 rounded-2xl flex items-center justify-center backdrop-blur-xl text-3xl border border-white/10"
+                            style={{ background: `${service.color}22` }}
+                        >
+                            {service.icon}
+                        </div>
+                    </div>
 
-                <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 1, ease: "easeOut" }}
+                    <div
+                        className="absolute bottom-4 left-6 text-6xl font-black opacity-10 italic"
+                        style={{ color: service.color }}
                     >
-                        <motion.h1
-                            className="text-5xl md:text-8xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-200 to-blue-500 tracking-tight"
-                            initial={{ y: 50, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                        >
-                            Desarrollo de Software
-                        </motion.h1>
-                        <motion.p
-                            className="text-xl md:text-2xl text-gray-300 mb-10 max-w-4xl mx-auto font-light leading-relaxed"
-                            initial={{ y: 30, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ duration: 0.8, delay: 0.4 }}
-                        >
-                            Soluciones tecnológicas modernas diseñadas para escalar, optimizar procesos y potenciar el crecimiento digital de las empresas.
-                        </motion.p>
-                        <motion.div
-                            initial={{ y: 30, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ duration: 0.8, delay: 0.6 }}
-                            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-                        >
-                            <button
-                                onClick={() => {
-                                    document.getElementById('pwa-section').scrollIntoView({ behavior: 'smooth' });
-                                }}
-                                className="group relative px-8 py-4 bg-blue-600 rounded-full font-bold overflow-hidden transition-all hover:bg-blue-500 hover:scale-105 active:scale-95 shadow-xl shadow-blue-500/20"
-                            >
-                                <span className="relative z-10 flex items-center gap-2 text-lg">
-                                    Explorar servicios
-                                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                </span>
-                                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity" />
-                            </button>
-                        </motion.div>
-                    </motion.div>
+                        {String(index + 1).padStart(2, "0")}
+                    </div>
                 </div>
 
-                <motion.div
-                    className="absolute bottom-10 left-1/2 -translate-x-1/2"
-                    animate={{ y: [0, 10, 0] }}
-                    transition={{ repeat: Infinity, duration: 2 }}
-                >
-                    <div className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-1">
-                        <div className="w-1 h-2 bg-blue-400 rounded-full" />
-                    </div>
-                </motion.div>
-            </section>
+                {/* Content */}
+                <div className="p-8 flex flex-col flex-1">
+                    <h3
+                        className="text-2xl font-black mb-4 tracking-tighter italic uppercase transition-colors duration-300"
+                        style={{ color: hovered ? service.color : "white" }}
+                    >
+                        {service.title}
+                    </h3>
+                    <p className="text-gray-400 text-sm leading-relaxed mb-8 italic">
+                        {service.description}
+                    </p>
 
-            {/* 2️⃣ SECCIÓN: Aplicaciones Web Progresivas (PWA) */}
-            <section id="pwa-section" className="relative py-24 px-4 bg-[#0a0a0a]/60 overflow-hidden">
-                <div className="max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <footer className="mt-auto flex items-center gap-3">
+                        <div className="w-8 h-px bg-white/10" />
+                        <span className="text-[10px] uppercase font-bold tracking-widest text-gray-500">
+                            {open ? "Cerrar Detalles" : "Ver Especificaciones"}
+                        </span>
+                    </footer>
+                </div>
+
+                {/* Details */}
+                <AnimatePresence>
+                    {open && (
                         <motion.div
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            variants={fadeIn}
-                            className="relative group"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="overflow-hidden border-t border-white/5 bg-white/[0.02]"
                         >
-                            <div className="absolute -inset-4 bg-blue-500/10 rounded-[2.5rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                            <div className="relative rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl aspect-video md:aspect-square">
-                                <img
-                                    src="/imagenes/micrositios/Desarrollo-software/primer_texto.jpg"
-                                    alt="PWA Development"
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    loading="lazy"
-                                    decoding="async"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                            </div>
+                            <div className="p-8 space-y-8">
+                                {/* Benefits */}
+                                <div>
+                                    <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 mb-6 underline decoration-white/10 underline-offset-4">Capacidades Clave</h4>
+                                    <ul className="grid grid-cols-1 gap-4">
+                                        {service.benefits.map((b, i) => (
+                                            <li key={i} className="flex items-center gap-4 text-sm text-gray-300 italic group/li">
+                                                <div className="w-1.5 h-1.5 rounded-full transition-transform group-hover/li:scale-150" style={{ background: service.color }} />
+                                                {b}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
 
-                            {/* Floating badge */}
-                            <motion.div
-                                className="absolute -bottom-6 -right-6 bg-blue-600 p-6 rounded-2xl shadow-2xl border border-white/20 hidden md:block"
-                                animate={{ y: [0, -10, 0] }}
-                                transition={{ repeat: Infinity, duration: 4 }}
-                            >
-                                <p className="text-sm font-bold uppercase tracking-widest text-blue-100 italic">Offline Ready</p>
-                            </motion.div>
-                        </motion.div>
-
-                        <motion.div
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            variants={staggerContainer}
-                        >
-                            <motion.span variants={fadeIn} className="text-blue-500 font-bold tracking-[0.3em] uppercase mb-4 block underline decoration-2 underline-offset-8">Vanguardia Digital</motion.span>
-                            <motion.h2 variants={fadeIn} className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                                Aplicaciones Web <br />Progresivas (PWA)
-                            </motion.h2>
-                            <motion.p variants={fadeIn} className="text-lg text-gray-400 mb-8 leading-relaxed">
-                                Desarrollamos Aplicaciones Web Progresivas (PWA) que combinan lo mejor de la web y las aplicaciones móviles. Funcionan offline, cargan en milisegundos y pueden instalarse directamente desde el navegador, eliminando fricción en la adquisición de usuarios.
-                            </motion.p>
-
-                            {/* Ideales para */}
-                            <motion.div variants={fadeIn} className="mb-10">
-                                <h4 className="text-white font-bold mb-4 flex items-center gap-2">
-                                    <span className="w-8 h-[1px] bg-blue-500" />
-                                    Ideales para
-                                </h4>
-                                <div className="grid grid-cols-2 gap-3">
-                                    {[
-                                        { name: "Plataformas financieras" },
-                                        { name: "Turismo y reservas" },
-                                        { name: "E-commerce" },
-                                        { name: "Sistemas educativos" },
-                                        { name: "Portales corporativos" }
-                                    ].map((item, i) => (
-                                        <div key={i} className="group/item relative overflow-hidden rounded-2xl border border-white/10 p-4 bg-white/5 hover:bg-white/[0.08] transition-all duration-300">
-                                            <div className="relative z-10 flex items-center gap-3">
-                                                <span className="text-xs text-blue-100 font-medium">{item.name}</span>
-                                            </div>
-                                            <div className="absolute top-0 right-0 w-16 h-16 bg-blue-500/5 blur-2xl rounded-full" />
+                                {/* Stats */}
+                                <div className="grid grid-cols-3 gap-4">
+                                    {service.stats.map((s, i) => (
+                                        <div key={i} className="p-4 rounded-2xl border border-white/5 bg-black/50 text-center">
+                                            <div className="text-xl font-black text-white">{s.value}</div>
+                                            <div className="text-[8px] text-gray-500 uppercase font-bold tracking-tighter">{s.label}</div>
                                         </div>
                                     ))}
                                 </div>
-                            </motion.div>
-
-                            <motion.button
-                                variants={fadeIn}
-                                onClick={() => setActiveServiceInfo({
-                                    category: "PWA",
-                                    title: "Aplicaciones Web Progresivas",
-                                    description: "Desarrollamos Aplicaciones Web Progresivas (PWA) que combinan lo mejor de la web y las aplicaciones móviles. Funcionan offline, cargan en milisegundos y pueden instalarse directamente desde el navegador, eliminando fricción en la adquisición de usuarios."
-                                })}
-                                className="mb-10 text-blue-400 font-bold flex items-center gap-2 hover:text-blue-300 transition-colors uppercase tracking-widest text-xs"
-                            >
-                                Ver descripción ampliada <span className="text-lg">→</span>
-                            </motion.button>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                {[
-                                    { title: "Instalables", desc: "Sin App Store ni Play Store" },
-                                    { title: "Push Notifications", desc: "Fidelización directa" },
-                                    { title: "Funcionamiento Offline", desc: "Acceso sin conexión" },
-                                    { title: "Alto rendimiento", desc: "Y SEO optimizado" },
-                                    { title: "Reducción de costos", desc: "Frente a apps nativas" }
-                                ].map((benefit, i) => (
-                                    <motion.div
-                                        key={i}
-                                        className="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/30 transition-all duration-300 group/card cursor-default transform-gpu"
-                                    >
-                                        <h4 className="font-bold text-white text-sm mb-1">{benefit.title}</h4>
-                                        <p className="text-xs text-gray-400">{benefit.desc}</p>
-                                    </motion.div>
-                                ))}
                             </div>
                         </motion.div>
+                    )}
+                </AnimatePresence>
+            </motion.div>
+        </TiltCard>
+    );
+}
+
+// Main Component
+const DesarrolloSoftware = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const heroRef = useRef(null);
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+
+    const onMouseMove = useCallback((e) => {
+        const rect = heroRef.current?.getBoundingClientRect();
+        if (rect) {
+            mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+            mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+        }
+    }, [mouseX, mouseY]);
+
+    const pX = useTransform(mouseX, [-0.5, 0.5], [-20, 20]);
+    const pY = useTransform(mouseY, [-0.5, 0.5], [-15, 15]);
+
+    return (
+        <>
+            <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'Space Grotesk', sans-serif; cursor: default; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
+      `}</style>
+
+            <main className="min-h-screen bg-[#050505] text-white selection:bg-blue-500/3s0 overflow-x-hidden pt-28">
+
+                {/* HERO */}
+                <section
+                    ref={heroRef}
+                    onMouseMove={onMouseMove}
+                    className="relative h-[700px] mx-6 md:mx-12 rounded-[4rem] overflow-hidden mb-32 border border-white/5"
+                >
+                    <motion.div
+                        className="absolute inset-[-40px] bg-cover bg-center transition-opacity duration-1000"
+                        style={{
+                            backgroundImage: "url('/imagenes/micrositios/Desarrollo-software/portrait-male-engineer-working-field-engineers-day-celebration.jpg')",
+                            x: pX, y: pY, opacity: 0.4
+                        }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-black via-blue-950/40 to-black/80" />
+                    <div className="absolute inset-0 opacity-40">
+                        <NeuralCanvas />
                     </div>
-                </div>
-            </section>
 
-            {/* 3️⃣ SECCIÓN DE ESTADÍSTICAS (PWA) */}
-            <section className="py-20 bg-[#050505]/40 relative overflow-hidden">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
-                <div className="max-w-7xl mx-auto px-4">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                        {[
-                            { value: 3, suffix: "X", label: "más rápidas que sitios web tradicionales" },
-                            { value: 50, suffix: "%", label: "mayor retención frente a webs estándar" },
-                            { value: 70, suffix: "%", label: "de las empresas necesitan software con IA" }
-                        ].map((stat, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.2 }}
-                                className="relative p-8 rounded-3xl bg-gradient-to-b from-white/5 to-transparent border border-white/5 group"
-                            >
-                                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-3xl blur opacity-0 group-hover:opacity-20 transition-opacity" />
-                                <div className="relative">
-                                    <h3 className="text-6xl font-black text-white mb-2">
-                                        <CountUp end={stat.value} duration={3} enableScrollSpy scrollSpyOnce />
-                                        <span className="text-blue-500">{stat.suffix}</span>
-                                    </h3>
-                                    <p className="text-gray-400 font-medium">{stat.label}</p>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* 4️⃣ SECCIÓN: Desarrollo Full-Stack Escalable */}
-            <section className="relative py-24 px-4 bg-[#0a0a0a]/60 overflow-hidden" style={{ contentVisibility: 'auto' }}>
-                <div className="max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        <motion.div
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            variants={staggerContainer}
-                        >
-                            <h2 className="text-4xl md:text-5xl font-bold mb-6 italic underline underline-offset-8 decoration-blue-500/30">Desarrollo Full-Stack <br />Escalable</h2>
-                            <motion.p variants={fadeIn} className="text-lg text-gray-300 mb-8 leading-relaxed">
-                                Construimos plataformas robustas de extremo a extremo: interfaz intuitiva, lógica de negocio sólida y arquitectura preparada para alto tráfico.
-                            </motion.p>
-
-                            <motion.button
-                                variants={fadeIn}
-                                onClick={() => setActiveServiceInfo({
-                                    category: "Full-Stack",
-                                    title: "Desarrollo Web & Full-Stack",
-                                    description: "Construimos plataformas robustas de extremo a extremo: interfaz intuitiva, lógica de negocio sólida y arquitectura preparada para alto tráfico."
-                                })}
-                                className="mb-10 text-blue-400 font-bold flex items-center gap-2 hover:text-blue-300 transition-colors uppercase tracking-widest text-xs"
-                            >
-                                Ver descripción ampliada <span className="text-lg">→</span>
-                            </motion.button>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
-                                {[
-                                    { title: "Interfaces Modernas", desc: "Y responsivas" },
-                                    { title: "Backend Seguro", desc: "Y escalable en la nube" },
-                                    { title: "APIs RESTful", desc: "Para integración con terceros" },
-                                    { title: "Arquitectura Preparada", desc: "Para crecimiento exponencial" }
-                                ].map((item, i) => (
-                                    <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/10">
-                                        <h4 className="font-bold text-white text-sm mb-1">{item.title}</h4>
-                                        <p className="text-xs text-gray-500">{item.desc}</p>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className="flex flex-wrap gap-8">
-                                {[
-                                    { val: 99.9, suf: "%", lab: "disponibilidad cloud" },
-                                    { val: 60, suf: "%", lab: "reducción tiempos integración" },
-                                    { val: 5, suf: "X", lab: "crecimiento tráfico soportado" }
-                                ].map((stat, i) => (
-                                    <div key={i}>
-                                        <div className="text-3xl font-black text-blue-500">
-                                            <CountUp end={stat.val} decimals={stat.val % 1 !== 0 ? 1 : 0} duration={2} enableScrollSpy scrollSpyOnce />
-                                            {stat.suf}
-                                        </div>
-                                        <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold leading-tight w-24">{stat.lab}</p>
-                                    </div>
-                                ))}
-                            </div>
-
-                        </motion.div>
-
+                    <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-10">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            className="relative group mt-10 lg:mt-0"
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="mb-10 px-6 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 text-[10px] font-black tracking-[0.5em] uppercase text-blue-400"
                         >
-                            <div className="absolute -inset-4 bg-blue-500/5 rounded-[3rem] blur-3xl" />
-                            <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_0_50px_-12px_rgba(59,130,246,0.3)] group-hover:border-blue-500/30 transition-all duration-500">
-                                <img
-                                    src="/imagenes/micrositios/Desarrollo-software/people-working-html-codes.jpg"
-                                    alt="Full-Stack Dev"
-                                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
-                                    loading="lazy"
-                                    decoding="async"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                            </div>
-                        </motion.div>
-                    </div>
-                </div>
-            </section>
-
-            {/* 5️⃣ SECCIÓN: Aplicaciones Nativas iOS y Android */}
-            <section className="relative py-24 px-4 bg-[#050505]/40 overflow-hidden" style={{ contentVisibility: 'auto' }}>
-                <div className="max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            className="order-2 lg:order-1 relative group"
-                        >
-                            <div className="relative rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_0_50px_-12px_rgba(59,130,246,0.2)] group-hover:border-blue-500/30 transition-all duration-700 aspect-video md:aspect-[4/3]">
-                                <img
-                                    src="/imagenes/micrositios/Desarrollo-software/smile-young-man-playing-happy-woman.jpg"
-                                    alt="Mobile Development"
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                    loading="lazy"
-                                    decoding="async"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-r from-blue-900/40 to-transparent" />
-                            </div>
-
-                            {/* Floating Stats Label */}
-                            <div className="absolute top-10 left-[-20px] bg-blue-600 px-6 py-4 rounded-xl rotate-[-5deg] shadow-xl border border-white/20 hidden md:block">
-                                <p className="text-xs font-bold uppercase tracking-widest text-white italic">Rendimiento Superior</p>
-                            </div>
+                            High-Performance Software Factory
                         </motion.div>
 
-                        <motion.div
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            variants={staggerContainer}
-                            className="order-1 lg:order-2"
-                        >
-                            <span className="text-blue-500 font-bold tracking-[0.3em] uppercase mb-4 block underline decoration- blue-500/30 underline-offset-8">Experiencia móvil total</span>
-                            <h2 className="text-4xl md:text-5xl font-bold mb-6">Apps Nativas <br />iOS y Android</h2>
-                            <motion.p variants={fadeIn} className="text-lg text-gray-300 mb-8 leading-relaxed">
-                                Experiencia móvil total. Rendimiento superior. Desarrollamos aplicaciones nativas optimizadas para los entornos iOS y Android, garantizando máxima velocidad, estabilidad y una experiencia alineada a los estándares de cada ecosistema.
-                            </motion.p>
+                        <h1 className="text-6xl md:text-[8rem] font-black leading-[0.8] tracking-tighter mb-8 italic">
+                            Desarrollo <br />
+                            <GlitchText text="Software" className="text-blue-500 underline decoration-white/10 underline-offset-[20px]" />
+                        </h1>
 
-                            <motion.button
-                                variants={fadeIn}
-                                onClick={() => setActiveServiceInfo({
-                                    category: "Mobile",
-                                    title: "Apps Nativas iOS y Android",
-                                    description: "Experiencia móvil total. Rendimiento superior. Desarrollamos aplicaciones nativas optimizadas para los entornos iOS y Android, garantizando máxima velocidad, estabilidad y una experiencia alineada a los estándares de cada ecosistema."
-                                })}
-                                className="mb-10 text-blue-400 font-bold flex items-center gap-2 hover:text-blue-300 transition-colors uppercase tracking-widest text-xs"
-                            >
-                                Ver descripción ampliada <span className="text-lg">→</span>
-                            </motion.button>
-
-                            <div className="space-y-4 mb-10">
-                                {[
-                                    "Rendimiento optimizado por plataforma",
-                                    "Integración total con hardware (cámara, GPS, biometría)",
-                                    "Mayor seguridad y estabilidad",
-                                    "Publicación en App Store y Play Store"
-                                ].map((benefit, i) => (
-                                    <div key={i} className="flex items-center gap-3 text-gray-400">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                                        {benefit}
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 pt-6 border-t border-white/10">
-                                {[
-                                    { val: 6.8, suf: "B", lab: "usuarios de smartphones en el mundo" },
-                                    { val: 88, suf: "%", lab: "del tiempo móvil se pasa en apps" },
-                                    { val: 70, suf: "%", lab: "del comercio digital móvil" }
-                                ].map((stat, i) => (
-                                    <div key={i}>
-                                        <div className="text-2xl font-black text-white">
-                                            <CountUp end={stat.val} decimals={stat.val % 1 !== 0 ? 1 : 0} duration={2} enableScrollSpy scrollSpyOnce />
-                                            {stat.suf}
-                                        </div>
-                                        <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold leading-tight">{stat.lab}</p>
-                                    </div>
-                                ))}
-                            </div>
-
-                        </motion.div>
-                    </div>
-                </div>
-            </section>
-
-
-            {/* 6️⃣ SECCIÓN: Ingeniería DevOps & Cloud */}
-            <section className="relative py-24 px-4 bg-[#0a0a0a]/60 overflow-hidden" style={{ contentVisibility: 'auto' }}>
-                <div className="max-w-7xl mx-auto">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={fadeIn}
-                        className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
-                    >
-                        <div>
-                            <span className="text-blue-500 font-bold tracking-[0.3em] uppercase mb-4 block">Alta Disponibilidad</span>
-                            <h2 className="text-4xl md:text-5xl font-bold">Ingeniería DevOps & Cloud</h2>
+                        <div className="h-10 mb-12">
+                            <TypingText
+                                texts={[
+                                    "Escalamos tu visión al siguiente nivel.",
+                                    "Arquitecturas modernas, resultados reales.",
+                                    "Innovación pura en cada línea de código.",
+                                    "Sistemas que evolucionan con tu negocio."
+                                ]}
+                                className="text-xl md:text-3xl text-gray-300 font-light italic"
+                            />
                         </div>
-                        <p className="text-gray-400 max-w-md italic border-l-2 border-blue-500 pl-6 py-2">
-                            Automatización, despliegue continuo y alta disponibilidad. Implementamos pipelines CI/CD, contenedorización y orquestación en entornos cloud para garantizar estabilidad, velocidad y escalabilidad operativa.
+
+                        <p className="text-gray-500 max-w-2xl text-sm leading-relaxed mb-12 opacity-80">
+                            Desde aplicaciones web progresivas hasta infraestructuras en la nube ultra-resilientes.
+                            Diseñamos el futuro técnico de tu empresa hoy mismo.
                         </p>
-                    </motion.div>
-
-                    <motion.button
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={fadeIn}
-                        onClick={() => setActiveServiceInfo({
-                            category: "Cloud",
-                            title: "Ingeniería DevOps & Cloud",
-                            description: "Automatización, despliegue continuo y alta disponibilidad. Implementamos pipelines CI/CD, contenedorización y orquestación en entornos cloud para garantizar estabilidad, velocidad y escalabilidad operativa."
-                        })}
-                        className="mb-16 text-blue-400 font-bold flex items-center gap-2 hover:text-blue-300 transition-colors uppercase tracking-widest text-xs"
-                    >
-                        Ver descripción ampliada <span className="text-lg">→</span>
-                    </motion.button>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                        {[
-                            { title: "Automatización", desc: "De despliegues continuos" },
-                            { title: "Infraestructura", desc: "Definida como código (IaC)" },
-                            { title: "Contenedores", desc: "Docker y orquestación" },
-                            { title: "Monitoreo", desc: "En tiempo real" }
-                        ].map((card, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                                className="p-8 rounded-[2rem] bg-white/5 border border-white/10 hover:border-blue-500/40 transition-all group"
-                            >
-                                <h3 className="text-xl font-bold text-white mb-2">{card.title}</h3>
-                                <p className="text-xs text-gray-500 leading-relaxed">{card.desc}</p>
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    <div className="bg-gradient-to-r from-blue-900/40 to-transparent p-10 rounded-[2.5rem] border border-white/10 flex flex-wrap justify-around gap-8 text-center relative overflow-hidden group">
-                        <div
-                            className="absolute top-0 left-0 w-full h-full bg-cover bg-center mix-blend-overlay opacity-40 filter grayscale-0 group-hover:scale-105 transition-all duration-1000"
-                            style={{ backgroundImage: "url('/imagenes/micrositios/Desarrollo-software/young-engineer-server-room-medium-shot.jpg')" }}
-                            loading="lazy"
-                            decoding="async"
-                        />
-                        {[
-                            { val: 61, suf: "%", lab: "reducción en tiempo de despliegue" },
-                            { val: 94, suf: "%", lab: "de las empresas ya utilizan la nube" },
-                            { val: 99.9, suf: "%", lab: "disponibilidad en infraestructuras" }
-                        ].map((stat, i) => (
-                            <div key={i} className="relative z-10">
-                                <div className="text-4xl font-black text-white mb-2">
-                                    <CountUp end={stat.val} decimals={stat.val % 1 !== 0 ? 1 : 0} duration={2} enableScrollSpy scrollSpyOnce />
-                                    {stat.suf}
-                                </div>
-                                <p className="text-xs text-blue-200 uppercase tracking-widest font-bold opacity-70">{stat.lab}</p>
-                            </div>
-                        ))}
-                    </div>
-
-                </div>
-            </section>
-
-            {/* 7️⃣ SECCIÓN: Arquitectura de Microservicios */}
-            <section className="relative py-24 px-4 bg-[#050505]/40 overflow-hidden" style={{ contentVisibility: 'auto' }}>
-                <div className="max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            className="relative lg:order-2 group"
-                        >
-                            <div className="relative rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_0_50px_-12px_rgba(59,130,246,0.2)] group-hover:border-blue-500/30 transition-all duration-700 aspect-video">
-                                <img
-                                    src="/imagenes/micrositios/Desarrollo-software/computer-scientists-data-center-managing-maintaining-databases.jpg"
-                                    alt="Microservices Architecture"
-                                    className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105"
-                                    loading="lazy"
-                                    decoding="async"
-                                />
-                                <div className="absolute inset-0 bg-blue-900/10 mix-blend-overlay" />
-                            </div>
-                        </motion.div>
-
-                        <motion.div
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            variants={staggerContainer}
-                            className="lg:order-1"
-                        >
-                            <h2 className="text-4xl md:text-5xl font-bold mb-6 italic underline underline-offset-8 decoration-blue-500/30">Arquitectura de <br />Microservicios</h2>
-                            <motion.p variants={fadeIn} className="text-lg text-gray-300 mb-8 leading-relaxed">
-                                Sistemas modulares diseñados para escalar sin límites. Diseñamos plataformas basadas en microservicios que permiten crecimiento independiente y alta resiliencia.
-                            </motion.p>
-
-                            <motion.button
-                                variants={fadeIn}
-                                onClick={() => setActiveServiceInfo({
-                                    category: "Infraestructura",
-                                    title: "Arquitectura de Microservicios",
-                                    description: "Sistemas modulares diseñados para escalar sin límites. Diseñamos plataformas basadas en microservicios que permiten crecimiento independiente y alta resiliencia."
-                                })}
-                                className="mb-10 text-blue-400 font-bold flex items-center gap-2 hover:text-blue-300 transition-colors uppercase tracking-widest text-xs"
-                            >
-                                Ver descripción ampliada <span className="text-lg">→</span>
-                            </motion.button>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-                                {["Escalabilidad independiente por módulo", "Alta tolerancia a fallos", "Mejor rendimiento bajo demanda", "Actualizaciones sin interrupciones"].map((item, i) => (
-                                    <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border-l-2 border-blue-500">
-                                        <span className="text-white text-sm font-medium">{item}</span>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className="flex flex-wrap gap-8">
-                                {[
-                                    { val: 85, suf: "%", lab: "de las organizaciones migran a microservicios" },
-                                    { val: 50, suf: "%", lab: "reducción en tiempos de desarrollo" },
-                                    { val: 30, suf: "%", lab: "más resiliencia ante fallos" }
-                                ].map((stat, i) => (
-                                    <div key={i}>
-                                        <div className="text-2xl font-black text-blue-400">
-                                            <CountUp end={stat.val} duration={2} enableScrollSpy scrollSpyOnce />
-                                            {stat.suf}
-                                        </div>
-                                        <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold w-24 leading-tight">{stat.lab}</p>
-                                    </div>
-                                ))}
-                            </div>
-
-                        </motion.div>
-                    </div>
-                </div>
-            </section>
-
-            {/* 8️⃣ SECCIÓN: Mantenimiento y Soporte Continuo */}
-            <section className="relative py-24 px-4 bg-[#0a0a0a]/60 overflow-hidden" style={{ contentVisibility: 'auto' }}>
-                <div className="max-w-7xl mx-auto">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={fadeIn}
-                        className="text-center mb-16"
-                    >
-                        <span className="text-blue-500 font-bold tracking-[0.3em] uppercase mb-4 block">Evolución Constante</span>
-                        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Mantenimiento y Soporte Continuo</h2>
-                        <motion.p variants={fadeIn} className="text-lg text-gray-400 max-w-3xl mx-auto italic mb-10">
-                            Evolución constante. Estabilidad garantizada. Aseguramos el funcionamiento, actualización y optimización continua de las plataformas digitales.
-                        </motion.p>
 
                         <motion.button
-                            variants={fadeIn}
-                            onClick={() => setActiveServiceInfo({
-                                category: "Soporte",
-                                title: "Mantenimiento y Soporte Continuo",
-                                description: "Evolución constante. Estabilidad garantizada. Aseguramos el funcionamiento, actualización y optimización continua de las plataformas digitales."
-                            })}
-                            className="mx-auto text-blue-400 font-bold flex items-center justify-center gap-2 hover:text-blue-300 transition-colors uppercase tracking-widest text-xs"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => window.scrollTo({ top: 1200, behavior: "smooth" })}
+                            className="px-16 py-6 bg-white text-black rounded-full font-black text-xs uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-[0_0_50px_rgba(255,255,255,0.15)]"
                         >
-                            Ver descripción ampliada <span className="text-lg">→</span>
+                            Explorar Tecnologías
                         </motion.button>
-                    </motion.div>
+                    </div>
+                </section>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                {/* METRICS */}
+                <section className="max-w-7xl mx-auto px-10 mb-40">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-12 py-16 px-12 rounded-[4rem] bg-white/[0.02] border border-white/5 relative overflow-hidden shadow-2xl">
+                        <div className="absolute top-0 right-0 w-60 h-60 bg-blue-600/5 blur-[100px] rounded-full" />
                         {[
-                            { title: "Monitoreo", desc: "Proactivo 24/7" },
-                            { title: "Seguridad", desc: "Mediante actualizaciones constantes" },
-                            { title: "Optimización", desc: "Mejora continua del rendimiento" },
-                            { title: "Soporte", desc: "Técnico especializado" }
-                        ].map((item, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                                className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10 group hover:border-blue-500/40 transition-all text-center"
-                            >
-                                <h4 className="text-xl font-bold text-white mb-3">{item.title}</h4>
-                                <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
-                            </motion.div>
+                            { val: "100", suf: "%", lab: "CÓDIGO PROPIO" },
+                            { val: "24", suf: "/7", lab: "MONITOREO ACTIVO" },
+                            { val: "3", suf: "X", lab: "MÁS VELOCIDAD" },
+                            { val: "50", suf: "+", lab: "SISTEMAS DESPLEGADOS" }
+                        ].map((m, i) => (
+                            <div key={i} className="relative z-10">
+                                <Counter value={m.val + m.suf} label={m.lab} />
+                            </div>
                         ))}
                     </div>
+                </section>
 
-                    <div className="relative p-1 gap-8 overflow-hidden rounded-[3rem] border border-white/5 bg-white/[0.03] shadow-2xl group/main-card">
-                        <div className="absolute inset-0 -z-10 bg-cover bg-center opacity-40 filter grayscale-0 transform-gpu transition-transform duration-1000 group-hover/main-card:scale-105" style={{ backgroundImage: "url('/imagenes/micrositios/Desarrollo-software/professional-hacker-using-ransomware-phishing-tactics-compromise-networks.jpg')" }} loading="lazy" decoding="async" />
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 relative z-10">
-                            {[
-                                { val: 60, suf: "%", lab: "de ciberataques afectan sistemas desactualizados" },
-                                { val: 70, suf: "%", lab: "menos incidentes con mantenimiento preventivo" },
-                                { val: 40, suf: "%", lab: "mejora en retención tecnológica" }
-                            ].map((stat, i) => (
-                                <div key={i} className={`p-12 text-center transition-all duration-500 hover:bg-white/[0.05] group/stat ${i !== 2 ? 'border-b md:border-b-0 md:border-r border-white/5' : ''}`}>
-                                    <div className="text-5xl font-black text-white mb-3 transition-transform duration-500 group-hover/stat:scale-110">
-                                        <CountUp end={stat.val} duration={2} enableScrollSpy scrollSpyOnce />
-                                        <span className="text-blue-500">{stat.suf}</span>
-                                    </div>
-                                    <p className="text-xs text-gray-400 uppercase tracking-[0.2em] font-bold leading-relaxed max-w-[200px] mx-auto opacity-70 group-hover/stat:opacity-100 transition-opacity whitespace-pre-line">{stat.lab}</p>
-                                </div>
-                            ))}
+                {/* MAIN SERVICES GRID */}
+                <section className="max-w-7xl mx-auto px-10 mb-40">
+                    <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-10">
+                        <div>
+                            <span className="text-blue-500 font-bold tracking-[0.5em] text-[10px] uppercase block mb-6 px-1">Expertise Técnico</span>
+                            <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none italic uppercase">
+                                Nuestros <br /><span className="text-gray-600">Servicios</span>
+                            </h2>
                         </div>
+                        <p className="text-gray-500 max-w-sm text-right italic text-lg leading-relaxed border-r-4 border-blue-600 pr-8">
+                            Soluciones modulares diseñadas para la era del alto rendimiento digital.
+                        </p>
                     </div>
 
-                </div>
-            </section>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                        {services.map((s, i) => (
+                            <div key={i} className="h-full">
+                                <ServiceCard service={s} index={i} />
+                            </div>
+                        ))}
+                    </div>
+                </section>
 
-            <section className="relative py-24 px-4 bg-[#050505]/40 overflow-hidden" style={{ contentVisibility: 'auto' }}>
-                <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-blue-600/10 blur-[150px] animate-pulse" />
-                    <div className="absolute inset-0 bg-cover bg-center mix-blend-overlay opacity-25" style={{ backgroundImage: "url('/imagenes/micrositios/Desarrollo-software/person-working-html-computer.jpg')" }} />
-                    <img
-                        src="/imagenes/micrositios/Desarrollo-software/person-pressing-power-button.jpg"
-                        alt="Final CTA"
-                        className="absolute right-0 bottom-0 w-full h-full object-cover opacity-15 grayscale-0 pointer-events-none"
-                        loading="lazy"
-                        decoding="async"
-                    />
-                </div>
+                {/* FEATURE HIGHLIGHT */}
+                <section className="max-w-7xl mx-auto px-10 mb-40">
+                    <div className="relative rounded-[5rem] overflow-hidden border border-white/5 bg-gradient-to-br from-[#0a0a0a] to-black p-16 md:p-32 group">
+                        <div
+                            className="absolute inset-0 bg-cover bg-center opacity-10 grayscale group-hover:opacity-30 transition-all duration-1000"
+                            style={{ backgroundImage: "url('/imagenes/micrositios/Desarrollo-software/people-working-html-codes.jpg')" }}
+                        />
+                        <div className="relative z-10 grid lg:grid-cols-2 gap-20 items-center">
+                            <div>
+                                <h2 className="text-5xl md:text-8xl font-black mb-12 italic leading-[0.8] tracking-tighter">
+                                    Arquitectura <br />Evolutiva.
+                                </h2>
+                                <p className="text-xl text-gray-400 mb-14 font-light italic leading-relaxed">
+                                    No creamos software estático. Construimos ecosistemas que <span className="text-white underline decoration-blue-500/40">aprenden, escalan y se adaptan</span> al crecimiento real de tu negocio.
+                                </p>
+                                <Link
+                                    to="/servicios/infraestructura-nube"
+                                    onClick={() => window.scrollTo(0, 0)}
+                                    className="inline-flex items-center gap-4 text-blue-400 font-black uppercase tracking-widest text-xs group/link"
+                                >
+                                    Explorar Nube <span className="text-2xl transition-transform group-hover/link:translate-x-3">→</span>
+                                </Link>
+                            </div>
+                            <div className="grid grid-cols-2 gap-6">
+                                {[
+                                    { t: "Resiliencia", d: "Zero downtime" },
+                                    { t: "Escala", d: "Horizontal scaling" },
+                                    { t: "Seguridad", d: "Encryption AES" },
+                                    { t: "Velo", d: "Cache L1/L2" }
+                                ].map((box, i) => (
+                                    <div key={i} className="p-10 rounded-[3rem] bg-white/[0.03] border border-white/5 hover:bg-blue-600/10 transition-colors">
+                                        <h4 className="text-white font-black text-sm mb-2 uppercase italic">{box.t}</h4>
+                                        <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">{box.d}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-                <div className="relative z-10 max-w-4xl mx-auto text-center">
+                {/* CTA */}
+                <section className="relative py-48 px-10 text-center overflow-hidden">
+                    <div className="absolute inset-0 z-0 opactiy-20">
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/5 blur-[150px] rounded-full" />
+                    </div>
+
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
+                        className="relative z-10"
                     >
-                        <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight">¿Listo para desarrollar tu <br /><span className="text-blue-500">plataforma digital?</span></h2>
-                        <motion.p className="text-xl text-gray-400 mb-12 font-light">
-                            Transformamos tus ideas en soluciones tecnológicas escalables que potencian el crecimiento real de tu empresa.
-                        </motion.p>
+                        <h2 className="text-7xl md:text-[12rem] font-black leading-[0.8] tracking-tighter mb-16 italic">
+                            ¿Siguiente <br /><span className="text-blue-600">Despliegue?</span>
+                        </h2>
+                        <p className="text-2xl text-gray-400 mb-20 italic font-light max-w-3xl mx-auto leading-relaxed">
+                            Transformamos la complejidad técnica en una ventaja competitiva brutal para tu empresa.
+                        </p>
 
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                        <div className="flex flex-col sm:flex-row gap-8 justify-center">
                             <button
                                 onClick={() => setIsModalOpen(true)}
-                                className="group relative px-10 py-5 bg-blue-600 rounded-full font-bold text-lg overflow-hidden transition-all hover:bg-blue-500 hover:scale-105 active:scale-95 shadow-2xl shadow-blue-500/40"
+                                className="px-20 py-10 bg-blue-600 rounded-[3rem] font-black text-2xl uppercase tracking-[0.2em] hover:bg-blue-500 transition-all shadow-[0_0_80px_rgba(59,130,246,0.3)] active:scale-95"
                             >
-                                <span className="relative z-10">Solicitar asesoría</span>
-                                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-transparent opacity-0 group-hover:opacity-20 transition-opacity" />
+                                Contactar Ahora
                             </button>
                             <Link
                                 to="/"
-                                className="px-10 py-5 bg-white/5 rounded-full font-bold text-lg border border-white/10 hover:bg-white/10 transition-all"
+                                className="px-20 py-10 bg-white/5 border border-white/10 rounded-[3rem] font-black text-2xl uppercase tracking-[0.2em] text-white/50 hover:text-white transition-all shadow-2xl"
                                 onClick={() => window.scrollTo(0, 0)}
                             >
-                                Volver al inicio
+                                Inicio
                             </Link>
                         </div>
                     </motion.div>
-                </div>
-            </section>
-            <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-            <ServiceDetailModal info={activeServiceInfo} onClose={() => setActiveServiceInfo(null)} />
-        </main>
+                </section>
+
+                <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
+                <footer className="py-32 px-10 border-t border-white/5 text-center bg-black">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="w-20 h-px bg-blue-600 mx-auto mb-12 opacity-30" />
+                        <p className="text-gray-600 text-[10px] font-black tracking-[0.7em] uppercase">
+                            © {new Date().getFullYear()} Olimpo Innova • Engineering Beyond Limits
+                        </p>
+                    </div>
+                </footer>
+
+            </main>
+        </>
     );
 };
 
