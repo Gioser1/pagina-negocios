@@ -1,4 +1,4 @@
-import { Code, Bot, BrainCircuit, Database, Cloud, Shield, Home, Megaphone, Film, Sparkles } from "lucide-react";
+import { Code, Bot, BrainCircuit, Database, Cloud, Shield, Network, Megaphone, Film, Sparkles } from "lucide-react";
 
 export const servicesData = [
     {
@@ -38,10 +38,10 @@ export const servicesData = [
         icon: <Shield className="w-6 h-6" />
     },
     {
-        title: "Domótica IoT",
-        slug: "domotica-iot",
-        description: "Conectamos dispositivos y creamos ecosistemas inteligentes para hogares y empresas (Internet de las Cosas).",
-        icon: <Home className="w-6 h-6" />
+        title: "Blockchain & Web3",
+        slug: "blockchain-web3",
+        description: "Desarrollo de contratos inteligentes, aplicaciones descentralizadas (DApps) y ecosistemas Web3.",
+        icon: <Network className="w-6 h-6" />
     },
     {
         title: "Marketing Digital",
