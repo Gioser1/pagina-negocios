@@ -8,8 +8,6 @@ const Counter = ({ value, duration = 2.5 }) => {
     const [inView, setInView] = useState(false);
 
     useEffect(() => {
-        const numMatch = value.match(/^([+\-]?)(\d+\.?\d*)(.*)/);
-
         const observer = new IntersectionObserver(([entry]) => {
             if (entry.isIntersecting) { setInView(true); observer.disconnect(); }
         }, { threshold: 0.5 });
@@ -198,7 +196,7 @@ const InfraestructuraNube = () => {
                             ))}
                         </div>
                     </motion.div>
-                </motion.div>
+                </section>
 
                 <motion.div 
                     initial={{ opacity: 0, scale: 0.95 }}
