@@ -196,7 +196,7 @@ const InfraestructuraNube = () => {
                             ))}
                         </div>
                     </motion.div>
-                </section>
+                </motion.div>
 
                 <motion.div 
                     initial={{ opacity: 0, scale: 0.95 }}
@@ -324,37 +324,37 @@ const InfraestructuraNube = () => {
                     </motion.div>
                 </motion.div>
 
+                <motion.div 
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="relative z-10 w-full aspect-square max-w-[500px] mx-auto flex items-center justify-center perspective-1000 mt-10 lg:mt-0"
+                >
+                    {/* Background faint image */}
+                    <img src="/imagenes/micrositios/Infraestructura-en-la-nube/server-cloud-data-storage-concept-cloudscape-digital-online-service-global-network-web-database-backup-computer-infrastructure-technology.jpg" className="absolute inset-0 w-full h-full object-cover opacity-70 rounded-[4rem] blur-[2px]" />
+                    <div className="absolute inset-0 bg-[#050505]/40 rounded-[4rem]" />
+                    
                     <motion.div 
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="relative z-10 w-full aspect-square max-w-[500px] mx-auto flex items-center justify-center perspective-1000 mt-10 lg:mt-0"
+                        animate={{ y: [0, -15, 0] }}
+                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                        whileHover={{ rotateY: -10, rotateX: 5, zIndex: 30, scale: 1.05 }}
+                        className="absolute top-4 left-0 md:-left-12 w-[55%] aspect-square bg-[#0a0a0d]/90 backdrop-blur-md border border-white/20 rounded-[3rem] p-8 flex flex-col justify-end z-10 shadow-2xl transition-transform duration-500"
                     >
-                        {/* Background faint image */}
-                        <img src="/imagenes/micrositios/Infraestructura-en-la-nube/server-cloud-data-storage-concept-cloudscape-digital-online-service-global-network-web-database-backup-computer-infrastructure-technology.jpg" className="absolute inset-0 w-full h-full object-cover opacity-70 rounded-[4rem] blur-[2px]" />
-                        <div className="absolute inset-0 bg-[#050505]/40 rounded-[4rem]" />
-                        
-                        <motion.div 
-                            animate={{ y: [0, -15, 0] }}
-                            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                            whileHover={{ rotateY: -10, rotateX: 5, zIndex: 30, scale: 1.05 }}
-                            className="absolute top-4 left-0 md:-left-12 w-[55%] aspect-square bg-[#0a0a0d]/90 backdrop-blur-md border border-white/20 rounded-[3rem] p-8 flex flex-col justify-end z-10 shadow-2xl transition-transform duration-500"
-                        >
-                            <div className="text-3xl lg:text-5xl font-black text-sky-500 tracking-tighter drop-shadow-lg">DOCKER</div>
-                            <div className="text-[10px] text-gray-300 uppercase tracking-[0.3em] mt-2 font-bold">PORTABILIDAD</div>
-                        </motion.div>
-                        
-                        <motion.div 
-                            animate={{ y: [0, 15, 0] }}
-                            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                            whileHover={{ rotateY: 10, rotateX: -5, scale: 1.1, zIndex: 30 }}
-                            className="absolute bottom-4 right-0 md:-right-8 w-[60%] aspect-square bg-sky-500/90 backdrop-blur-md border border-white/30 rounded-[3rem] p-8 flex flex-col justify-end z-20 shadow-[0_0_60px_rgba(14,165,233,0.6)] transition-transform duration-500"
-                        >
-                            <div className="text-4xl lg:text-6xl font-black text-white tracking-tighter drop-shadow-md">K8s</div>
-                            <div className="text-[10px] text-white/90 uppercase tracking-[0.3em] mt-2 font-bold">SCALING</div>
-                        </motion.div>
+                        <div className="text-3xl lg:text-5xl font-black text-sky-500 tracking-tighter drop-shadow-lg">DOCKER</div>
+                        <div className="text-[10px] text-gray-300 uppercase tracking-[0.3em] mt-2 font-bold">PORTABILIDAD</div>
                     </motion.div>
+                    
+                    <motion.div 
+                        animate={{ y: [0, 15, 0] }}
+                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                        whileHover={{ rotateY: 10, rotateX: -5, scale: 1.1, zIndex: 30 }}
+                        className="absolute bottom-4 right-0 md:-right-8 w-[60%] aspect-square bg-sky-500/90 backdrop-blur-md border border-white/30 rounded-[3rem] p-8 flex flex-col justify-end z-20 shadow-[0_0_60px_rgba(14,165,233,0.6)] transition-transform duration-500"
+                    >
+                        <div className="text-4xl lg:text-6xl font-black text-white tracking-tighter drop-shadow-md">K8s</div>
+                        <div className="text-[10px] text-white/90 uppercase tracking-[0.3em] mt-2 font-bold">SCALING</div>
+                    </motion.div>
+                </motion.div>
             </section>
 
             {/* --- CAPAS DE SEGURIDAD --- */}
