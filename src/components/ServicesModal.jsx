@@ -172,14 +172,14 @@ const ServicesModal = ({ isOpen, onClose }) => {
                                             </div>
 
                                             <div className="mt-auto pt-4 text-blue-400 font-semibold text-sm flex items-center gap-2">
-                                                <span>Ver más</span>
+                                                <span></span>
                                                 <motion.span
                                                     animate={{ rotate: activeService === index ? 90 : 0 }}
                                                     className="md:hidden inline-block"
                                                 >
-                                                    →
+                                                    
                                                 </motion.span>
-                                                <span className="hidden md:inline-block">→</span>
+                                                <span className="hidden md:inline-block"></span>
                                             </div>
                                         </div>
                                     </motion.button>
