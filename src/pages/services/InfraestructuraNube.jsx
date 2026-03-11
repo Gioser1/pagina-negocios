@@ -103,7 +103,7 @@ const InfraestructuraNube = () => {
                     className="absolute inset-x-0 inset-y-[-20%] z-0 opacity-80 pointer-events-none"
                 >
                     <img 
-                        src="/imagenes/micrositios/Infraestructura-en-la-nube/cyber-security-concept-digital-art.jpg" 
+                        src="/imagenes/micrositios/Infraestructura-en-la-nube/cyber-security-concept-digital-art.webp" 
                         alt="Infraestructura en la Nube"
                         className="w-full h-full object-cover mask-image-cyan"
                         style={{ WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 40%, black 80%, transparent)' }}
@@ -207,7 +207,7 @@ const InfraestructuraNube = () => {
                 >
                     <div className="w-full aspect-square md:aspect-[4/5] rounded-[3rem] border border-white/20 bg-[#0a0a0d] overflow-hidden group shadow-[0_0_50px_rgba(14,165,233,0.15)]">
                         <img 
-                            src="/imagenes/micrositios/Infraestructura-en-la-nube/cloud-security-data-protection-concept.jpg" 
+                            src="/imagenes/micrositios/Infraestructura-en-la-nube/cloud-security-data-protection-concept.webp" 
                             alt="Cloud Migration"
                             className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000"
                         />
@@ -230,7 +230,7 @@ const InfraestructuraNube = () => {
                 className="py-40 flex flex-col items-center justify-center text-center px-4 relative border-y border-white/10 bg-black/40 overflow-hidden mb-32 shadow-2xl"
             >
                 <div className="absolute inset-0 z-0">
-                    <img src="/imagenes/micrositios/Infraestructura-en-la-nube/skilled-mechanic-resolving-performance-related-issues-server-room-expert-utilizing-tablet-identify-operational-problems-causing-high-tech-facility-electronics-slowdown.jpg" className="w-full h-full object-cover opacity-60" />
+                    <img src="/imagenes/micrositios/Infraestructura-en-la-nube/skilled-mechanic-resolving-performance-related-issues-server-room-expert-utilizing-tablet-identify-operational-problems-causing-high-tech-facility-electronics-slowdown.webp" className="w-full h-full object-cover opacity-60" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-black/50 to-[#050505]" />
                 </div>
                 
@@ -332,7 +332,7 @@ const InfraestructuraNube = () => {
                     className="relative z-10 w-full aspect-square max-w-[500px] mx-auto flex items-center justify-center perspective-1000 mt-10 lg:mt-0"
                 >
                     {/* Background faint image */}
-                    <img src="/imagenes/micrositios/Infraestructura-en-la-nube/server-cloud-data-storage-concept-cloudscape-digital-online-service-global-network-web-database-backup-computer-infrastructure-technology.jpg" className="absolute inset-0 w-full h-full object-cover opacity-70 rounded-[4rem] blur-[2px]" />
+                    <img src="/imagenes/micrositios/Infraestructura-en-la-nube/server-cloud-data-storage-concept-cloudscape-digital-online-service-global-network-web-database-backup-computer-infrastructure-technology.webp" className="absolute inset-0 w-full h-full object-cover opacity-70 rounded-[4rem] blur-[2px]" />
                     <div className="absolute inset-0 bg-[#050505]/40 rounded-[4rem]" />
                     
                     <motion.div 
@@ -360,7 +360,7 @@ const InfraestructuraNube = () => {
             {/* --- CAPAS DE SEGURIDAD --- */}
             <section className="relative py-32 px-6 md:px-10 border-y border-white/5 bg-black/20 overflow-hidden mb-32">
                 <div className="absolute inset-0 z-0 pointer-events-none">
-                    <img src="/imagenes/micrositios/Infraestructura-en-la-nube/cloud-download-icon-line-connection-circuit-board.jpg" className="w-full h-full object-cover opacity-20 mix-blend-screen" />
+                    <img src="/imagenes/micrositios/Infraestructura-en-la-nube/cloud-download-icon-line-connection-circuit-board.webp" className="w-full h-full object-cover opacity-20 mix-blend-screen" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-[#050505]" />
                 </div>
                 
@@ -372,7 +372,7 @@ const InfraestructuraNube = () => {
                         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                         className="order-2 lg:order-1 relative z-10 w-full aspect-square max-w-[500px] mx-auto bg-[#030712] rounded-[4rem] border border-white/20 overflow-hidden flex items-center justify-center shadow-[0_0_50px_rgba(14,165,233,0.15)] group"
                     >
-                        <img src="/imagenes/micrositios/Infraestructura-en-la-nube/cloud-security-data-protection-concept (1).jpg" className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-[2s]" />
+                        <img src="/imagenes/micrositios/Infraestructura-en-la-nube/cloud-security-data-protection-concept (1).webp" className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-[2s]" />
                         <div className="absolute inset-0 bg-[#050505]/60" />
                         
                         {/* Interactive Radar Rings */}
@@ -462,7 +462,7 @@ const InfraestructuraNube = () => {
             {/* --- FINOPS: AUDITADO --- */}
             <section className="relative py-32 px-6 md:px-10 bg-black/40 overflow-hidden mb-40">
                 <div className="absolute inset-0 z-0 pointer-events-none">
-                    <img src="/imagenes/micrositios/Infraestructura-en-la-nube/saas-concept-collage.jpg" className="w-full h-full object-cover opacity-20" />
+                    <img src="/imagenes/micrositios/Infraestructura-en-la-nube/saas-concept-collage.webp" className="w-full h-full object-cover opacity-20" />
                     <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-black/70 to-[#050505]" />
                 </div>
 
@@ -514,7 +514,7 @@ const InfraestructuraNube = () => {
                     >
                         <div className="w-full aspect-square max-h-[600px] border border-white/20 rounded-[4rem] bg-[#050505] relative overflow-hidden flex flex-col items-center justify-center p-10 shadow-[0_0_50px_rgba(14,165,233,0.15)] group">
                             <img 
-                                src="/imagenes/micrositios/Infraestructura-en-la-nube/businessman-analyzing-data-tablet-cityscape-background.jpg" 
+                            src="/imagenes/micrositios/Infraestructura-en-la-nube/businessman-analyzing-data-tablet-cityscape-background.webp" 
                                 className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-[3s]"
                             />
                             <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/50 to-black/90" />
@@ -544,7 +544,7 @@ const InfraestructuraNube = () => {
             {/* --- HOSTING GESTIONADO --- */}
             <section className="relative py-40 px-6 md:px-10 border-y border-white/10 bg-black/40 overflow-hidden mb-40 shadow-2xl">
                 <div className="absolute inset-0 z-0 pointer-events-none">
-                    <img src="/imagenes/micrositios/Infraestructura-en-la-nube/website-hosting-concept-with-cloud.jpg" className="w-full h-full object-cover opacity-40 mix-blend-luminosity" />
+                    <img src="/imagenes/micrositios/Infraestructura-en-la-nube/website-hosting-concept-with-cloud.webp" className="w-full h-full object-cover opacity-40 mix-blend-luminosity" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-black/60 to-[#050505]" />
                 </div>
 
@@ -603,7 +603,7 @@ const InfraestructuraNube = () => {
             <section className="relative py-48 px-10 text-center overflow-hidden bg-black border-t border-white/5">
                 <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
                     <img 
-                        src="/imagenes/micrositios/Infraestructura-en-la-nube/server-cabinets-data-center-maintaining-large-scale-ai-datasets.jpg" 
+                        src="/imagenes/micrositios/Infraestructura-en-la-nube/server-cabinets-data-center-maintaining-large-scale-ai-datasets.webp" 
                         alt="CTA Background"
                         className="w-full h-full object-cover mask-image-gradient mix-blend-luminosity"
                         style={{ WebkitMaskImage: 'linear-gradient(to top, black 10%, transparent 90%)' }}

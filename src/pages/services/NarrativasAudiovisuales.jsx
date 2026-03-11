@@ -21,7 +21,7 @@ const services = [
             { value: "95%", label: "mayor recordación de marca" },
             { value: "70%", label: "empresas usan video" }
         ],
-        image: "/imagenes/micrositios/audiovisuales/TV.jpg"
+        image: "/imagenes/micrositios/audiovisuales/TV.webp"
     },
     {
         title: "Animación 2D y Motion Graphics",
@@ -40,7 +40,7 @@ const services = [
             { value: "80%", label: "motion graphics incrementan engagement" },
             { value: "60K", label: "veces más rápido que texto" }
         ],
-        image: "/imagenes/micrositios/audiovisuales/2d.jpg"
+        image: "/imagenes/micrositios/audiovisuales/2d.webp"
     },
     {
         title: "Contenido Corto (Reels/TikToks)",
@@ -59,7 +59,7 @@ const services = [
             { value: "3seg", label: "clave para captar atención" },
             { value: "#1", label: "formato de mayor crecimiento digital" }
         ],
-        image: "/imagenes/micrositios/audiovisuales/Corto.jpg"
+        image: "/imagenes/micrositios/audiovisuales/Corto.webp"
     },
     {
         title: "Videos Corporativos e Institucionales",
@@ -78,7 +78,7 @@ const services = [
             { value: "58%", label: "videos institucionales aumentan confianza" },
             { value: "88%", label: "más permanencia en web con video" }
         ],
-        image: "/imagenes/micrositios/audiovisuales/corporativo.png"
+        image: "/imagenes/micrositios/audiovisuales/corporativo.webp"
     },
     {
         title: "Modelado y Renderizado 3D Avanzado",
@@ -97,7 +97,7 @@ const services = [
             { value: "60%", label: "renderizados hiperrealistas aumentan interés" },
             { value: "90%", label: "mejoran comprensión de proyectos" }
         ],
-        image: "/imagenes/micrositios/audiovisuales/modelado.png"
+        image: "/imagenes/micrositios/audiovisuales/modelado.webp"
     },
     {
         title: "Producción Cinematográfica y Animada",
@@ -116,7 +116,7 @@ const services = [
             { value: "30%", label: "más posibilidad de compras con storytelling" },
             { value: "19h", label: "consumo semanal por usuario" }
         ],
-        image: "/imagenes/micrositios/audiovisuales/drones.png"
+        image: "/imagenes/micrositios/audiovisuales/drones.webp"
     }
 ];
 
@@ -539,7 +539,7 @@ const InfraestructuraNube = () => {
                     <motion.div
                         className="absolute inset-[-60px] bg-cover bg-center"
                         style={{
-                            backgroundImage: "url('/imagenes/micrositios/audiovisuales/banner.jpg')",
+                            backgroundImage: "url('/imagenes/micrositios/audiovisuales/banner.webp')",
                             x: pX, y: pY, opacity: 0.35
                         }}
                     />
@@ -636,7 +636,7 @@ const InfraestructuraNube = () => {
                     <div className="relative rounded-[6rem] overflow-hidden border border-white/5 bg-gradient-to-br from-[#020202] to-[#080808] p-20 md:p-36 group shadow-2xl">
                         <div
                             className="absolute inset-0 bg-cover bg-center opacity-[0.03] grayscale transition-all duration-[4s] group-hover:scale-105 group-hover:opacity-10"
-                            style={{ backgroundImage: "url('/imagenes/micrositios/Infraestructura-en-la-nube/server-cabinets-data-center-maintaining-large-scale-ai-datasets.jpg')" }}
+                            style={{ backgroundImage: "url('/imagenes/micrositios/Infraestructura-en-la-nube/server-cabinets-data-center-maintaining-large-scale-ai-datasets.webp')" }}
                         />
                         <div className="relative z-10 grid lg:grid-cols-12 gap-24 items-center">
                             <div className="lg:col-span-7">

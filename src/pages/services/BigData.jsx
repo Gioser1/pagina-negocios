@@ -513,7 +513,7 @@ const BigData = () => {
                 {/* Hero Background Image */}
                 <div className="absolute inset-0 z-0">
                     <img 
-                        src="/imagenes/micrositios/Big-data/643835450551232.jpg" 
+                        src="/imagenes/micrositios/Big-data/643835450551232.webp" 
                         alt="Hero Background" 
                         className="w-full h-full object-cover opacity-40 scale-110"
                     />
@@ -598,8 +598,8 @@ const BigData = () => {
                     { value: "90", suffix: "%", label: "Eficiencia mejorada" },
                     { value: "60", suffix: "%", label: "Menos latencia" }
                 ]}
-                image="/imagenes/micrositios/Big-data/analyst-looking-presentation-charts-dashboard-implement-analytics.jpg"
-                bgImage="/imagenes/micrositios/Big-data/engineers-doing-brainstorming-programming-server-farm.jpg"
+                image="/imagenes/micrositios/Big-data/analyst-looking-presentation-charts-dashboard-implement-analytics.webp"
+                bgImage="/imagenes/micrositios/Big-data/engineers-doing-brainstorming-programming-server-farm.webp"
                 isEven={false}
             />
 
@@ -617,8 +617,8 @@ const BigData = () => {
                     { value: "70", suffix: "%", label: "Mejora decisiones" },
                     { value: "40", suffix: "%", label: "Rapidez análisis" }
                 ]}
-                image="/imagenes/micrositios/Big-data/young-company-analyst-office-watching-business-presentation-pc.jpg"
-                bgImage="/imagenes/micrositios/Big-data/business-analyst-reviewing-budgeting-project-updates-numbers-ensuring-organizational-success.jpg"
+                image="/imagenes/micrositios/Big-data/young-company-analyst-office-watching-business-presentation-pc.webp"
+                bgImage="/imagenes/micrositios/Big-data/business-analyst-reviewing-budgeting-project-updates-numbers-ensuring-organizational-success.webp"
                 isEven={true}
             >
                 <BIAnimation />
@@ -638,8 +638,8 @@ const BigData = () => {
                     { value: "40", suffix: "%", label: "Mejora predicciones" },
                     { value: "25", suffix: "%", label: "Aumento ventas" }
                 ]}
-                image="/imagenes/micrositios/Big-data/coworkers-use-technology-office.jpg"
-                bgImage="/imagenes/micrositios/Big-data/bigdata2.jpeg"
+                image="/imagenes/micrositios/Big-data/coworkers-use-technology-office.webp"
+                bgImage="/imagenes/micrositios/Big-data/bigdata2.webp"
                 isEven={false}
             >
                 <NeuralMining />
@@ -659,8 +659,8 @@ const BigData = () => {
                     { value: "50", suffix: "%", label: "Reducción tiempos" },
                     { value: "30", suffix: "%", label: "Eficiencia mejorada" }
                 ]}
-                image="/imagenes/micrositios/Big-data/server-farm-team-leader-overseeing-work-done-by-expert-upgrading-ai-systems.jpg"
-                bgImage="/imagenes/micrositios/Big-data/bigdata3.jpeg"
+                image="/imagenes/micrositios/Big-data/server-farm-team-leader-overseeing-work-done-by-expert-upgrading-ai-systems.webp"
+                bgImage="/imagenes/micrositios/Big-data/bigdata3.webp"
                 isEven={true}
             >
                 <StorageLake />
@@ -680,7 +680,7 @@ const BigData = () => {
                     { value: "80", suffix: "%", label: "Reducción latencia" },
                     { value: "0", suffix: "ms", label: "Latencia ideal" }
                 ]}
-                image="/imagenes/micrositios/Big-data/portrait-happy-system-administrators-data-center-using-devices.jpg"
+                image="/imagenes/micrositios/Big-data/portrait-happy-system-administrators-data-center-using-devices.webp"
                 isEven={false}
             >
                 <RealTimeStream />
@@ -700,7 +700,7 @@ const BigData = () => {
                     { value: "95", suffix: "%", label: "Calidad de datos" },
                     { value: "100", suffix: "%", label: "Confiabilidad" }
                 ]}
-                image="/imagenes/micrositios/Big-data/bigdata1.jpeg"
+                image="/imagenes/micrositios/Big-data/bigdata1.webp"
                 isEven={true}
             >
                 <ETLAnimation />
@@ -709,7 +709,7 @@ const BigData = () => {
             {/* ── FINAL CTA ── */}
             <section className="relative py-48 px-10 text-center overflow-hidden border-t border-white/5">
                 <div className="absolute inset-0 z-0 opacity-40 grayscale pointer-events-none">
-                    <img src="/imagenes/micrositios/Big-data/conceptual-image-showcasing-businessman-digital-environment.jpg" className="w-full h-full object-cover" />
+                    <img src="/imagenes/micrositios/Big-data/conceptual-image-showcasing-businessman-digital-environment.webp" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/80 to-[#020202]" />
                 </div>
                 

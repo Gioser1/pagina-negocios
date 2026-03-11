@@ -21,7 +21,7 @@ const services = [
       { value: "70%", label: "interacciones automatizables" },
       { value: "-40%", label: "costos operativos" }
     ],
-    image: "/imagenes/micrositios/Motores-ia/asistentes.jpg"
+    image: "/imagenes/micrositios/Motores-ia/asistentes.webp"
   },
   {
     title: "Procesamiento de Lenguaje NPL",
@@ -40,7 +40,7 @@ const services = [
       { value: "+30%", label: "precisión" },
       { value: "70%", label: "ahorro tiempo" }
     ],
-    image: "/imagenes/micrositios/Motores-ia/npl.jpg"
+    image: "/imagenes/micrositios/Motores-ia/npl.webp"
   },
   {
     title: "Análisis Predictivo",
@@ -59,7 +59,7 @@ const services = [
       { value: "+15%", label: "ingresos" },
       { value: "-30%", label: "riesgos" }
     ],
-    image: "/imagenes/micrositios/Motores-ia/predictivo.png"
+    image: "/imagenes/micrositios/Motores-ia/predictivo.webp"
   },
   {
     title: "IA Generativa Empresarial",
@@ -78,7 +78,7 @@ const services = [
       { value: "+40%", label: "aumento de productividad" },
       { value: "-30%", label: "reducción tiempos operativos" }
     ],
-    image: "/imagenes/micrositios/Motores-ia/Generativa.png"
+    image: "/imagenes/micrositios/Motores-ia/Generativa.webp"
   },
   {
     title: "Arquitectura De Microservicios",
@@ -97,7 +97,7 @@ const services = [
       { value: "+35%", label: "mejora en detección temprana" },
       { value: "+20%", label: "crecimiento anual del sector" }
     ],
-    image: "/imagenes/micrositios/Motores-ia/vision.png"
+    image: "/imagenes/micrositios/Motores-ia/vision.webp"
   },
   {
     title: "Modelos de IA Personalizados",
@@ -116,7 +116,7 @@ const services = [
       { value: "+40%", label: "mayor precisión contextual" },
       { value: "+60%", label: "corporaciones adoptan IA propietaria" }
     ],
-    image: "/imagenes/micrositios/Motores-ia/Personalizada.png"
+    image: "/imagenes/micrositios/Motores-ia/Personalizada.webp"
   }
 ];
 
@@ -630,7 +630,7 @@ const MotoresIA = () => {
           <motion.div
             className="absolute inset-[-40px] bg-cover bg-center"
             style={{
-              backgroundImage: "url('/imagenes/micrositios/Motores-ia/banner.jpg')",
+              backgroundImage: "url('/imagenes/micrositios/Motores-ia/banner.webp')",
               x: parallaxX,
               y: parallaxY
             }}

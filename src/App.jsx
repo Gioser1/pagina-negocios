@@ -19,10 +19,10 @@ const MotoresIA = lazy(() => import("./pages/services/MotoresIA"));
 const BigData = lazy(() => import("./pages/services/BigData"));
 const InfraestructuraNube = lazy(() => import("./pages/services/InfraestructuraNube"));
 const Ciberseguridad = lazy(() => import("./pages/services/Ciberseguridad"));
-const DomoticaIoT = lazy(() => import("./pages/services/DomoticaIoT"));
 const MarketingDigital = lazy(() => import("./pages/services/MarketingDigital"));
 const NarrativasAudiovisuales = lazy(() => import("./pages/services/NarrativasAudiovisuales"));
 const MundosMagicos = lazy(() => import("./pages/services/MundosMagicos"));
+const BlockchainWeb3 = lazy(() => import("./pages/services/BlockchainWeb3"));
 
 const MainLayout = () => (
     <>
@@ -84,11 +84,6 @@ const AnimatedRoutes = () => {
                         </PageTransition>
                     } />
 
-                    <Route path="services/domotica-iot" element={
-                        <PageTransition>
-                            <DomoticaIoT />
-                        </PageTransition>
-                    } />
 
                     <Route path="services/marketing-digital" element={
                         <PageTransition>
@@ -105,6 +100,12 @@ const AnimatedRoutes = () => {
                     <Route path="services/mundos-magicos" element={
                         <PageTransition>
                             <MundosMagicos />
+                        </PageTransition>
+                    } />
+
+                    <Route path="services/blockchain-web3" element={
+                        <PageTransition>
+                            <BlockchainWeb3 />
                         </PageTransition>
                     } />
 

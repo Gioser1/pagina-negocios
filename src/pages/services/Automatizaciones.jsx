@@ -14,7 +14,7 @@ const services = [
         glowColor: "rgba(14,165,233,0.4)",
         benefits: ["Captura automática de prospectos", "Clasificación inteligente de leads", "Integración con CRM empresariales", "Seguimiento automatizado de oportunidades"],
         stats: [{ value: "29%", label: "más ventas" }, { value: "70%", label: "menos tareas" }, { value: "91%", label: "adopción CRM" }],
-        image: "/imagenes/micrositios/Automatizaciones/ingreso.png"
+        image: "/imagenes/micrositios/Automatizaciones/ingreso.webp"
     },
     {
         title: "Onboarding de Nuevos Clientes",
@@ -24,7 +24,7 @@ const services = [
         glowColor: "rgba(99,102,241,0.4)",
         benefits: ["Registro automatizado de clientes", "Integración con sistemas internos", "Activación rápida de servicios", "Reducción de carga administrativa"],
         stats: [{ value: "60%", label: "menos tiempo" }, { value: "50%", label: "más retención" }, { value: "80%", label: "menos errores" }],
-        image: "/imagenes/micrositios/Automatizaciones/clientes.png"
+        image: "/imagenes/micrositios/Automatizaciones/clientes.webp"
     },
     {
         title: "Asistentes Virtuales Inteligentes",
@@ -34,7 +34,7 @@ const services = [
         glowColor: "rgba(56,189,248,0.4)",
         benefits: ["Atención automatizada 24/7", "Integración con sistemas empresariales", "Automatización de consultas frecuentes", "Escalabilidad en atención al cliente"],
         stats: [{ value: "70%", label: "consultas auto" }, { value: "30%", label: "menos costos" }, { value: "24/7", label: "disponibilidad" }],
-        image: "/imagenes/micrositios/Automatizaciones/asistentes.png"
+        image: "/imagenes/micrositios/Automatizaciones/asistentes.webp"
     },
     {
         title: "Automatización Order-to-Cash (O2C)",
@@ -44,7 +44,7 @@ const services = [
         glowColor: "rgba(125,211,252,0.4)",
         benefits: ["Reducción de errores en facturación y pedidos", "Ciclos de cobro más rápidos", "Mayor visibilidad del estado de cada orden", "Menor carga operativa administrativa"],
         stats: [{ value: "60%", label: "menos tiempo" }, { value: "-40%", label: "errores" }, { value: "+25%", label: "cobros" }],
-        image: "/imagenes/micrositios/Automatizaciones/pagos.png"
+        image: "/imagenes/micrositios/Automatizaciones/pagos.webp"
     },
     {
         title: "Flujos de Datos entre Plataformas (Data Pipelines)",
@@ -54,7 +54,7 @@ const services = [
         glowColor: "rgba(2,132,199,0.4)",
         benefits: ["Eliminación de carga manual de datos", "Información centralizada y actualizada", "Integración fluida entre herramientas del negocio", "Mayor confiabilidad en los datos"],
         stats: [{ value: "80%", label: "menos carga" }, { value: "50%", label: "más precisión" }, { value: "Real", label: "time sync" }],
-        image: "/imagenes/micrositios/Automatizaciones/flujos.png"
+        image: "/imagenes/micrositios/Automatizaciones/flujos.webp"
     },
     {
         title: "Reporting Operativo y Dashboards de KPIs",
@@ -64,7 +64,7 @@ const services = [
         glowColor: "rgba(79,70,229,0.4)",
         benefits: ["Visibilidad clara del desempeño del negocio", "Monitoreo continuo de KPIs críticos", "Toma de decisiones basada en datos", "Reducción del tiempo dedicado a reportes manuales"],
         stats: [{ value: "70%", label: "menos reportes" }, { value: "50%", label: "más velocidad" }, { value: "24/7", label: "dashboards" }],
-        image: "/imagenes/micrositios/Automatizaciones/operativo.png"
+        image: "/imagenes/micrositios/Automatizaciones/operativo.webp"
     }
 ];
 
@@ -686,7 +686,7 @@ const Automatizaciones = () => {
                     <div className="relative rounded-[2.5rem] sm:rounded-[4rem] md:rounded-[6rem] overflow-hidden border border-white/5 bg-gradient-to-br from-[#020202] to-[#080808] p-8 sm:p-16 md:p-24 lg:p-36 group shadow-2xl">
                         <div
                             className="absolute inset-0 bg-cover bg-center opacity-[0.03] grayscale transition-all duration-[4s] group-hover:scale-105 group-hover:opacity-10 pointer-events-none"
-                            style={{ backgroundImage: "url('/imagenes/micrositios/Automatizaciones/banner.png')" }}
+                            style={{ backgroundImage: "url('/imagenes/micrositios/Automatizaciones/banner.webp')" }}
                         />
                         <div className="relative z-10 grid lg:grid-cols-12 gap-12 sm:gap-16 md:gap-24 items-center">
                             <div className="lg:col-span-7">

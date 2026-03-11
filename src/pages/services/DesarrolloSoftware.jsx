@@ -232,7 +232,7 @@ const DesarrolloSoftware = () => {
             { value: "+50%", label: "Mayor retención" },
             { value: "70%", label: "Empresas buscan IA" }
         ],
-        image: "/imagenes/micrositios/Desarrollo-software/primer_texto.jpg"
+        image: "/imagenes/micrositios/Desarrollo-software/primer_texto.webp"
     };
 
     const fullStackService = {
@@ -245,7 +245,7 @@ const DesarrolloSoftware = () => {
             { value: "60%", label: "Reducción integración" },
             { value: "5X", label: "Crecimiento sin rediseño" }
         ],
-        image: "/imagenes/micrositios/Desarrollo-software/people-working-html-codes.jpg"
+        image: "/imagenes/micrositios/Desarrollo-software/people-working-html-codes.webp"
     };
 
     const nativasService = {
@@ -258,7 +258,7 @@ const DesarrolloSoftware = () => {
             { value: "88%", label: "Tiempo móvil en apps" },
             { value: "70%", label: "Comercio móvil en apps" }
         ],
-        image: "/imagenes/micrositios/Desarrollo-software/smile-young-man-playing-happy-woman.jpg"
+        image: "/imagenes/micrositios/Desarrollo-software/smile-young-man-playing-happy-woman.webp"
     };
 
     const devopsService = {
@@ -271,7 +271,7 @@ const DesarrolloSoftware = () => {
             { value: "+94%", label: "Uso de servicios cloud" },
             { value: "99.9%", label: "Disponibilidad total" }
         ],
-        image: "/imagenes/micrositios/Desarrollo-software/professional-hacker-using-ransomware-phishing-tactics-compromise-networks.jpg"
+        image: "/imagenes/micrositios/Desarrollo-software/professional-hacker-using-ransomware-phishing-tactics-compromise-networks.webp"
     };
 
     const microserviciosService = {
@@ -284,7 +284,7 @@ const DesarrolloSoftware = () => {
             { value: "50%", label: "Menos tiempo desarrollo" },
             { value: "30%", label: "Más resiliencia" }
         ],
-        image: "/imagenes/micrositios/Desarrollo-software/business-people-using-internet.jpg"
+        image: "/imagenes/micrositios/Desarrollo-software/business-people-using-internet.webp"
     };
 
     const mantenimientoService = {
@@ -297,7 +297,7 @@ const DesarrolloSoftware = () => {
             { value: "70%", label: "Menos incidentes críticos" },
             { value: "+40%", label: "Mejor retención de IT" }
         ],
-        image: "/imagenes/micrositios/Desarrollo-software/person-pressing-power-button.jpg"
+        image: "/imagenes/micrositios/Desarrollo-software/person-pressing-power-button.webp"
     };
 
 
@@ -320,7 +320,7 @@ const DesarrolloSoftware = () => {
                         className="absolute inset-x-0 inset-y-[-20%] z-0 opacity-80 pointer-events-none"
                     >
                         <img 
-                            src="/imagenes/micrositios/Desarrollo-software/portrait-male-engineer-working-field-engineers-day-celebration.jpg" 
+                            src="/imagenes/micrositios/Desarrollo-software/portrait-male-engineer-working-field-engineers-day-celebration.webp" 
                             alt="Ingeniero en campo"
                             className="w-full h-full object-cover mask-image-gradient"
                             style={{ WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)' }}
@@ -385,7 +385,7 @@ const DesarrolloSoftware = () => {
                 <section className="relative py-40 mb-32 border-y border-white/5 bg-[#050505] overflow-hidden shadow-[0_0_100px_rgba(37,99,235,0.05)]">
                     <div className="absolute inset-0 z-0 opacity-20 mix-blend-screen pointer-events-none">
                         <img 
-                            src="/imagenes/micrositios/Desarrollo-software/electronic-circuit-board-shallow-dof.jpg" 
+                            src="/imagenes/micrositios/Desarrollo-software/electronic-circuit-board-shallow-dof.webp" 
                             alt="Background ROI"
                             className="w-full h-full object-cover mask-image-radial"
                             style={{ WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 80%)' }}
@@ -462,7 +462,7 @@ const DesarrolloSoftware = () => {
                 <section className="relative py-48 px-10 text-center overflow-hidden bg-black border-t border-white/5">
                     <div className="absolute inset-0 z-0 opacity-80 pointer-events-none">
                         <img 
-                            src="/imagenes/micrositios/Desarrollo-software/computer-scientists-data-center-managing-maintaining-databases.jpg" 
+                            src="/imagenes/micrositios/Desarrollo-software/computer-scientists-data-center-managing-maintaining-databases.webp" 
                             alt="CTA Background"
                             className="w-full h-full object-cover mask-image-gradient"
                             style={{ WebkitMaskImage: 'linear-gradient(to top, black 10%, transparent 90%)' }}
