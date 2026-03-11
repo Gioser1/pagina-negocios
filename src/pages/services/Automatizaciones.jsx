@@ -739,7 +739,7 @@ const Automatizaciones = () => {
                         viewport={{ once: true }}
                         className="relative z-10"
                     >
-                        <h2 className="text-5xl sm:text-7xl md:text-9xl lg:text-[14rem] font-black leading-[0.8] tracking-tighter mb-10 sm:mb-16 md:mb-20 italic uppercase">
+                        <h2 className="text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.8] tracking-tighter mb-10 sm:mb-16 md:mb-20 italic uppercase">
                             Automatiza <br />
                             <span className="text-sky-600 drop-shadow-[0_0_80px_rgba(14,165,233,0.4)]">Ahora.</span>
                         </h2>
@@ -747,17 +747,17 @@ const Automatizaciones = () => {
                             Analizamos tus procesos actuales y diseñamos el mapa hacia la automatización total de tu operación.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 md:gap-12 justify-center items-center">
+                        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                             <button
                                 onClick={() => setIsModalOpen(true)}
-                                className="w-full sm:w-auto px-10 sm:px-16 md:px-24 py-7 sm:py-10 md:py-12 bg-sky-600 rounded-full font-black text-lg sm:text-2xl md:text-3xl uppercase tracking-[0.2em] sm:tracking-[0.3em] hover:bg-sky-500 hover:scale-105 transition-all shadow-[0_0_100px_rgba(14,165,233,0.5)] active:scale-95 text-white"
+                                className="px-16 py-6 bg-sky-600 rounded-full font-black text-sm uppercase tracking-widest hover:bg-sky-500 hover:scale-105 transition-all shadow-[0_0_40px_rgba(14,165,233,0.4)] active:scale-95 text-white"
                             >
                                 Automatizar Mi Empresa
                             </button>
                             <Link
                                 to="/"
                                 onClick={() => window.scrollTo(0, 0)}
-                                className="w-full sm:w-auto px-10 sm:px-16 md:px-24 py-7 sm:py-10 md:py-12 bg-white/5 border border-white/10 rounded-full font-black text-lg sm:text-2xl md:text-3xl uppercase tracking-[0.2em] sm:tracking-[0.3em] text-white/40 hover:text-white transition-all shadow-2xl text-center"
+                                className="px-16 py-6 bg-[#0a0a0a] border border-white/10 rounded-full font-black text-sm uppercase tracking-widest text-white hover:bg-white/5 transition-all outline-none text-center"
                             >
                                 Volver al Inicio
                             </Link>

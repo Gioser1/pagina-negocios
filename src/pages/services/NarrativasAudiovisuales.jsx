@@ -693,16 +693,16 @@ const InfraestructuraNube = () => {
                             Cuéntanos tu proyecto y desarrollamos juntos la producción audiovisual que tu marca necesita para impactar.
                         </p>
 
-                        <div className="flex flex-col md:flex-row gap-12 justify-center items-center">
+                        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                             <button
                                 onClick={() => setIsModalOpen(true)}
-                                className="px-24 py-12 bg-sky-600 rounded-full font-black text-3xl uppercase tracking-[0.3em] hover:bg-sky-500 hover:scale-105 transition-all shadow-[0_0_100px_rgba(14,165,233,0.5)] active:scale-95 text-white"
+                                className="px-16 py-6 bg-sky-600 rounded-full font-black text-sm uppercase tracking-widest hover:bg-sky-500 hover:scale-105 transition-all shadow-[0_0_40px_rgba(14,165,233,0.4)] active:scale-95 text-white"
                             >
                                 Iniciar Proyecto
                             </button>
                             <Link
                                 to="/"
-                                className="px-24 py-12 bg-white/5 border border-white/10 rounded-full font-black text-3xl uppercase tracking-[0.3em] text-white/40 hover:text-white transition-all shadow-2xl"
+                                className="px-16 py-6 bg-[#0a0a0a] border border-white/10 rounded-full font-black text-sm uppercase tracking-widest text-white hover:bg-white/5 transition-all outline-none"
                                 onClick={() => window.scrollTo(0, 0)}
                             >
                                 Volver al Inicio
