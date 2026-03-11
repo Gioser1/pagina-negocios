@@ -44,7 +44,6 @@ const servicesData = [
 ];
 
 const ServicesModal = ({ isOpen, onClose }) => {
-    const [hoveredService, setHoveredService] = useState(null);
     const [activeService, setActiveService] = useState(null); // Para acordeón en móviles
 
     // Bloquear scroll body
@@ -123,8 +122,6 @@ const ServicesModal = ({ isOpen, onClose }) => {
                             {servicesData.map((service, index) => (
                                 <div
                                     key={index}
-                                    onMouseEnter={() => setHoveredService(index)}
-                                    onMouseLeave={() => setHoveredService(null)}
                                     className="relative flex"
                                 >
                                     <motion.button
@@ -184,29 +181,6 @@ const ServicesModal = ({ isOpen, onClose }) => {
                                         </div>
                                     </motion.button>
 
-                                    {/* Tooltip con descripción detallada (Solo Desktop) */}
-                                    <AnimatePresence>
-                                        {hoveredService === index && (
-                                            <motion.div
-                                                initial={{ opacity: 0, x: -10 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                exit={{ opacity: 0, x: -10 }}
-                                                transition={{ duration: 0.2 }}
-                                                className="hidden md:block absolute top-0 left-[calc(100%+16px)] z-50 w-72 pointer-events-none"
-                                            >
-                                                <div className="bg-gradient-to-r from-blue-600 to-cyan-600 p-[1px] rounded-2xl shadow-2xl">
-                                                    <div className="bg-[#111827]/98 backdrop-blur-xl p-6 rounded-2xl">
-                                                        <h4 className="text-lg font-bold text-white mb-2">
-                                                            {service.title}
-                                                        </h4>
-                                                        <p className="text-gray-300 text-sm leading-relaxed">
-                                                            {service.detailedDescription}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
                                 </div>
                             ))}
                         </motion.div>
