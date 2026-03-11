@@ -487,7 +487,7 @@ const Marketing = () => {
                           className="flex gap-6 mt-4"
                           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }}
                         >
-                          <button onClick={() => setIsModalOpen(true)} className="px-10 py-4 bg-blue-600 rounded-full font-black text-xs uppercase tracking-[0.2em] shadow-[0_0_40px_rgba(37,99,235,0.4)] hover:bg-blue-500 transition-all">
+                          <button onClick={() => document.getElementById('servicios-inicio')?.scrollIntoView({ behavior: 'smooth' })} className="px-10 py-4 bg-blue-600 rounded-full font-black text-xs uppercase tracking-[0.2em] shadow-[0_0_40px_rgba(37,99,235,0.4)] hover:bg-blue-500 transition-all">
                             Conocer soluciones
                           </button>
                         </motion.div>
@@ -496,7 +496,7 @@ const Marketing = () => {
                 </section>
 
                 {/* --- SERVICES BLOCKS --- */}
-                <div className="relative">
+                <div id="servicios-inicio" className="relative">
                     <ServiceSection service={campanasService} index={0} />
                     <ServiceSection service={inboundService} index={1} />
                 </div>

@@ -582,7 +582,7 @@ const InfraestructuraNube = () => {
                         <motion.button
                             whileHover={{ scale: 1.1, backgroundColor: "#0ea5e9", color: "#fff" }}
                             whileTap={{ scale: 0.9 }}
-                            onClick={() => window.scrollTo({ top: 1300, behavior: "smooth" })}
+                            onClick={() => document.getElementById('servicios-inicio')?.scrollIntoView({ behavior: 'smooth' })}
                             className="px-20 py-8 bg-white text-black rounded-full font-black text-sm uppercase tracking-[0.3em] transition-all shadow-[0_0_80px_rgba(255,255,255,0.2)]"
                         >
                             Ver Servicios
@@ -591,7 +591,7 @@ const InfraestructuraNube = () => {
                 </section>
 
                 {/* CLOUD METRICS */}
-                <section className="max-w-7xl mx-auto px-12 mb-48">
+                <section id="servicios-inicio" className="max-w-7xl mx-auto px-12 mb-48">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-16 py-24 px-16 rounded-[6rem] bg-white/[0.01] border border-white/5 relative overflow-hidden backdrop-blur-3xl shadow-2xl">
                         <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-sky-600/5 blur-[120px] rounded-full" />
                         <div className="absolute -top-20 -right-20 w-80 h-80 bg-indigo-600/5 blur-[120px] rounded-full" />
@@ -696,16 +696,16 @@ const InfraestructuraNube = () => {
                         <div className="flex flex-col md:flex-row gap-12 justify-center items-center">
                             <button
                                 onClick={() => setIsModalOpen(true)}
-                                className="px-24 py-12 bg-sky-600 rounded-[3.5rem] font-black text-3xl uppercase tracking-[0.3em] hover:bg-sky-500 hover:scale-105 transition-all shadow-[0_0_100px_rgba(14,165,233,0.5)] active:scale-95 text-white"
+                                className="px-24 py-12 bg-sky-600 rounded-full font-black text-3xl uppercase tracking-[0.3em] hover:bg-sky-500 hover:scale-105 transition-all shadow-[0_0_100px_rgba(14,165,233,0.5)] active:scale-95 text-white"
                             >
                                 Iniciar Proyecto
                             </button>
                             <Link
                                 to="/"
-                                className="px-24 py-12 bg-white/5 border border-white/10 rounded-[3.5rem] font-black text-3xl uppercase tracking-[0.3em] text-white/40 hover:text-white transition-all shadow-2xl"
+                                className="px-24 py-12 bg-white/5 border border-white/10 rounded-full font-black text-3xl uppercase tracking-[0.3em] text-white/40 hover:text-white transition-all shadow-2xl"
                                 onClick={() => window.scrollTo(0, 0)}
                             >
-                                Inicio
+                                Volver al Inicio
                             </Link>
                         </div>
                     </motion.div>

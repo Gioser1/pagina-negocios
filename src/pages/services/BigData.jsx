@@ -730,14 +730,14 @@ const BigData = () => {
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
                         <button 
                             onClick={() => setIsModalOpen(true)}
-                            className="px-16 py-8 bg-cyan-600 text-white rounded-[2rem] font-black text-xl uppercase tracking-widest hover:bg-cyan-500 transition-all shadow-[0_0_50px_rgba(6,182,212,0.4)]"
+                            className="px-16 py-6 bg-cyan-600 text-white rounded-full font-black text-sm uppercase tracking-widest hover:bg-cyan-500 transition-all shadow-[0_0_40px_rgba(6,182,212,0.4)]"
                         >
-                            Auditar Mis Datos
+                            Contactar Ahora
                         </button>
                         <Link 
                             to="/" 
                             onClick={() => window.scrollTo(0,0)}
-                            className="px-16 py-8 bg-white/5 border border-white/10 text-white rounded-[2rem] font-black text-xl uppercase tracking-widest hover:bg-white/10 transition-all"
+                            className="px-16 py-6 bg-[#0a0a0a] border border-white/10 text-white rounded-full font-black text-sm uppercase tracking-widest hover:bg-white/5 transition-all outline-none"
                         >
                             Volver al Inicio
                         </Link>
