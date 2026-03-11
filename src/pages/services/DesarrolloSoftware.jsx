@@ -357,15 +357,21 @@ const DesarrolloSoftware = () => {
                             <span className="text-white">para potenciar el crecimiento de tu negocio en la era digital.</span>
                         </motion.p>
                         
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }}>
-                            <MouseIndicator />
+                        <motion.div 
+                          className="flex gap-6 mt-4"
+                          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }}
+                        >
+                          <button onClick={() => document.getElementById('servicios-inicio')?.scrollIntoView({ behavior: 'smooth' })} className="px-10 py-4 bg-blue-600 rounded-full font-black text-xs uppercase tracking-[0.2em] shadow-[0_0_40px_rgba(37,99,235,0.4)] hover:bg-blue-500 transition-all">
+                            Ver Soluciones
+                          </button>
                         </motion.div>
+                        <MouseIndicator />
                     </motion.div>
                 </section>
 
 
                 {/* --- BLOCK 1: PWA & FULL STACK --- */}
-                <div className="relative">
+                <div id="servicios-inicio" className="relative">
                     <div className="absolute right-0 top-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
                     <ServiceSection service={pwaService} index={0} />
                     <ServiceSection service={fullStackService} index={1} />

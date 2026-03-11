@@ -333,7 +333,7 @@ const Marketing = () => {
             { value: "200%", label: "ROI PROMEDIO GOOGLE ADS" },
             { value: "3.5x", label: "MÁS TRÁFICO CON CAMPAÑAS PAGAS" }
         ],
-        image: "/imagenes/micrositios/Marketing/campañas.jpg"
+        image: "/imagenes/micrositios/Marketing/campañas.webp"
     };
 
     const inboundService = {
@@ -351,7 +351,7 @@ const Marketing = () => {
             { value: "62%", label: "MENOR COSTO POR LEAD" },
             { value: "70%", label: "USUARIOS PREFIEREN CONTENIDO ÚTIL" }
         ],
-        image: "/imagenes/micrositios/Marketing/estrategias.jpg"
+        image: "/imagenes/micrositios/Marketing/estrategias.webp"
     };
 
     const croService = {
@@ -446,7 +446,7 @@ const Marketing = () => {
                         className="absolute inset-x-0 inset-y-[-20%] z-0 opacity-80 pointer-events-none"
                     >
                         <img 
-                            src="/imagenes/micrositios/Marketing/banner.jpg" 
+                            src="/imagenes/micrositios/Marketing/banner.webp" 
                             alt="Marketing Hero"
                             className="w-full h-full object-cover"
                             style={{ WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)' }}
@@ -487,7 +487,7 @@ const Marketing = () => {
                           className="flex gap-6 mt-4"
                           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }}
                         >
-                          <button onClick={() => setIsModalOpen(true)} className="px-10 py-4 bg-blue-600 rounded-full font-black text-xs uppercase tracking-[0.2em] shadow-[0_0_40px_rgba(37,99,235,0.4)] hover:bg-blue-500 transition-all">
+                          <button onClick={() => document.getElementById('servicios-inicio')?.scrollIntoView({ behavior: 'smooth' })} className="px-10 py-4 bg-blue-600 rounded-full font-black text-xs uppercase tracking-[0.2em] shadow-[0_0_40px_rgba(37,99,235,0.4)] hover:bg-blue-500 transition-all">
                             Conocer soluciones
                           </button>
                         </motion.div>
@@ -496,7 +496,7 @@ const Marketing = () => {
                 </section>
 
                 {/* --- SERVICES BLOCKS --- */}
-                <div className="relative">
+                <div id="servicios-inicio" className="relative">
                     <ServiceSection service={campanasService} index={0} />
                     <ServiceSection service={inboundService} index={1} />
                 </div>
@@ -542,7 +542,7 @@ const Marketing = () => {
                 <section className="relative py-48 px-10 text-center overflow-hidden bg-black border-t border-white/5">
                     <div className="absolute inset-0 z-0 opacity-80 pointer-events-none">
                         <img 
-                            src="/imagenes/micrositios/marketing/banner.jpg" 
+                            src="/imagenes/micrositios/Marketing/banner.webp" 
                             alt="CTA Background"
                             className="w-full h-full object-cover"
                             style={{ WebkitMaskImage: 'linear-gradient(to top, black 10%, transparent 90%)' }}

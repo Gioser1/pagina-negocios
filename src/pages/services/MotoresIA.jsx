@@ -707,23 +707,32 @@ const MotoresIA = () => {
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.5 }}
-              className="absolute bottom-8 flex flex-col items-center gap-2"
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              transition={{ delay: 1.2 }}
+              className="mt-8 flex flex-col items-center gap-6"
             >
-              <span className="text-xs text-gray-500 tracking-widest uppercase">Explorar</span>
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                className="w-px h-8 bg-gradient-to-b from-emerald-400 to-transparent"
-              />
+              <button 
+                onClick={() => document.getElementById('servicios-inicio')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-8 py-4 bg-emerald-600 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-emerald-500 transition-all shadow-[0_0_30px_rgba(52,211,153,0.3)]"
+              >
+                Ver Soluciones
+              </button>
+              <div className="flex flex-col items-center gap-2">
+                <span className="text-xs text-gray-500 tracking-widest uppercase">Explorar</span>
+                <motion.div
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="w-px h-8 bg-gradient-to-b from-emerald-400 to-transparent"
+                />
+              </div>
             </motion.div>
           </div>
         </section>
 
         {/* STATS BAND */}
         <motion.section
+          id="servicios-inicio"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -918,15 +927,15 @@ const MotoresIA = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setIsModalOpen(true)}
-                  className="relative px-10 py-4 rounded-xl font-bold overflow-hidden group"
-                  style={{ background: "linear-gradient(135deg, #34d399, #059669)", boxShadow: "0 0 30px rgba(52,211,153,0.4)" }}
+                  className="relative px-16 py-6 rounded-full font-black text-sm uppercase tracking-widest overflow-hidden group"
+                  style={{ background: "linear-gradient(135deg, #34d399, #059669)", boxShadow: "0 0 40px rgba(52,211,153,0.4)" }}
                 >
                   <motion.div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
                     style={{ background: "linear-gradient(135deg, #10b981, #34d399)" }}
                   />
                   <span className="relative z-10 flex items-center gap-2">
-                    Solicitar Implementación
+                    Contactar Ahora
                     <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>→</motion.span>
                   </span>
                 </motion.button>
@@ -934,10 +943,10 @@ const MotoresIA = () => {
                 <Link to="/">
                   <motion.div
                     whileHover={{ scale: 1.05, borderColor: "rgba(52,211,153,0.5)" }}
-                    className="px-10 py-4 rounded-xl font-semibold text-gray-300 hover:text-white transition-all cursor-pointer"
-                    style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.12)" }}
+                    className="px-16 py-6 bg-[#0a0a0a] border border-white/10 rounded-full font-black text-sm uppercase tracking-widest text-white hover:bg-white/5 transition-all outline-none text-center cursor-pointer"
+                    onClick={() => window.scrollTo(0, 0)}
                   >
-                    ← Volver al inicio
+                    Volver al Inicio
                   </motion.div>
                 </Link>
               </div>

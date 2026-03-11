@@ -635,7 +635,7 @@ const Automatizaciones = () => {
                             variants={{ hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1 } }}
                             whileHover={{ scale: 1.08, backgroundColor: "#0ea5e9", color: "#fff" }}
                             whileTap={{ scale: 0.95 }}
-                            onClick={() => window.scrollTo({ top: 1100, behavior: "smooth" })}
+                            onClick={() => document.getElementById('servicios-inicio')?.scrollIntoView({ behavior: 'smooth' })}
                             className="px-10 sm:px-16 md:px-20 py-5 sm:py-7 md:py-8 bg-white text-black rounded-full font-black text-xs sm:text-sm uppercase tracking-[0.3em] transition-all shadow-[0_0_80px_rgba(255,255,255,0.2)]"
                         >
                             Ver Automatizaciones
@@ -644,7 +644,7 @@ const Automatizaciones = () => {
                 </section>
 
                 {/* ── METRICS ── */}
-                <section className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 mb-24 sm:mb-36 md:mb-48">
+                <section id="servicios-inicio" className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 mb-24 sm:mb-36 md:mb-48">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 py-14 sm:py-20 md:py-24 px-8 sm:px-12 md:px-16 rounded-[3rem] sm:rounded-[5rem] md:rounded-[6rem] bg-white/[0.01] border border-white/5 relative overflow-hidden backdrop-blur-3xl shadow-2xl">
                         <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-sky-600/5 blur-[120px] rounded-full pointer-events-none" />
                         <div className="absolute -top-20 -right-20 w-80 h-80 bg-indigo-600/5 blur-[120px] rounded-full pointer-events-none" />
@@ -739,7 +739,7 @@ const Automatizaciones = () => {
                         viewport={{ once: true }}
                         className="relative z-10"
                     >
-                        <h2 className="text-5xl sm:text-7xl md:text-9xl lg:text-[14rem] font-black leading-[0.8] tracking-tighter mb-10 sm:mb-16 md:mb-20 italic uppercase">
+                        <h2 className="text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.8] tracking-tighter mb-10 sm:mb-16 md:mb-20 italic uppercase">
                             Automatiza <br />
                             <span className="text-sky-600 drop-shadow-[0_0_80px_rgba(14,165,233,0.4)]">Ahora.</span>
                         </h2>
@@ -747,19 +747,19 @@ const Automatizaciones = () => {
                             Analizamos tus procesos actuales y diseñamos el mapa hacia la automatización total de tu operación.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 md:gap-12 justify-center items-center">
+                        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                             <button
                                 onClick={() => setIsModalOpen(true)}
-                                className="w-full sm:w-auto px-10 sm:px-16 md:px-24 py-7 sm:py-10 md:py-12 bg-sky-600 rounded-[2.5rem] sm:rounded-[3.5rem] font-black text-lg sm:text-2xl md:text-3xl uppercase tracking-[0.2em] sm:tracking-[0.3em] hover:bg-sky-500 hover:scale-105 transition-all shadow-[0_0_100px_rgba(14,165,233,0.5)] active:scale-95 text-white"
+                                className="px-16 py-6 bg-sky-600 rounded-full font-black text-sm uppercase tracking-widest hover:bg-sky-500 hover:scale-105 transition-all shadow-[0_0_40px_rgba(14,165,233,0.4)] active:scale-95 text-white"
                             >
                                 Automatizar Mi Empresa
                             </button>
                             <Link
                                 to="/"
                                 onClick={() => window.scrollTo(0, 0)}
-                                className="w-full sm:w-auto px-10 sm:px-16 md:px-24 py-7 sm:py-10 md:py-12 bg-white/5 border border-white/10 rounded-[2.5rem] sm:rounded-[3.5rem] font-black text-lg sm:text-2xl md:text-3xl uppercase tracking-[0.2em] sm:tracking-[0.3em] text-white/40 hover:text-white transition-all shadow-2xl text-center"
+                                className="px-16 py-6 bg-[#0a0a0a] border border-white/10 rounded-full font-black text-sm uppercase tracking-widest text-white hover:bg-white/5 transition-all outline-none text-center"
                             >
-                                Inicio
+                                Volver al Inicio
                             </Link>
                         </div>
                     </motion.div>

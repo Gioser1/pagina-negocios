@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import ContactModal from "../../components/ContactModal";
 
 const Counter = ({ value, duration = 2.5 }) => {
     const [count, setCount] = useState("0");
@@ -64,6 +65,7 @@ const FloatingOrb = ({ color, size, duration, delay, x, y }) => (
 );
 
 const InfraestructuraNube = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const { scrollYProgress } = useScroll();
     const yHero = useTransform(scrollYProgress, [0, 0.2], [0, 100]);
     const opacityHero = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
@@ -131,19 +133,19 @@ const InfraestructuraNube = () => {
                     </p>
 
                     <div className="mt-12">
-                        <Link 
-                            to="/contacto"
-                            className="inline-flex items-center gap-4 px-10 py-5 bg-white text-black rounded-full font-bold uppercase tracking-widest hover:bg-sky-500 hover:text-white transition-colors duration-300"
+                        <button 
+                            onClick={() => document.getElementById('soluciones')?.scrollIntoView({ behavior: 'smooth' })}
+                            className="inline-flex items-center gap-4 px-10 py-5 bg-white text-black rounded-full font-bold uppercase tracking-widest hover:bg-sky-500 hover:text-white transition-colors duration-300 cursor-pointer"
                         >
                             Explorar Soluciones
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                        </Link>
+                        </button>
                     </div>
                 </motion.div>
             </section>
 
             {/* --- MIGRACION INTELIGENTE --- */}
-            <section className="py-24 px-6 md:px-10 max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 items-center relative mb-32">
+            <section id="soluciones" className="py-24 px-6 md:px-10 max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 items-center relative mb-32">
                 <div className="absolute top-0 right-0 w-1/2 h-[600px] bg-sky-900/10 blur-[150px] rounded-full pointer-events-none" />
                 
                 <motion.div 
@@ -628,20 +630,25 @@ const InfraestructuraNube = () => {
                         ¿Listo para la <span className="text-sky-500 text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-400">Nube?</span>
                     </motion.h2>
                     
-                    <div className="flex justify-center mt-12">
-                        <Link 
-                            to="/contacto"
-                            className="group relative px-12 py-6 bg-sky-500 text-white rounded-full font-black uppercase tracking-widest border border-sky-400/50 shadow-[0_0_40px_rgba(14,165,233,0.3)] hover:shadow-[0_0_80px_rgba(14,165,233,0.5)] hover:scale-110 transition-all overflow-hidden"
-                            onClick={() => window.scrollTo(0,0)}
+                    <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12">
+                        <button
+                            onClick={() => setIsModalOpen(true)}
+                            className="px-16 py-6 bg-sky-600 rounded-full font-black text-sm uppercase tracking-widest hover:bg-sky-500 transition-all shadow-[0_0_40px_rgba(14,165,233,0.4)] text-white"
                         >
-                            <span className="relative z-10">SOLICITAR AUDITORÍA</span>
-                            <motion.div 
-                                className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
-                            />
+                            Contactar Ahora
+                        </button>
+                        <Link
+                            to="/"
+                            className="px-16 py-6 bg-[#0a0a0a] border border-white/10 rounded-full font-black text-sm uppercase tracking-widest text-white hover:bg-white/5 transition-all outline-none"
+                            onClick={() => window.scrollTo(0, 0)}
+                        >
+                            Volver al Inicio
                         </Link>
                     </div>
                 </motion.div>
             </section>
+
+            <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
         </div>
     );
