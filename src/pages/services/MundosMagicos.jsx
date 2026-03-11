@@ -333,7 +333,7 @@ const MundosMagicos = () => {
             { value: "$200B", label: "INDUSTRIA GLOBAL GAMING" },
             { value: "90%", label: "ENGAGEMENT EN EXPERIENCIAS INTERACTIVAS" }
         ],
-        image: "/imagenes/micrositios/mundos-magicos/videojuegos.png"
+        image: "/imagenes/micrositios/mundos-magicos/videojuegos.webp"
     };
 
     const arService = {
@@ -351,7 +351,7 @@ const MundosMagicos = () => {
             { value: "94%", label: "MÁS ENGAGEMENT CON AR" },
             { value: "70%", label: "MARCAS EXPLORAN AR MARKETING" }
         ],
-        image: "/imagenes/micrositios/mundos-magicos/gamificacion.png"
+        image: "/imagenes/micrositios/mundos-magicos/gamificacion.webp"
     };
 
     const gamificacionService = {
@@ -369,7 +369,7 @@ const MundosMagicos = () => {
             { value: "30%", label: "AUMENTO EN RETENCIÓN" },
             { value: "2x", label: "PARTICIPACIÓN DE USUARIOS" }
         ],
-        image: "/imagenes/micrositios/mundos-magicos/gamificacion.png"
+        image: "/imagenes/micrositios/mundos-magicos/gamificacion.webp"
     };
 
     const vrService = {
@@ -387,7 +387,7 @@ const MundosMagicos = () => {
             { value: "275%", label: "MAYOR CONFIANZA TRAS ENTRENAMIENTO VR" },
             { value: "30%", label: "REDUCCIÓN EN TIEMPOS DE CAPACITACIÓN" }
         ],
-        image: "/imagenes/micrositios/mundos-magicos/vr.png"
+        image: "/imagenes/micrositios/mundos-magicos/vr.webp"
     };
 
     const filtrosService = {
@@ -405,7 +405,7 @@ const MundosMagicos = () => {
             { value: "80%", label: "MÁS INTERACCIONES CON FILTROS AR" },
             { value: "3x", label: "INCREMENTO EN BRAND AWARENESS" }
         ],
-        image: "/imagenes/micrositios/mundos-magicos/banner.png"
+        image: "/imagenes/micrositios/mundos-magicos/banner.webp"
     };
 
     const webxrService = {
@@ -423,7 +423,7 @@ const MundosMagicos = () => {
             { value: "70%", label: "MAYOR INTERACCIÓN EN 3D" },
             { value: "2x", label: "PERMANENCIA EN ENTORNOS INMERSIVOS" }
         ],
-        image: "/imagenes/micrositios/mundos-magicos/webxr.png"
+        image: "/imagenes/micrositios/mundos-magicos/webxr.webp"
     };
 
     return (
@@ -446,7 +446,7 @@ const MundosMagicos = () => {
                         className="absolute inset-x-0 inset-y-[-20%] z-0 opacity-80 pointer-events-none"
                     >
                         <img
-                            src="/imagenes/micrositios/mundos-magicos/banner.png"
+                            src="/imagenes/micrositios/mundos-magicos/banner.webp"
                             alt="Mundos Mágicos Hero"
                             className="w-full h-full object-cover"
                             style={{ WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)' }}
@@ -542,7 +542,7 @@ const MundosMagicos = () => {
                 <section className="relative py-48 px-10 text-center overflow-hidden bg-black border-t border-white/5">
                     <div className="absolute inset-0 z-0 opacity-80 pointer-events-none">
                         <img
-                            src="/imagenes/micrositios/mundos-magicos/banner.png"
+                            src="/imagenes/micrositios/mundos-magicos/banner.webp"
                             alt="CTA Background"
                             className="w-full h-full object-cover"
                             style={{ WebkitMaskImage: 'linear-gradient(to top, black 10%, transparent 90%)' }}

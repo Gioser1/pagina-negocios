@@ -369,7 +369,7 @@ const Marketing = () => {
             { value: "53%", label: "USUARIOS ABANDONAN PÁGINAS LENTAS" },
             { value: "2-5%", label: "CONVERSIÓN PROMEDIO WEB GLOBAL" }
         ],
-        image: "/imagenes/micrositios/Marketing/optimizacion.png"
+        image: "/imagenes/micrositios/Marketing/optimizacion.webp"
     };
 
     const seoService = {
@@ -387,7 +387,7 @@ const Marketing = () => {
             { value: "75%", label: "USUARIOS NO PASAN PÁGINA 1" },
             { value: "53%", label: "TRÁFICO WEB PROVIENE DE SEO" }
         ],
-        image: "/imagenes/micrositios/Marketing/posicionamiento.png"
+        image: "/imagenes/micrositios/Marketing/posicionamiento.webp"
     };
 
     const narrativasService = {
@@ -405,7 +405,7 @@ const Marketing = () => {
             { value: "95%", label: "RETENCIÓN EN MENSAJES VISUALES" },
             { value: "2x", label: "ENGAGEMENT CON VIDEO" }
         ],
-        image: "/imagenes/micrositios/Marketing/narrativas.png"
+        image: "/imagenes/micrositios/Marketing/narrativas.webp"
     };
 
     const estrategiaService = {
@@ -423,7 +423,7 @@ const Marketing = () => {
             { value: "19x", label: "MÁS RENTABILIDAD EMPRESARIAL" },
             { value: "5x", label: "DECISIONES MÁS RÁPIDAS CON ANALÍTICA" }
         ],
-        image: "/imagenes/micrositios/Marketing/digital.png"
+        image: "/imagenes/micrositios/Marketing/digital.webp"
     };
 
     return (
