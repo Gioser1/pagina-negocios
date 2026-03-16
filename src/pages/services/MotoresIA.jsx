@@ -227,8 +227,9 @@ function NeuralCanvas() {
 }
 
 // Tilt card
-function TiltCard({ children, className = "" }) {
-  const ref = useRef(null);
+function TiltCard({ children, className = "", innerRef }) {
+  const localRef = useRef(null);
+  const ref = innerRef || localRef;
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rotX = useTransform(y, [-0.5, 0.5], [8, -8]);
@@ -237,10 +238,11 @@ function TiltCard({ children, className = "" }) {
   const springY = useSpring(rotY, { stiffness: 200, damping: 20 });
 
   const onMove = useCallback((e) => {
+    if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     x.set((e.clientX - rect.left) / rect.width - 0.5);
     y.set((e.clientY - rect.top) / rect.height - 0.5);
-  }, [x, y]);
+  }, [x, y, ref]);
 
   const onLeave = useCallback(() => {
     x.set(0);
@@ -334,22 +336,20 @@ function GlitchText({ text, className = "" }) {
 }
 
 // Service Card
+// Service Card
 function ServiceCard({ service, index }) {
-  const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState(false);
 
   return (
-    <TiltCard className="relative group cursor-pointer h-full">
+    <TiltCard className="relative group cursor-pointer h-full min-h-[520px]">
       <motion.div
-        onClick={() => setOpen(o => !o)}
         onHoverStart={() => setHovered(true)}
         onHoverEnd={() => setHovered(false)}
-        layout
-        initial={{ opacity: 0, y: 60 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: (index % 3) * 0.15 }}
-        className="relative rounded-2xl overflow-hidden border border-white/10 bg-[#080d14] flex flex-col h-full"
+        className="relative rounded-2xl overflow-hidden border border-white/10 bg-[#080d14] flex flex-col h-full hover:border-sky-500/30 transition-all duration-300"
         style={{
           boxShadow: hovered
             ? `0 0 40px ${service.glowColor}, 0 0 80px ${service.glowColor.replace("0.4", "0.15")}`
@@ -376,7 +376,7 @@ function ServiceCard({ service, index }) {
         />
 
         {/* Image */}
-        <div className="relative h-52 overflow-hidden flex-shrink-0">
+        <div className="relative h-44 overflow-hidden flex-shrink-0">
           <motion.img
             src={service.image}
             alt={service.title}
@@ -390,19 +390,6 @@ function ServiceCard({ service, index }) {
               background: `linear-gradient(to top, #080d14 0%, transparent 60%), linear-gradient(135deg, ${service.color}33 0%, transparent 60%)`
             }}
           />
-          {/* Icon badge */}
-          <motion.div
-            className="absolute top-4 right-4"
-            animate={{ rotate: hovered ? [0, -10, 10, -5, 5, 0] : 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div
-              className="w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-md text-2xl"
-              style={{ background: `${service.color}22`, border: `1px solid ${service.color}44` }}
-            >
-              {service.icon}
-            </div>
-          </motion.div>
 
           {/* Index */}
           <div
@@ -414,7 +401,7 @@ function ServiceCard({ service, index }) {
         </div>
 
         {/* Content */}
-        <div className="p-6 flex flex-col flex-1">
+        <div className="p-6 flex flex-col relative flex-1 overflow-hidden">
           <motion.h3
             className="font-bold mb-2 leading-tight"
             style={{
@@ -426,107 +413,69 @@ function ServiceCard({ service, index }) {
           >
             {service.title}
           </motion.h3>
-          <p className="text-gray-400 text-sm mb-4 leading-relaxed"
-            style={{
-              display: "-webkit-box",
-              WebkitLineClamp: 3,
-              WebkitBoxOrient: "vertical",
-              overflow: "hidden"
-            }}
-          >
+          <p className="text-gray-400 text-sm mb-4 leading-relaxed line-clamp-3">
             {service.description}
           </p>
 
-          {/* Click hint */}
-          <motion.div
-            className="flex items-center gap-2 text-xs mt-auto"
-            style={{ color: service.color }}
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <motion.span
-              animate={{ rotate: open ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
-              className="inline-block"
-            >▼</motion.span>
-            {open ? "Cerrar detalle" : "Ver detalle"}
-          </motion.div>
-        </div>
+          <footer className="mt-auto flex items-center gap-4">
+            <div className="h-px bg-sky-500/40 w-8 group-hover:w-16 transition-all duration-500" />
+            <span className="text-[9px] uppercase font-black tracking-[0.3em] text-sky-400 opacity-60">
+              Ver Detalle
+            </span>
+          </footer>
 
-        {/* Expanded */}
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              key="expand"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
-              className="overflow-hidden"
-            >
-              <div className="px-6 pb-6 space-y-5">
-                <motion.div
-                  className="h-px"
-                  style={{ background: `linear-gradient(to right, ${service.color}, transparent)` }}
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 0.5 }}
-                />
-
-                {/* Benefits */}
-                <div>
-                  <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: service.color, fontFamily: "'Orbitron', monospace" }}>
-                    Beneficios Clave
+          {/* INTERNAL Overlay — ensuring enough space */}
+          <AnimatePresence>
+            {hovered && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.98, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.98, y: 10 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="absolute inset-0 rounded-2xl p-5 flex flex-col justify-start z-50 backdrop-blur-2xl overflow-y-auto no-scrollbar"
+                style={{ background: `linear-gradient(135deg, #080d14f5 60%, ${service.color}18 100%)` }}
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.3em]" style={{ color: service.color, fontFamily: "'Orbitron', monospace" }}>
+                        Beneficios Clave
+                    </div>
+                    <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: service.color }} />
                   </div>
-                  <ul className="space-y-2">
+                  
+                  <ul className="space-y-2.5">
                     {service.benefits.map((b, i) => (
                       <motion.li
                         key={i}
-                        initial={{ opacity: 0, x: -20 }}
+                        initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.08 }}
-                        className="flex items-center gap-3 text-sm text-gray-300"
+                        transition={{ delay: i * 0.05 }}
+                        className="flex items-center gap-2.5 text-[11px] text-gray-200 italic"
                       >
-                        <motion.span
-                          animate={{ scale: [1, 1.4, 1] }}
-                          transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.2 }}
-                          className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                          style={{ background: service.color }}
-                        />
+                        <div className="w-1.5 h-px" style={{ background: service.color }} />
                         {b}
                       </motion.li>
                     ))}
                   </ul>
-                </div>
 
-                {/* Stats */}
-                <div>
-                  <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: service.color, fontFamily: "'Orbitron', monospace" }}>
-                    Datos Globales
-                  </div>
-                  <div className="grid grid-cols-3 gap-2">
-                    {service.stats.map((s, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.2 + i * 0.1 }}
-                        className="rounded-xl p-3 text-center"
-                        style={{
-                          background: `${service.color}11`,
-                          border: `1px solid ${service.color}33`
-                        }}
-                      >
-                        <div className="text-sm font-black" style={{ color: service.color, fontFamily: "'Orbitron', monospace" }}>{s.value}</div>
-                        <div className="text-xs text-gray-500 mt-0.5 leading-tight">{s.label}</div>
-                      </motion.div>
-                    ))}
+                  <div className="pt-4 border-t border-white/5">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: service.color, fontFamily: "'Orbitron', monospace" }}>
+                        Datos Globales
+                    </div>
+                    <div className="grid grid-cols-3 gap-2">
+                        {service.stats.map((s, i) => (
+                        <div key={i} className="text-center">
+                            <div className="text-xs font-black text-white" style={{ fontFamily: "'Orbitron', monospace" }}>{s.value}</div>
+                            <div className="text-[7px] text-gray-500 mt-1 leading-tight uppercase font-bold">{s.label}</div>
+                        </div>
+                        ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </motion.div>
     </TiltCard>
   );
@@ -611,6 +560,8 @@ const MotoresIA = () => {
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #05070b; }
         ::-webkit-scrollbar-thumb { background: #34d399; border-radius: 2px; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
 
       <main className="min-h-screen pt-28 pb-24 bg-[#05070b] text-white overflow-hidden relative">

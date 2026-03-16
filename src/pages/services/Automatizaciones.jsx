@@ -259,8 +259,9 @@ function NeuralCanvas() {
 
 // ─── TiltCard ─────────────────────────────────────────────────────────────────
 
-function TiltCard({ children, className = "" }) {
-    const ref    = useRef(null);
+function TiltCard({ children, className = "", innerRef }) {
+    const localRef = useRef(null);
+    const ref = innerRef || localRef;
     const x      = useMotionValue(0);
     const y      = useMotionValue(0);
     const rotX   = useTransform(y, [-0.5, 0.5], [12, -12]);
@@ -269,10 +270,11 @@ function TiltCard({ children, className = "" }) {
     const springY = useSpring(rotY, { stiffness: 180, damping: 22 });
 
     const onMove  = useCallback((e) => {
+        if (!ref.current) return;
         const r = ref.current.getBoundingClientRect();
         x.set((e.clientX - r.left) / r.width  - 0.5);
         y.set((e.clientY - r.top)  / r.height - 0.5);
-    }, [x, y]);
+    }, [x, y, ref]);
 
     const onLeave = useCallback(() => { x.set(0); y.set(0); }, [x, y]);
 
@@ -406,15 +408,13 @@ function TypingText({ texts, className = "" }) {
 // ─── ServiceCard ─────────────────────────────────────────────────────────────
 
 function ServiceCard({ service, index }) {
-    const [open,    setOpen]    = useState(false);
     const [hovered, setHovered] = useState(false);
 
     return (
-        <TiltCard className="relative group cursor-pointer h-full">
+        <TiltCard className="relative group min-h-[520px] h-full" innerRef={null}>
             <motion.div
-                onClick={() => setOpen(o => !o)}
                 onHoverStart={() => setHovered(true)}
-                onHoverEnd={()   => setHovered(false)}
+                onHoverEnd={() => setHovered(false)}
                 initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -445,7 +445,7 @@ function ServiceCard({ service, index }) {
                 />
 
                 {/* Image */}
-                <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden shrink-0">
+                <div className="relative h-40 sm:h-48 md:h-52 overflow-hidden shrink-0">
                     <motion.img
                         src={service.image}
                         alt={service.title}
@@ -455,14 +455,6 @@ function ServiceCard({ service, index }) {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-sky-950/20 to-transparent opacity-80" />
 
-                    <div className="absolute top-5 right-5 sm:top-8 sm:right-8">
-                        <div
-                            className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl flex items-center justify-center backdrop-blur-3xl text-2xl sm:text-4xl border border-white/10 shadow-2xl"
-                            style={{ background: `${service.color}22` }}
-                        >
-                            {service.icon}
-                        </div>
-                    </div>
 
                     <div
                         className="absolute bottom-4 left-6 sm:bottom-6 sm:left-8 text-5xl sm:text-7xl font-black opacity-10 tracking-tighter italic"
@@ -473,7 +465,7 @@ function ServiceCard({ service, index }) {
                 </div>
 
                 {/* Content */}
-                <div className="p-6 sm:p-8 md:p-10 flex flex-col flex-1">
+                <div className="p-6 sm:p-8 md:p-10 flex flex-col flex-1 relative">
                     <h3
                         className="text-xl sm:text-2xl md:text-3xl font-black mb-4 sm:mb-6 tracking-tighter italic uppercase transition-all duration-500"
                         style={{ color: hovered ? service.color : "white" }}
@@ -487,53 +479,57 @@ function ServiceCard({ service, index }) {
                     <footer className="mt-auto flex items-center gap-4">
                         <div className="h-px bg-sky-500/40 w-8 group-hover:w-16 transition-all duration-500" />
                         <span className="text-[9px] sm:text-[10px] uppercase font-black tracking-[0.3em] sm:tracking-[0.4em] text-sky-400 opacity-60">
-                            {open ? "Cerrar Detalle" : "Ver Automatización"}
+                            Ver Automatización
                         </span>
                     </footer>
-                </div>
 
-                {/* Details Pane */}
-                <AnimatePresence>
-                    {open && (
-                        <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                            className="overflow-hidden bg-sky-950/10 border-t border-white/5 backdrop-blur-sm"
-                        >
-                            <div className="p-6 sm:p-8 md:p-10 space-y-8 sm:space-y-10">
-                                <div>
-                                    <h4 className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.4em] text-sky-500 mb-6 sm:mb-8 flex items-center gap-3">
-                                        <span className="w-8 h-px bg-sky-500/20" /> Beneficios Clave
-                                    </h4>
-                                    <ul className="grid grid-cols-1 gap-4 sm:gap-5">
-                                        {service.benefits.map((b, i) => (
-                                            <li key={i} className="flex items-center gap-4 sm:gap-5 text-xs sm:text-sm text-gray-300 italic font-light">
-                                                <motion.div
-                                                    className="w-2 h-2 shrink-0 rounded-full shadow-[0_0_10px_rgba(14,165,233,0.5)]"
-                                                    animate={{ scale: [1, 1.5, 1] }}
-                                                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
-                                                    style={{ background: service.color }}
-                                                />
-                                                {b}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-
-                                <div className="grid grid-cols-3 gap-4 sm:gap-5 pt-4 border-t border-white/5">
+                    {/* INTERNAL Overlay — compact and scrollable if needed */}
+                    <AnimatePresence>
+                        {hovered && (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.98, y: 12 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.98, y: 12 }}
+                                transition={{ duration: 0.3, ease: "easeOut" }}
+                                className="absolute inset-0 rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 flex flex-col justify-start z-50 backdrop-blur-2xl overflow-y-auto no-scrollbar"
+                                style={{ background: `linear-gradient(135deg, #020202f5 60%, ${service.color}18 100%)` }}
+                            >
+                                <motion.div
+                                    className="h-px mb-6"
+                                    style={{ background: `linear-gradient(to right, ${service.color}, transparent)` }}
+                                    initial={{ scaleX: 0 }}
+                                    animate={{ scaleX: 1 }}
+                                    transition={{ duration: 0.5 }}
+                                />
+                                <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.5em] mb-4" style={{ color: service.color }}>
+                                    Beneficios Clave
+                                </p>
+                                <ul className="space-y-3 mb-6">
+                                    {service.benefits.map((b, i) => (
+                                        <motion.li
+                                            key={i}
+                                            initial={{ opacity: 0, x: -20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: i * 0.05 }}
+                                            className="flex items-center gap-3 text-xs sm:text-sm text-gray-200 italic font-light"
+                                        >
+                                            <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: service.color }} />
+                                            {b}
+                                        </motion.li>
+                                    ))}
+                                </ul>
+                                <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10 mt-auto">
                                     {service.stats.map((s, i) => (
                                         <div key={i} className="text-center">
-                                            <div className="text-lg sm:text-2xl font-black text-white hover:text-sky-400 transition-colors">{s.value}</div>
+                                            <div className="text-base sm:text-2xl font-black text-white">{s.value}</div>
                                             <div className="text-[7px] sm:text-[8px] text-gray-500 uppercase font-black tracking-widest leading-none mt-2">{s.label}</div>
                                         </div>
                                     ))}
                                 </div>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
             </motion.div>
         </TiltCard>
     );
@@ -548,6 +544,8 @@ const GlobalStyles = () => (
         ::-webkit-scrollbar       { width:5px; }
         ::-webkit-scrollbar-track { background:#020202; }
         ::-webkit-scrollbar-thumb { background:#0ea5e9; border-radius:10px; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     `}</style>
 );
 

@@ -9,10 +9,10 @@ const Counter = ({ value, label, prefix = "", suffix = "" }) => {
     const [display, setDisplay] = useState("0");
     const ref = useRef(null);
     const inView = useInView(ref, { once: true, amount: 0.5 });
-    
+
     useEffect(() => {
         if (!inView) return;
-        
+
         const target = parseFloat(value);
         if (isNaN(target)) {
             setDisplay(value);
@@ -21,7 +21,7 @@ const Counter = ({ value, label, prefix = "", suffix = "" }) => {
 
         let start = null;
         const duration = 2000;
-        
+
         const step = (ts) => {
             if (!start) start = ts;
             const progress = Math.min((ts - start) / duration, 1);
@@ -77,7 +77,7 @@ const DataFlowBackground = () => {
             particles.forEach(p => {
                 p.x += p.vx;
                 if (p.x > canvas.width) p.x = -10;
-                
+
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                 ctx.fillStyle = p.color;
@@ -126,7 +126,7 @@ const ProcessFlow = () => {
             <div className="relative flex justify-between items-center max-w-5xl mx-auto">
                 {/* Progress Line */}
                 <div className="absolute top-1/2 left-0 w-full h-1 bg-white/10 -translate-y-1/2 rounded-full overflow-hidden">
-                    <motion.div 
+                    <motion.div
                         className="h-full bg-gradient-to-r from-cyan-500 to-blue-500"
                         style={{ scaleX: scrollYProgress, transformOrigin: "left" }}
                     />
@@ -148,18 +148,18 @@ const StepItem = ({ step, index, scrollYProgress, total }) => {
 
     return (
         <div className="relative z-10 flex flex-col items-center">
-            <motion.div 
+            <motion.div
                 style={{ scale, boxShadow: glow }}
                 className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-black border-2 border-white/20 flex items-center justify-center text-2xl md:text-3xl backdrop-blur-xl"
             >
-                <motion.div 
+                <motion.div
                     animate={{ opacity: [0.5, 1, 0.5] }}
                     transition={{ duration: 2, repeat: Infinity }}
                     className="absolute inset-0 rounded-full bg-cyan-500/5"
                 />
                 {step.icon}
             </motion.div>
-            <motion.span 
+            <motion.span
                 style={{ opacity: isActive }}
                 className="mt-4 text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-white whitespace-nowrap"
             >
@@ -186,7 +186,7 @@ const Section = ({ title, description, benefits, stats, image, isEven, children,
             <div className="px-6 md:px-10 max-w-7xl mx-auto relative z-10">
                 <div className={`flex flex-col lg:flex-row gap-16 items-center ${isEven ? 'lg:flex-row-reverse' : ''}`}>
                     {/* Image / Animation Column */}
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, x: isEven ? 50 : -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -204,45 +204,45 @@ const Section = ({ title, description, benefits, stats, image, isEven, children,
                         </div>
                     </motion.div>
 
-                {/* Text Column */}
-                <div className="w-full lg:w-1/2 space-y-8">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <h2 className="text-4xl md:text-6xl font-black italic tracking-tighter mb-6 text-white leading-tight uppercase">
-                            {title.split(' ').map((w, i, a) => i === a.length - 1 ? <span key={i} className="text-cyan-500"> {w}</span> : w + " ")}
-                        </h2>
-                        <p className="text-lg md:text-xl text-gray-400 font-light leading-relaxed italic border-l-4 border-cyan-500/30 pl-6">
-                            {description}
-                        </p>
-                    </motion.div>
+                    {/* Text Column */}
+                    <div className="w-full lg:w-1/2 space-y-8">
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            <h2 className="text-4xl md:text-6xl font-black italic tracking-tighter mb-6 text-white leading-tight uppercase">
+                                {title.split(' ').map((w, i, a) => i === a.length - 1 ? <span key={i} className="text-cyan-500"> {w}</span> : w + " ")}
+                            </h2>
+                            <p className="text-lg md:text-xl text-gray-400 font-light leading-relaxed italic border-l-4 border-cyan-500/30 pl-6">
+                                {description}
+                            </p>
+                        </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {benefits.map((b, i) => (
-                            <motion.div 
-                                key={i}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                                className="flex items-center gap-4 p-4 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-colors"
-                            >
-                                <div className="w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 text-xs font-bold shrink-0">✓</div>
-                                <span className="text-sm font-medium text-gray-300">{b}</span>
-                            </motion.div>
-                        ))}
-                    </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {benefits.map((b, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: i * 0.1 }}
+                                    className="flex items-center gap-4 p-4 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-colors"
+                                >
+                                    <div className="w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 text-xs font-bold shrink-0">✓</div>
+                                    <span className="text-sm font-medium text-gray-300">{b}</span>
+                                </motion.div>
+                            ))}
+                        </div>
 
-                    <div className="flex gap-8 pt-6">
-                        {stats.map((s, i) => (
-                            <Counter key={i} value={s.value} label={s.label} suffix={s.suffix} />
-                        ))}
+                        <div className="flex gap-8 pt-6">
+                            {stats.map((s, i) => (
+                                <Counter key={i} value={s.value} label={s.label} suffix={s.suffix} />
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         </section>
     );
@@ -255,7 +255,7 @@ const ETLAnimation = () => (
         {/* Dirty data */}
         <div className="absolute left-10 flex flex-col gap-2">
             {[1, 2, 3].map(i => (
-                <motion.div 
+                <motion.div
                     key={i}
                     animate={{ x: [0, 400], opacity: [0, 1, 0], filter: ["blur(4px)", "blur(0px)", "blur(0px)"] }}
                     transition={{ duration: 4, repeat: Infinity, delay: i * 0.5 }}
@@ -265,7 +265,7 @@ const ETLAnimation = () => (
         </div>
         {/* Filter */}
         <div className="w-24 h-48 border-y-2 border-cyan-500/30 bg-cyan-500/5 backdrop-blur-md relative z-10 flex items-center justify-center">
-            <motion.div 
+            <motion.div
                 animate={{ height: ["10%", "90%", "10%"] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 className="w-1 bg-cyan-500"
@@ -274,7 +274,7 @@ const ETLAnimation = () => (
         {/* Clean data */}
         <div className="absolute right-10 flex flex-col gap-2">
             {[1, 2, 3].map(i => (
-                <motion.div 
+                <motion.div
                     key={i}
                     animate={{ x: [-400, 0], opacity: [0, 1, 0] }}
                     transition={{ duration: 4, repeat: Infinity, delay: i * 0.5 }}
@@ -291,7 +291,7 @@ const BIAnimation = () => (
             <div className="bg-white/5 rounded-2xl p-4 flex flex-col justify-end overflow-hidden group">
                 <div className="flex items-end gap-2 h-32">
                     {[40, 70, 50, 90].map((h, i) => (
-                        <motion.div 
+                        <motion.div
                             key={i}
                             initial={{ height: 0 }}
                             whileInView={{ height: `${h}%` }}
@@ -324,13 +324,13 @@ const BIAnimation = () => (
                 </svg>
             </div>
             <div className="col-span-2 bg-white/5 rounded-2xl p-4">
-                <motion.div 
+                <motion.div
                     initial={{ scaleX: 0 }}
                     whileInView={{ scaleX: 1 }}
                     transition={{ duration: 1.5 }}
                     className="h-2 w-full bg-cyan-500/20 rounded-full overflow-hidden"
                 >
-                    <motion.div 
+                    <motion.div
                         animate={{ x: ["-100%", "100%"] }}
                         transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                         className="w-1/3 h-full bg-cyan-500"
@@ -349,10 +349,10 @@ const NeuralMining = () => (
         <svg viewBox="0 0 400 300" className="w-full h-full">
             {/* Nodes */}
             {[
-                {x: 50, y: 150}, 
-                {x: 150, y: 50}, {x: 150, y: 150}, {x: 150, y: 250},
-                {x: 250, y: 100}, {x: 250, y: 200},
-                {x: 350, y: 150}
+                { x: 50, y: 150 },
+                { x: 150, y: 50 }, { x: 150, y: 150 }, { x: 150, y: 250 },
+                { x: 250, y: 100 }, { x: 250, y: 200 },
+                { x: 350, y: 150 }
             ].map((node, i) => (
                 <motion.circle
                     key={i}
@@ -365,27 +365,27 @@ const NeuralMining = () => (
             ))}
             {/* Connections */}
             {[
-                {f: 0, t: 1}, {f: 0, t: 2}, {f: 0, t: 3},
-                {f: 1, t: 4}, {f: 2, t: 4}, {f: 2, t: 5}, {f: 3, t: 5},
-                {f: 4, t: 6}, {f: 5, t: 6}
+                { f: 0, t: 1 }, { f: 0, t: 2 }, { f: 0, t: 3 },
+                { f: 1, t: 4 }, { f: 2, t: 4 }, { f: 2, t: 5 }, { f: 3, t: 5 },
+                { f: 4, t: 6 }, { f: 5, t: 6 }
             ].map((conn, i) => (
                 <motion.line
                     key={i}
                     x1={[
-                        {x: 50, y: 150}, {x: 150, y: 50}, {x: 150, y: 150}, {x: 150, y: 250},
-                        {x: 250, y: 100}, {x: 250, y: 200}, {x: 350, y: 150}
+                        { x: 50, y: 150 }, { x: 150, y: 50 }, { x: 150, y: 150 }, { x: 150, y: 250 },
+                        { x: 250, y: 100 }, { x: 250, y: 200 }, { x: 350, y: 150 }
                     ][conn.f].x}
                     y1={[
-                        {x: 50, y: 150}, {x: 150, y: 50}, {x: 150, y: 150}, {x: 150, y: 250},
-                        {x: 250, y: 100}, {x: 250, y: 200}, {x: 350, y: 150}
+                        { x: 50, y: 150 }, { x: 150, y: 50 }, { x: 150, y: 150 }, { x: 150, y: 250 },
+                        { x: 250, y: 100 }, { x: 250, y: 200 }, { x: 350, y: 150 }
                     ][conn.f].y}
                     x2={[
-                        {x: 50, y: 150}, {x: 150, y: 50}, {x: 150, y: 150}, {x: 150, y: 250},
-                        {x: 250, y: 100}, {x: 250, y: 200}, {x: 350, y: 150}
+                        { x: 50, y: 150 }, { x: 150, y: 50 }, { x: 150, y: 150 }, { x: 150, y: 250 },
+                        { x: 250, y: 100 }, { x: 250, y: 200 }, { x: 350, y: 150 }
                     ][conn.t].x}
                     y2={[
-                        {x: 50, y: 150}, {x: 150, y: 50}, {x: 150, y: 150}, {x: 150, y: 250},
-                        {x: 250, y: 100}, {x: 250, y: 200}, {x: 350, y: 150}
+                        { x: 50, y: 150 }, { x: 150, y: 50 }, { x: 150, y: 150 }, { x: 150, y: 250 },
+                        { x: 250, y: 100 }, { x: 250, y: 200 }, { x: 350, y: 150 }
                     ][conn.t].y}
                     stroke="rgba(6, 182, 212, 0.2)"
                     strokeWidth="1"
@@ -407,11 +407,11 @@ const NeuralMining = () => (
             />
         </svg>
         <div className="absolute inset-0 pointer-events-none">
-            {[1,2,3,4,5].map(i => (
+            {[1, 2, 3, 4, 5].map(i => (
                 <motion.div
                     key={i}
-                    animate={{ 
-                        y: [0, -40, 0], 
+                    animate={{
+                        y: [0, -40, 0],
                         x: [0, Math.random() * 40 - 20, 0],
                         opacity: [0.1, 0.4, 0.1]
                     }}
@@ -432,7 +432,7 @@ const StorageLake = () => (
             {[1, 2, 3].map(i => (
                 <div key={i} className="flex flex-col items-center gap-4">
                     <div className="w-16 h-20 border-2 border-white/10 rounded-xl relative overflow-hidden bg-white/5">
-                        <motion.div 
+                        <motion.div
                             initial={{ top: "100%" }}
                             whileInView={{ top: "20%" }}
                             transition={{ duration: 2, delay: i * 0.3 }}
@@ -444,7 +444,7 @@ const StorageLake = () => (
             ))}
         </div>
         <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div 
+            <motion.div
                 animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.2, 0.1] }}
                 transition={{ duration: 4, repeat: Infinity }}
                 className="w-64 h-64 rounded-full bg-blue-500 blur-[80px]"
@@ -452,8 +452,8 @@ const StorageLake = () => (
         </div>
         {/* Connection lines */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
-            <motion.path 
-                d="M50,300 Q200,150 350,300" 
+            <motion.path
+                d="M50,300 Q200,150 350,300"
                 fill="none" stroke="cyan" strokeWidth="1"
                 initial={{ pathLength: 0 }}
                 whileInView={{ pathLength: 1 }}
@@ -470,9 +470,9 @@ const RealTimeStream = () => (
                 <motion.div
                     key={i}
                     animate={{ x: ["-10%", "110%"] }}
-                    transition={{ 
-                        duration: 1 + Math.random(), 
-                        repeat: Infinity, 
+                    transition={{
+                        duration: 1 + Math.random(),
+                        repeat: Infinity,
                         delay: Math.random() * 2,
                         ease: "linear"
                     }}
@@ -507,29 +507,29 @@ const BigData = () => {
                 ::-webkit-scrollbar-track { background:#0a0a0a; }
                 ::-webkit-scrollbar-thumb { background:#06b6d4; border-radius:10px; }
             `}</style>
-            
+
             {/* ── HERO SECTION ── */}
             <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-32 md:pt-40 overflow-hidden">
                 {/* Hero Background Image */}
                 <div className="absolute inset-0 z-0">
-                    <img 
-                        src="/imagenes/micrositios/Big-data/643835450551232.webp" 
-                        alt="Hero Background" 
+                    <img
+                        src="/imagenes/micrositios/Big-data/643835450551232.webp"
+                        alt="Hero Background"
                         className="w-full h-full object-cover opacity-40 scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-[#020202] via-transparent to-[#020202]" />
                 </div>
-                
+
                 <DataFlowBackground />
                 <div className="absolute inset-0 bg-gradient-to-b from-blue-900/40 via-transparent to-[#020202] pointer-events-none" />
-                
+
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1 }}
                     className="relative z-10 max-w-5xl"
                 >
-                    <motion.span 
+                    <motion.span
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.2 }}
@@ -537,8 +537,8 @@ const BigData = () => {
                     >
                         Data Analytics Engine
                     </motion.span>
-                    
-                    <motion.h1 
+
+                    <motion.h1
                         initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4, duration: 0.8 }}
@@ -548,7 +548,7 @@ const BigData = () => {
                         <span className="text-cyan-500 drop-shadow-[0_0_80px_rgba(6,182,212,0.4)]">Data</span>
                     </motion.h1>
 
-                    <motion.p 
+                    <motion.p
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.8, duration: 1 }}
@@ -557,7 +557,7 @@ const BigData = () => {
                         Soluciones y tecnologías que permiten analizar, procesar y visualizar grandes volúmenes de datos para generar valor y tomar decisiones inteligentes.
                     </motion.p>
 
-                    <motion.button 
+                    <motion.button
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 1.2, type: "spring" }}
@@ -569,8 +569,8 @@ const BigData = () => {
                         Explorar Soluciones
                     </motion.button>
                 </motion.div>
-                
-                <motion.div 
+
+                <motion.div
                     animate={{ y: [0, 10, 0] }}
                     transition={{ duration: 2, repeat: Infinity }}
                     className="absolute bottom-10 left-1/2 -translate-x-1/2 text-cyan-500/40"
@@ -585,7 +585,7 @@ const BigData = () => {
             </div>
 
             {/* ── ENGINEERING ── */}
-            <Section 
+            <Section
                 title="Ingeniería de Datos (Tuberías)"
                 description="Se encarga de diseñar y orquestar pipelines de datos que permiten recolectar, transformar y preparar información para su análisis."
                 benefits={[
@@ -604,7 +604,7 @@ const BigData = () => {
             />
 
             {/* ── VISUALIZATION ── */}
-            <Section 
+            <Section
                 title="Visualización (Dashboards / BI)"
                 description="Permite transformar grandes volúmenes de datos en dashboards interactivos que facilitan la toma de decisiones."
                 benefits={[
@@ -625,7 +625,7 @@ const BigData = () => {
             </Section>
 
             {/* ── MINING ── */}
-            <Section 
+            <Section
                 title="Minería de Datos"
                 description="Analiza grandes conjuntos de datos para descubrir patrones, correlaciones y tendencias que permiten obtener conocimiento útil."
                 benefits={[
@@ -646,7 +646,7 @@ const BigData = () => {
             </Section>
 
             {/* ── STORAGE ── */}
-            <Section 
+            <Section
                 title="Almacenamiento (Data Lakes)"
                 description="Infraestructura que permite almacenar grandes volúmenes de datos estructurados y no estructurados para su análisis."
                 benefits={[
@@ -667,7 +667,7 @@ const BigData = () => {
             </Section>
 
             {/* ── REAL TIME ── */}
-            <Section 
+            <Section
                 title="Procesamiento en Tiempo Real"
                 description="Permite analizar datos en el momento en que se generan, generando respuestas inmediatas para negocios y sistemas."
                 benefits={[
@@ -687,7 +687,7 @@ const BigData = () => {
             </Section>
 
             {/* ── ETL ── */}
-            <Section 
+            <Section
                 title="Limpieza y Transformación (ETL)"
                 description="Proceso que prepara los datos eliminando errores, duplicados y transformándolos para que puedan ser analizados correctamente."
                 benefits={[
@@ -712,7 +712,7 @@ const BigData = () => {
                     <img src="/imagenes/micrositios/Big-data/conceptual-image-showcasing-businessman-digital-environment.webp" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/80 to-[#020202]" />
                 </div>
-                
+
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
@@ -726,17 +726,17 @@ const BigData = () => {
                     <p className="text-lg md:text-2xl text-gray-500 mb-20 italic font-light max-w-3xl mx-auto leading-relaxed">
                         Transformamos el caos de la información en una ventaja competitiva soberana.
                     </p>
-                    
+
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                        <button 
+                        <button
                             onClick={() => setIsModalOpen(true)}
                             className="px-16 py-6 bg-cyan-600 text-white rounded-full font-black text-sm uppercase tracking-widest hover:bg-cyan-500 transition-all shadow-[0_0_40px_rgba(6,182,212,0.4)]"
                         >
                             Contactar Ahora
                         </button>
-                        <Link 
-                            to="/" 
-                            onClick={() => window.scrollTo(0,0)}
+                        <Link
+                            to="/"
+                            onClick={() => window.scrollTo(0, 0)}
                             className="px-16 py-6 bg-[#0a0a0a] border border-white/10 text-white rounded-full font-black text-sm uppercase tracking-widest hover:bg-white/5 transition-all outline-none"
                         >
                             Volver al Inicio
