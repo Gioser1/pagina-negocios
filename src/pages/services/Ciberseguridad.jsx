@@ -313,7 +313,6 @@ const Ciberseguridad = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { scrollYProgress } = useScroll();
     
-    // Hero Parallax values
     const yTitle = useTransform(scrollYProgress, [0, 0.2], [0, -50]);
     const yDesc = useTransform(scrollYProgress, [0, 0.2], [0, 30]);
     const opacityHero = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
@@ -360,7 +359,7 @@ const Ciberseguridad = () => {
     const zeroTrustService = {
         animKey: 'zerotrust',
         title: "Arquitectura de confianza cero (Zero Trust)",
-        description: "Modelo de seguridad basado en el principio “never trust, always verify”, donde cada usuario, dispositivo o aplicación debe autenticarse antes de acceder a recursos.",
+        description: "Modelo de seguridad basado en el principio 'never trust, always verify', donde cada usuario, dispositivo o aplicación debe autenticarse antes de acceder a recursos.",
         benefits: ["Control estricto de accesos", "Protección contra amenazas internas", "Reducción de brechas de seguridad", "Seguridad avanzada en entornos cloud"],
         stats: [
             { value: "60%", label: "MENOS BRECHAS DE SEGURIDAD" },
@@ -416,7 +415,7 @@ const Ciberseguridad = () => {
                         <img 
                             src="/imagenes/micrositios/ciberseguridad/banner.webp" 
                             alt="Cybersecurity Hero"
-                            className="w-full h-full object-cover mask-image-gradient"
+                            className="w-full h-full object-cover"
                             style={{ WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)' }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-b from-[#000] via-black/70 to-[#000]" />
@@ -463,7 +462,6 @@ const Ciberseguridad = () => {
                     </motion.div>
                 </section>
 
-
                 {/* --- SERVICES BLOCKS --- */}
                 <div id="servicios-inicio" className="relative">
                     <ServiceSection service={auditoriaService} index={0} />
@@ -508,12 +506,12 @@ const Ciberseguridad = () => {
                 </section>
 
                 {/* --- FINAL CTA SECTION --- */}
-                <section className="relative py-48 px-10 text-center overflow-hidden bg-black border-t border-white/5">
+                <section className="relative py-48 px-10 text-center bg-black border-t border-white/5">
                     <div className="absolute inset-0 z-0 opacity-80 pointer-events-none">
                         <img 
                             src="/imagenes/micrositios/ciberseguridad/banner.webp" 
                             alt="CTA Background"
-                            className="w-full h-full object-cover mask-image-gradient"
+                            className="w-full h-full object-cover"
                             style={{ WebkitMaskImage: 'linear-gradient(to top, black 10%, transparent 90%)' }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#000] via-black/80 to-transparent" />
@@ -525,9 +523,10 @@ const Ciberseguridad = () => {
                         viewport={{ once: true }}
                         className="relative z-10"
                     >
-                        <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-10 text-white uppercase">
-                            ¿Listo para <span className="text-blue-500 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">Protección?</span>
-                        </h2>
+         <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-10 uppercase leading-[1.3] text-center">
+    <span className="text-white">¿Listo para </span>
+    <span className="text-blue-400">Protección?</span>
+</h2>
                         
                         <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12">
                             <button

@@ -145,7 +145,7 @@ const InfraestructuraNube = () => {
             </section>
 
             {/* --- MIGRACION INTELIGENTE --- */}
-            <section id="soluciones" className="py-24 px-6 md:px-10 max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 items-center relative mb-32">
+            <section id="soluciones" className="py-24 px-6 md:px-10 max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 items-center relative mb-16">
                 <div className="absolute top-0 right-0 w-1/2 h-[600px] bg-sky-900/10 blur-[150px] rounded-full pointer-events-none" />
                 
                 <motion.div 
@@ -272,7 +272,7 @@ const InfraestructuraNube = () => {
             </motion.section>
 
             {/* --- SERVERLESS & CONTENEDORES --- */}
-            <section className="py-24 px-6 md:px-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center relative mb-32">
+            <section className="py-24 px-6 md:px-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center relative mb-16">
                 <div className="absolute top-1/2 left-0 w-full h-full bg-indigo-900/10 blur-[150px] pointer-events-none" />
                 
                 <motion.div 
@@ -622,13 +622,14 @@ const InfraestructuraNube = () => {
                     viewport={{ once: true }}
                     className="relative z-10"
                 >
-                    <motion.h2 
-                        animate={{ scale: [0.98, 1.02, 0.98] }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                        className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-10 text-white italic"
-                    >
-                        ¿Listo para la <span className="text-sky-500 text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-400">Nube?</span>
-                    </motion.h2>
+       <motion.h2 
+    animate={{ scale: [0.98, 1.02, 0.98] }}
+    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+    className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-10 italic leading-[1.3]"
+>
+    <span className="text-white">¿Listo para la </span>
+    <span className="text-sky-400">Nube?</span>
+</motion.h2>
                     
                     <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12">
                         <button

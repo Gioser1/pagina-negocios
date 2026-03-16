@@ -3,11 +3,11 @@ import { Globe, Gem, Smile, Building, Trophy, TrendingUp } from "lucide-react";
 
 const porQueData = [
     {
-        number: "5+",
+        number: "3+",
         icon: Globe,
         title: "Presencia Global",
         description:
-            "Presencia solida en 5+ paises de Latinoamérica, llevando innovación tecnologica, soluciones dinámicas a la medida y escalables a diversos mercados.",
+            "Presencia solida en 3+ paises de Latinoamérica, llevando innovación tecnologica, soluciones dinámicas a la medida y escalables a diversos mercados.",
     },
     {
         number: "10+",

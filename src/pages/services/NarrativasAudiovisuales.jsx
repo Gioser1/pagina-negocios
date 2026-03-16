@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useRef, useCallback, memo } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import ContactModal from "../../components/ContactModal";
 
 const services = [
     {
         title: "Spot Publicitarios (TV/Digital)",
         description: "Producción audiovisual para campañas de alto impacto. Desarrollamos spots publicitarios para televisión, plataformas digitales y campañas institucionales, diseñados para comunicar propuestas de valor de forma clara, emocional y memorables de alto impacto.",
-        icon: "🎬",
         color: "#0ea5e9",
         glowColor: "rgba(14,165,233,0.4)",
         benefits: [
@@ -26,7 +25,6 @@ const services = [
     {
         title: "Animación 2D y Motion Graphics",
         description: "Creamos animaciones y motion graphics que permiten explicar conceptos complejos de forma visual, clara y atractiva, especialmente útiles para tecnología, educación, startups y presentaciones corporativas.",
-        icon: "✨",
         color: "#6366f1",
         glowColor: "rgba(99,102,241,0.4)",
         benefits: [
@@ -45,7 +43,6 @@ const services = [
     {
         title: "Contenido Corto (Reels/TikToks)",
         description: "Diseñamos y producimos videos cortos verticales adaptados a plataformas como Instagram, TikTok y YouTube Shorts, enfocados en captar atención rápidamente y generar alto alcance orgánico.",
-        icon: "📱",
         color: "#38bdf8",
         glowColor: "rgba(56,189,248,0.4)",
         benefits: [
@@ -64,7 +61,6 @@ const services = [
     {
         title: "Videos Corporativos e Institucionales",
         description: "Creamos videos corporativos diseñados para comunicar misión, visión, proyectos y capacidades institucionales, ideales para presentaciones empresariales, eventos, sitios web y redes profesionales.",
-        icon: "🏢",
         color: "#7dd3fc",
         glowColor: "rgba(125,211,252,0.4)",
         benefits: [
@@ -83,7 +79,6 @@ const services = [
     {
         title: "Modelado y Renderizado 3D Avanzado",
         description: "Desarrollamos modelos tridimensionales y renderizados de alta calidad para representar proyectos arquitectónicos, productos, entornos virtuales y conceptos tecnológicos, permitiendo visualizar ideas antes de ser construidas.",
-        icon: "🧊",
         color: "#0284c7",
         glowColor: "rgba(2,132,199,0.4)",
         benefits: [
@@ -102,7 +97,6 @@ const services = [
     {
         title: "Producción Cinematográfica y Animada",
         description: "Desarrollamos producciones audiovisuales con lenguaje cinematográfico y animación digital, combinando storytelling, efectos visuales y dirección creativa para comunicar ideas complejas de manera atractiva. Ideal para presentaciones de proyectos tecnológicos, campañas institucionales, documentales corporativos y contenidos de alto impacto visual.",
-        icon: "🎥",
         color: "#4f46e5",
         glowColor: "rgba(79,70,229,0.4)",
         benefits: [
@@ -120,7 +114,7 @@ const services = [
     }
 ];
 
-// Neural Canvas (Cloud themed: cyan/sky)
+// Neural Canvas
 function NeuralCanvas() {
     const canvasRef = useRef(null);
     const mouse = useRef({ x: -999, y: -999 });
@@ -153,17 +147,15 @@ function NeuralCanvas() {
             vy: (Math.random() - 0.5) * 0.4,
             size: Math.random() * 2 + 0.3,
             pulse: Math.random() * Math.PI * 2,
-            hue: Math.random() > 0.5 ? 190 : (Math.random() > 0.5 ? 200 : 210) // Cyan/Sky variants
+            hue: Math.random() > 0.5 ? 190 : (Math.random() > 0.5 ? 200 : 210)
         }));
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
             particles.forEach(p => {
                 p.x += p.vx;
                 p.y += p.vy;
                 p.pulse += 0.025;
-
                 const dx = p.x - mouse.current.x;
                 const dy = p.y - mouse.current.y;
                 const d = Math.sqrt(dx * dx + dy * dy);
@@ -171,10 +163,8 @@ function NeuralCanvas() {
                     p.x += (dx / d) * 1.2;
                     p.y += (dy / d) * 1.2;
                 }
-
                 if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
                 if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
                 const r = p.size * (1 + 0.25 * Math.sin(p.pulse));
                 const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 4.5);
                 grd.addColorStop(0, `hsla(${p.hue},100%,75%,0.85)`);
@@ -184,7 +174,6 @@ function NeuralCanvas() {
                 ctx.fillStyle = grd;
                 ctx.fill();
             });
-
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
@@ -200,7 +189,6 @@ function NeuralCanvas() {
                     }
                 }
             }
-
             animRef.current = requestAnimationFrame(animate);
         }
         animate();
@@ -358,39 +346,87 @@ function TypingText({ texts, className = "" }) {
     );
 }
 
-// Service Card
+// Hover Tooltip — posicionado con fixed, no afecta el layout en absoluto
+function HoverTooltip({ service, anchorRef, visible }) {
+    const [style, setStyle] = useState({});
+
+    useEffect(() => {
+        if (!visible || !anchorRef.current) return;
+        const rect = anchorRef.current.getBoundingClientRect();
+        const tooltipHeight = 260;
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const showAbove = spaceBelow < tooltipHeight + 16;
+
+        setStyle({
+            position: "fixed",
+            left: rect.left,
+            width: rect.width,
+            top: showAbove ? rect.top - tooltipHeight - 12 : rect.bottom + 12,
+            zIndex: 9999,
+            pointerEvents: "none",
+        });
+    }, [visible, anchorRef]);
+
+    return (
+        <AnimatePresence>
+            {visible && (
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.96, y: -6 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.96, y: -6 }}
+                    transition={{ duration: 0.18, ease: "easeOut" }}
+                    style={style}
+                >
+                    <div
+                        className="rounded-2xl border border-white/10 bg-[#050505]/97 backdrop-blur-2xl p-5"
+                        style={{ boxShadow: `0 12px 40px ${service.glowColor.replace("0.4", "0.35")}, 0 0 0 1px ${service.color}22` }}
+                    >
+                        <p className="text-[8px] font-black uppercase tracking-[0.5em] mb-3" style={{ color: service.color }}>
+                            Beneficios Clave
+                        </p>
+                        <ul className="space-y-1.5 mb-4">
+                            {service.benefits.map((b, i) => (
+                                <li key={i} className="flex items-center gap-2.5 text-[11px] text-gray-300 italic font-light">
+                                    <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: service.color }} />
+                                    {b}
+                                </li>
+                            ))}
+                        </ul>
+                        <div className="grid grid-cols-3 gap-2 pt-3 border-t border-white/5">
+                            {service.stats.map((s, i) => (
+                                <div key={i} className="text-center">
+                                    <div className="text-base font-black" style={{ color: service.color }}>{s.value}</div>
+                                    <div className="text-[7px] text-gray-500 uppercase font-black tracking-wide leading-tight mt-0.5">{s.label}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </motion.div>
+            )}
+        </AnimatePresence>
+    );
+}
+
+// Service Card — tamaño fijo, sin expand, tooltip en hover
 function ServiceCard({ service, index }) {
-    const [open, setOpen] = useState(false);
     const [hovered, setHovered] = useState(false);
 
     return (
-        <TiltCard className="relative group cursor-pointer h-full">
+        <TiltCard className="relative group">
             <motion.div
-                onClick={() => setOpen(o => !o)}
                 onHoverStart={() => setHovered(true)}
                 onHoverEnd={() => setHovered(false)}
                 initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: (index % 3) * 0.15 }}
-                className="relative rounded-[3rem] overflow-hidden border border-white/5 bg-[#020202] flex flex-col h-full shadow-2xl transition-all duration-700 hover:border-sky-500/30"
+                className="relative rounded-[3rem] overflow-hidden border border-white/5 bg-[#020202] flex flex-col shadow-2xl transition-all duration-700 hover:border-sky-500/30"
                 style={{
                     boxShadow: hovered
                         ? `0 0 60px ${service.glowColor}, 0 0 120px ${service.glowColor.replace("0.4", "0.1")}`
                         : "0 0 0 transparent"
                 }}
             >
-                {/* Radar Effect on Hover */}
-                {hovered && (
-                    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                        <motion.div
-                            className="absolute inset-0 border-[2px] border-sky-500/10 rounded-full"
-                            animate={{ scale: [1, 2], opacity: [0.5, 0] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                        />
-                    </div>
-                )}
-
                 {/* Scan line */}
                 <motion.div
                     className="absolute left-0 right-0 h-px bg-sky-500/20 z-20 pointer-events-none"
@@ -403,99 +439,67 @@ function ServiceCard({ service, index }) {
                     <motion.img
                         src={service.image}
                         alt={service.title}
-                        className="w-full h-full object-cover grayscale-[40%]"
-                        animate={{ scale: hovered ? 1.2 : 1, grayscale: hovered ? 0 : 0.4 }}
+                        className="w-full h-full object-cover"
+                        animate={{ scale: hovered ? 1.2 : 1 }}
                         transition={{ duration: 1.5 }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-sky-950/20 to-transparent opacity-80" />
-
-                    <div className="absolute top-8 right-8">
-                        <div
-                            className="w-16 h-16 rounded-3xl flex items-center justify-center backdrop-blur-3xl text-4xl border border-white/10 shadow-2xl"
-                            style={{ background: `${service.color}22` }}
-                        >
-                            {service.icon}
-                        </div>
-                    </div>
-
-                    <div
-                        className="absolute bottom-6 left-8 text-7xl font-black opacity-10 tracking-tighter italic"
-                        style={{ color: service.color }}
-                    >
+                    <div className="absolute bottom-6 left-8 text-7xl font-black opacity-10 tracking-tighter italic" style={{ color: service.color }}>
                         {String(index + 1).padStart(2, "0")}
                     </div>
                 </div>
 
-                {/* Content */}
-                <div className="p-10 flex flex-col flex-1">
+                {/* Content base */}
+               <div className="p-10 flex flex-col relative min-h-64 overflow-hidden">
                     <h3
-                        className="text-3xl font-black mb-6 tracking-tighter italic uppercase transition-all duration-500"
-                        style={{ color: hovered ? service.color : "white", transform: hovered ? "translateY(-5px)" : "none" }}
+                        className="text-3xl font-black mb-4 tracking-tighter italic uppercase transition-all duration-500"
+                        style={{ color: hovered ? service.color : "white" }}
                     >
                         {service.title}
                     </h3>
-                    <p className="text-gray-400 text-base leading-relaxed mb-10 italic opacity-80">
-                        {service.description}
+                    <p className="text-gray-400 text-base leading-relaxed italic opacity-80 line-clamp-4">                        {service.description}
                     </p>
 
-                    <footer className="mt-auto flex items-center gap-4 group/footer">
-                        <div className="h-px bg-sky-500/40 w-12 group-hover/footer:w-20 transition-all duration-500" />
-                        <span className="text-[10px] uppercase font-black tracking-[0.4em] text-sky-400 opacity-60">
-                            {open ? "Cerrar Estructura" : "Analizar Capacidad"}
-                        </span>
-                    </footer>
-                </div>
-
-                {/* Details Pane */}
-                <AnimatePresence>
-                    {open && (
-                        <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                            className="overflow-hidden bg-sky-950/10 border-t border-white/5 backdrop-blur-sm"
-                        >
-                            <div className="p-10 space-y-10">
-                                {/* Benefits */}
-                                <div>
-                                    <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-sky-500 mb-8 flex items-center gap-3">
-                                        <span className="w-8 h-px bg-sky-500/20" /> Beneficios Clave
-                                    </h4>
-                                    <ul className="grid grid-cols-1 gap-5">
-                                        {service.benefits.map((b, i) => (
-                                            <li key={i} className="flex items-center gap-5 text-sm text-gray-300 italic font-light group/li">
-                                                <motion.div
-                                                    className="w-2 h-2 rounded-full shadow-[0_0_10px_rgba(14,165,233,0.5)]"
-                                                    animate={{ scale: [1, 1.5, 1] }}
-                                                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
-                                                    style={{ background: service.color }}
-                                                />
-                                                {b}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-
-                                {/* Metrics */}
-                                <div className="grid grid-cols-3 gap-5 pt-4 border-t border-white/5">
+                    {/* Overlay de detalles — aparece sobre el texto al hacer hover */}
+                    <AnimatePresence>
+                        {hovered && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 16 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 16 }}
+                                transition={{ duration: 0.3, ease: "easeOut" }}
+                                className="absolute inset-0 rounded-b-[3rem] p-10 flex flex-col justify-center"
+                                style={{ background: `linear-gradient(135deg, #020202f5 60%, ${service.color}18 100%)` }}
+                            >
+                                <p className="text-[9px] font-black uppercase tracking-[0.5em] mb-4" style={{ color: service.color }}>
+                                    Beneficios Clave
+                                </p>
+                                <ul className="space-y-2 mb-5">
+                                    {service.benefits.map((b, i) => (
+                                        <li key={i} className="flex items-center gap-3 text-sm text-gray-200 italic font-light">
+                                            <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: service.color }} />
+                                            {b}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10">
                                     {service.stats.map((s, i) => (
-                                        <div key={i} className="text-center group/metric">
-                                            <div className="text-2xl font-black text-white group-hover/metric:text-sky-400 transition-colors">{s.value}</div>
-                                            <div className="text-[8px] text-gray-500 uppercase font-black tracking-widest leading-none mt-2">{s.label}</div>
+                                        <div key={i} className="text-center">
+                                            <div className="text-xl font-black" style={{ color: service.color }}>{s.value}</div>
+                                            <div className="text-[7px] text-gray-400 uppercase font-black tracking-wide leading-tight mt-1">{s.label}</div>
                                         </div>
                                     ))}
                                 </div>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
             </motion.div>
         </TiltCard>
     );
 }
 
-// Global Styles Container
+// Global Styles
 const GlobalStyles = () => (
     <style>{`
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap');
@@ -506,7 +510,7 @@ const GlobalStyles = () => (
   `}</style>
 );
 
-// Main Orchestrator
+// Main
 const InfraestructuraNube = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const mainRef = useRef(null);
@@ -527,13 +531,11 @@ const InfraestructuraNube = () => {
     return (
         <>
             <GlobalStyles />
-
             <main
                 ref={mainRef}
                 onMouseMove={onMouseMove}
                 className="min-h-screen bg-[#020202] text-white selection:bg-sky-500/30 overflow-x-hidden pt-32"
             >
-
                 {/* HERO */}
                 <section className="relative h-[750px] mx-8 md:mx-16 rounded-[5rem] overflow-hidden mb-40 border border-white/5 shadow-2xl">
                     <motion.div
@@ -622,11 +624,9 @@ const InfraestructuraNube = () => {
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 items-start">
                         {services.map((s, i) => (
-                            <div key={i} className="h-full">
-                                <ServiceCard service={s} index={i} />
-                            </div>
+                            <ServiceCard key={i} service={s} index={i} />
                         ))}
                     </div>
                 </section>
@@ -721,7 +721,6 @@ const InfraestructuraNube = () => {
                         </p>
                     </div>
                 </footer>
-
             </main>
         </>
     );
