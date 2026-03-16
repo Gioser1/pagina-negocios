@@ -327,8 +327,7 @@ const BlockchainWeb3 = () => {
         description: "Construimos aplicaciones descentralizadas de alto rendimiento que ofrecen una experiencia de usuario superior, integrando wallets, sistemas de archivos distribuidos y gobernanza on-chain.",
         benefits: ["Descentralización real", "Privacidad por diseño", "Interoperabilidad Web3", "UX fluida e intuitiva"],
         stats: [
-            { value: "HIGH", label: "SCALABILITY" },
-            { value: "WEB3", label: "NATIVE" }
+     
         ],
         image: "/imagenes/micrositios/blockchain/3.webp"
     };
@@ -352,8 +351,7 @@ const BlockchainWeb3 = () => {
         description: "Protección integral para protocolos descentralizados. Realizamos auditorías exhaustivas de código y monitoreo de amenazas en tiempo real para prevenir exploits.",
         benefits: ["Análisis dinámico", "Prevención de reentrancia", "Verificación formal", "Monitoreo 24/7"],
         stats: [
-            { value: "ZERO", label: "EXPLOITS" },
-            { value: "99%", label: "DETECCIÓN VULN" }
+         
         ],
         image: "/imagenes/micrositios/blockchain/5.webp"
     };
@@ -466,10 +464,10 @@ const BlockchainWeb3 = () => {
                         viewport={{ once: true }}
                         className="relative z-10"
                     >
-                        <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-10 text-white uppercase">
-                            ¿Listo para el <span className="text-emerald-500 text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-400">Futuro?</span>
-                        </h2>
-                        
+                       <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-10 uppercase leading-[1.3] text-center">
+    <span className="text-white">¿Listo para el  </span>
+    <span className="text-blue-400">Futuro?</span>
+    </h2>
                         <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12">
                             <button
                                 onClick={() => setIsModalOpen(true)}

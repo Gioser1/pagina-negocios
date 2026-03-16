@@ -116,14 +116,30 @@ const ProcessModal = ({ onClose }) => {
                                 <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-6 sm:mb-8 tracking-wide">Ponte en contacto</h3>
 
                                 <div className="grid gap-3 sm:gap-4 text-gray-300 text-xs sm:text-sm md:text-base">
-                                    <div className="flex items-center justify-center space-x-3 sm:space-x-4 bg-white/5 p-3 sm:p-4 rounded-xl sm:rounded-2xl hover:bg-white/10 transition-colors cursor-pointer">
+                                    <a
+                                        href={/Mobi|Android|iPhone/i.test(navigator.userAgent)
+                                            ? "mailto:contactenos@olimpo-empresa.com"
+                                            : "https://mail.google.com/mail/?view=cm&to=contactenos@olimpo-empresa.com"
+                                        }
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center justify-center space-x-3 sm:space-x-4 bg-white/5 p-3 sm:p-4 rounded-xl sm:rounded-2xl hover:bg-white/10 active:bg-white/20 transition-colors cursor-pointer no-underline text-gray-300"
+                                    >
                                         <span className="text-primary text-lg sm:text-xl flex-shrink-0">✉</span>
                                         <span className="font-medium tracking-wide break-all">contactenos@olimpo-empresa.com</span>
-                                    </div>
-                                    <div className="flex items-center justify-center space-x-3 sm:space-x-4 bg-white/5 p-3 sm:p-4 rounded-xl sm:rounded-2xl hover:bg-white/10 transition-colors cursor-pointer">
+                                    </a>
+                                    <a
+                                        href={/Mobi|Android|iPhone/i.test(navigator.userAgent)
+                                            ? "whatsapp://send?phone=573025627200&text=Hola%2C+me+gustar%C3%ADa+conocer+m%C3%A1s+sobre+vuestros+servicios"
+                                            : "https://api.whatsapp.com/send/?phone=573025627200&text=Hola%2C+me+gustar%C3%ADa+conocer+m%C3%A1s+sobre+vuestros+servicios&type=phone_number&app_absent=0"
+                                        }
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center justify-center space-x-3 sm:space-x-4 bg-white/5 p-3 sm:p-4 rounded-xl sm:rounded-2xl hover:bg-white/10 active:bg-white/20 transition-colors cursor-pointer no-underline text-gray-300"
+                                    >
                                         <span className="text-primary text-lg sm:text-xl flex-shrink-0">📱</span>
                                         <span className="font-medium tracking-wide">302 562 7200</span>
-                                    </div>
+                                    </a>
                                     <div className="flex items-center justify-center space-x-3 sm:space-x-4 bg-white/5 p-3 sm:p-4 rounded-xl sm:rounded-2xl">
                                         <span className="text-primary text-lg sm:text-xl flex-shrink-0">🕒</span>
                                         <span className="font-medium tracking-wide text-center text-xs sm:text-sm">Lunes a Viernes <br className="sm:hidden" /> 8:00 AM - 6:00 PM</span>
