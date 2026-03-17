@@ -351,7 +351,7 @@ const MundosMagicos = () => {
             { value: "94%", label: "MÁS ENGAGEMENT CON AR" },
             { value: "70%", label: "MARCAS EXPLORAN AR MARKETING" }
         ],
-        image: "/imagenes/micrositios/mundos-magicos/gamificacion.webp"
+        image: "/imagenes/micrositios/mundos-magicos/appvr.webp"
     };
 
     const gamificacionService = {
@@ -446,7 +446,7 @@ const MundosMagicos = () => {
                         className="absolute inset-x-0 inset-y-[-20%] z-0 opacity-80 pointer-events-none"
                     >
                         <img
-                            src="/imagenes/micrositios/mundos-magicos/banner.webp"
+                            src="/imagenes/micrositios/mundos-magicos/banner2.webp"
                             alt="Mundos Mágicos Hero"
                             className="w-full h-full object-cover"
                             style={{ WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)' }}
@@ -542,7 +542,7 @@ const MundosMagicos = () => {
                 <section className="relative py-48 px-10 text-center overflow-hidden bg-black border-t border-white/5">
                     <div className="absolute inset-0 z-0 opacity-80 pointer-events-none">
                         <img
-                            src="/imagenes/micrositios/mundos-magicos/banner.webp"
+                            src="/imagenes/micrositios/mundos-magicos/final.webp"
                             alt="CTA Background"
                             className="w-full h-full object-cover"
                             style={{ WebkitMaskImage: 'linear-gradient(to top, black 10%, transparent 90%)' }}
